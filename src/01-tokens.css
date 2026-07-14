@@ -1,0 +1,22 @@
+/* 27 MILES TO CANADA — visual tokens */
+@property --progress { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+:root {
+  --paper: #f6f0e5;
+  --paper-dim: #d7d9d2;
+  --ink: #102033;
+  --night: #07131f;
+  --line: rgba(246, 240, 229, 0.24);
+  --glass: rgba(7, 19, 31, 0.54);
+  --glass-heavy: rgba(7, 19, 31, 0.78);
+  --ember: #ff8a5b;
+  --sun: #ffd07a;
+  --ice: #bfe1ff;
+  --moss: #8fc8a4;
+  --display: Bahnschrift, "Aptos Display", "Arial Narrow", system-ui, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: "Aptos", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --header-h: 4rem;
+}

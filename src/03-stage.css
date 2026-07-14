@@ -1,0 +1,90 @@
+/* The road is the interface. */
+.stage { position: fixed; z-index: 0; inset: 0; overflow: hidden; background: #c95c44; pointer-events: none; }
+.landscape { width: 100%; height: 100%; }
+.stage::after { content: ""; position: absolute; inset: 0; opacity: .16; mix-blend-mode: soft-light; background: repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, rgba(0,0,0,.06) 0 1px, transparent 1px 5px), radial-gradient(circle, rgba(255,255,255,.14) 0 1px, transparent 1.5px); background-size: auto, auto, 8px 8px; }
+.stage-vignette { position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, transparent 0 34%, rgba(3,11,18,.12) 67%, rgba(3,11,18,.58) 130%); }
+
+/* The opening car-door seam creates the first scroll act. */
+.door { position: fixed; z-index: 2; inset: 0; pointer-events: none; overflow: hidden; }
+.door::before, .door::after { content: ""; position: absolute; top: 0; bottom: 0; width: 51%; background: linear-gradient(100deg, #030a10, #11191f 76%, #03070a); box-shadow: 0 0 4rem rgba(0,0,0,.85); transition: transform .1s linear; }
+.door::before { left: 0; transform: translate3d(calc(var(--departure, 0) * -102%),0,0); }
+.door::after { right: 0; transform: translate3d(calc(var(--departure, 0) * 102%),0,0) scaleX(-1); }
+.door-seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: linear-gradient(transparent 4%, rgba(255,199,112,.9) 35%, rgba(255,255,255,.7) 70%, transparent); box-shadow: 0 0 2rem #ff9f69; opacity: calc(1 - var(--departure, 0)); }
+
+.site-chrome { position: fixed; z-index: 40; top: 0; right: 0; left: 0; height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1.25rem; opacity: var(--chrome, 0); transform: translateY(calc((1 - var(--chrome, 0)) * -1rem)); transition: opacity .25s, transform .25s; pointer-events: none; }
+.site-chrome::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(rgba(4,12,20,.62), transparent); }
+.brand-lockup, .chapter-live { pointer-events: auto; }
+.brand-lockup { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; }
+.brand-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid rgba(255,255,255,.6); border-radius: 50%; font-family: var(--mono); font-size: .6rem; font-weight: 800; }
+.brand-word { font-family: var(--mono); font-size: .61rem; font-weight: 700; letter-spacing: .16em; line-height: 1.25; text-transform: uppercase; }
+.chapter-live { display: flex; align-items: center; gap: .7rem; }
+.chapter-live span { color: rgba(246,240,229,.58); font-family: var(--mono); font-size: .58rem; letter-spacing: .13em; text-transform: uppercase; }
+.chapter-live b { font-size: .72rem; font-weight: 700; }
+
+.global-progress { position: fixed; z-index: 50; top: 0; left: 0; width: 100%; height: 3px; background: rgba(255,255,255,.13); transform-origin: left; }
+.global-progress i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg,#ff8059,#ffd178,#c5e5ff); box-shadow: 0 0 1rem rgba(255,203,121,.45); transform: scaleX(var(--progress,0)); transform-origin: left; }
+
+/* A compact model instrument, not a floating dashboard. */
+.telemetry { position: fixed; z-index: 45; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: auto repeat(4,minmax(6rem,1fr)) auto; align-items: stretch; min-height: 3.6rem; border-top: 1px solid rgba(255,255,255,.28); background: rgba(4,12,20,.78); opacity: var(--chrome,0); backdrop-filter: blur(18px) saturate(1.3); transform: translateY(calc((1 - var(--chrome,0)) * 100%)); transition: opacity .25s, transform .25s; }
+.telemetry-label { display: flex; align-items: center; padding: 0 1.15rem; color: rgba(246,240,229,.56); font-family: var(--mono); font-size: .54rem; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
+.telemetry-label::before { content: ""; width: .44rem; height: .44rem; margin-right: .55rem; border-radius: 50%; background: var(--sun); box-shadow: 0 0 .8rem var(--sun); }
+.telemetry .metric { display: flex; align-items: baseline; justify-content: center; gap: .42rem; padding: .65rem .8rem; border-left: 1px solid rgba(255,255,255,.14); }
+.telemetry .metric b { font-family: var(--display); font-size: 1.34rem; font-stretch: condensed; font-variant-numeric: tabular-nums; line-height: 1; }
+.telemetry .metric span { color: rgba(246,240,229,.5); font-family: var(--mono); font-size: .51rem; letter-spacing: .1em; text-transform: uppercase; }
+.grade.up { color: var(--sun); }
+.grade.down { color: var(--ice); }
+.model-note { display: flex; align-items: center; padding: 0 1rem; color: rgba(246,240,229,.42); font-family: var(--mono); font-size: .49rem; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Miniature switchback navigator. */
+.route-rail { position: fixed; z-index: 42; top: 50%; right: 1rem; width: 3rem; height: 22rem; opacity: var(--chrome,0); transform: translateY(-52%); }
+.route-rail::before { content: ""; position: absolute; inset: 1rem .85rem; opacity: .55; background: linear-gradient(142deg, transparent 0 8%, rgba(255,255,255,.45) 8.5% 9%, transparent 9.5% 24%, rgba(255,255,255,.45) 24.5% 25%, transparent 25.5% 40%, rgba(255,255,255,.45) 40.5% 41%, transparent 41.5% 56%, rgba(255,255,255,.45) 56.5% 57%, transparent 57.5% 72%, rgba(255,255,255,.45) 72.5% 73%, transparent 73.5%); }
+.route-rail a { position: absolute; left: var(--x); top: var(--y); display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; text-decoration: none; }
+.route-rail a::before { content: ""; width: .48rem; height: .48rem; border: 1px solid rgba(255,255,255,.72); border-radius: 50%; background: rgba(4,12,20,.55); transition: transform .2s var(--ease),background .2s; }
+.route-rail a::after { content: attr(data-label); position: absolute; top: 50%; right: 2.55rem; width: max-content; max-width: 11rem; padding: .32rem .5rem; border: 1px solid rgba(255,255,255,.18); border-radius: .35rem; color: var(--paper); background: rgba(4,12,20,.82); font-family: var(--mono); font-size: .54rem; letter-spacing: .09em; text-transform: uppercase; opacity: 0; transform: translate(.4rem,-50%); transition: opacity .2s,transform .2s; }
+.route-rail a:hover::after, .route-rail a:focus-visible::after { opacity: 1; transform: translate(0,-50%); }
+.route-rail a[aria-current="step"]::before { background: var(--paper); transform: scale(1.6); box-shadow: 0 0 1rem rgba(255,255,255,.65); }
+
+.compare-seam { position: fixed; z-index: 6; top: 0; bottom: 0; left: var(--compare,50%); width: 1px; background: rgba(255,255,255,.85); box-shadow: 0 0 2rem rgba(255,255,255,.5); opacity: var(--compare-active,0); pointer-events: none; }
+.compare-seam::before { content: "DESERT FLOOR"; position: absolute; top: 5.5rem; right: .8rem; width: max-content; color: var(--sun); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .16em; }
+.compare-seam::after { content: "SUMMIT"; position: absolute; top: 5.5rem; left: .8rem; color: var(--ice); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .16em; }
+
+/* Auto Ascent: a tiny expedition cruise control, deliberately separate from telemetry. */
+.drive-control { position: fixed; z-index: 48; right: 1rem; bottom: 4.55rem; display: flex; align-items: center; gap: .72rem; min-height: 3.55rem; padding: .42rem .85rem .42rem .45rem; border: 1px solid rgba(255,255,255,.32); border-radius: 999px; color: var(--paper); background: rgba(4,12,20,.76); box-shadow: 0 1rem 3rem rgba(0,0,0,.22); opacity: var(--journey-ui,1); cursor: pointer; backdrop-filter: blur(18px) saturate(1.3); transition: color .25s,background .25s,border-color .25s,opacity .25s,transform .25s; }
+.drive-control:hover { color: var(--night); background: var(--paper); border-color: var(--paper); transform: translateY(-2px); }
+.drive-control:active { transform: translateY(0) scale(.98); }
+.drive-dial { position: relative; display: grid; place-items: center; width: 2.55rem; height: 2.55rem; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(var(--sun) 0 var(--drive-deg,0deg),rgba(255,255,255,.16) var(--drive-deg,0deg) 360deg); }
+.drive-dial::before { content:""; position:absolute; inset:3px; border-radius:50%; background:#0b1721; transition:background .25s; }
+.drive-control:hover .drive-dial::before { background:var(--paper); }
+.drive-dial i { position:relative; z-index:1; width:0; height:0; margin-left:3px; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:8px solid currentColor; }
+.drive-copy { display:block; min-width:10.5rem; text-align:left; }
+.drive-copy b { display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.13em; line-height:1.25; text-transform:uppercase; }
+.drive-copy small { display:block; margin-top:.16rem; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.47rem; letter-spacing:.05em; white-space:nowrap; }
+.drive-control:hover .drive-copy small { color:rgba(7,19,31,.62); }
+.auto-driving .drive-control { border-color:rgba(255,208,122,.62); box-shadow:0 0 0 .3rem rgba(255,208,122,.07),0 1rem 3rem rgba(0,0,0,.24); }
+.auto-driving .drive-dial { animation:drive-pulse 2.2s ease-in-out infinite; }
+.auto-driving .drive-dial i { width:10px; height:11px; margin:0; border:0; border-left:3px solid currentColor; border-right:3px solid currentColor; }
+.journey-retired .drive-control { pointer-events:none; }
+@keyframes drive-pulse { 50% { box-shadow:0 0 1.2rem rgba(255,208,122,.5); } }
+
+@media (max-width: 760px) {
+  :root { --header-h: 3.6rem; }
+  .site-chrome { padding-inline: .8rem; }
+  .brand-word, .chapter-live span { display: none; }
+  .route-rail { display: none; }
+  .telemetry { grid-template-columns: repeat(3,1fr); bottom: env(safe-area-inset-bottom,0); min-height: 3.8rem; }
+  .telemetry-label,.model-note,.telemetry .metric.gain { display: none; }
+  .telemetry .metric { padding: .55rem .3rem; border-left: 1px solid rgba(255,255,255,.12); }
+  .telemetry .metric b { font-size: 1.08rem; }
+  .telemetry .metric span { display: block; font-size: .43rem; }
+  .compare-seam::before,.compare-seam::after { top: 4.6rem; font-size: .47rem; }
+  .drive-control { right:.65rem; bottom:calc(4.45rem + env(safe-area-inset-bottom,0)); min-height:3.1rem; padding:.32rem .65rem .32rem .35rem; }
+  .drive-dial { width:2.3rem; height:2.3rem; }
+  .drive-copy { min-width:0; }
+  .drive-copy small { display:none; }
+}
+
+@media (max-height: 540px) and (orientation: landscape) {
+  .telemetry { min-height: 2.8rem; }
+  .telemetry .metric { padding-block: .35rem; }
+  .route-rail { display: none; }
+}

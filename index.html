@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>27 Miles to Canada · Climb Mount Lemmon</title>
+<meta name="description" content="Climb 6,457 feet through six living worlds on Arizona's Catalina Highway. A cinematic field ascent by Desert Data Labs.">
+<meta property="og:title" content="27 Miles to Canada">
+<meta property="og:description" content="Six life zones. 6,457 vertical feet. One astonishing desert drive.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tgilbert14.github.io/ddl-27-miles/">
+<meta property="og:image" content="https://tgilbert14.github.io/ddl-27-miles/og.png">
+<meta property="og:image:width" content="1731">
+<meta property="og:image:height" content="909">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tgilbert14.github.io/ddl-27-miles/og.png">
+<meta name="theme-color" content="#0e1b2a">
+<link rel="canonical" href="https://tgilbert14.github.io/ddl-27-miles/">
+</head>
+<body>
+<style>
+/* 27 MILES TO CANADA — visual tokens */
+@property --progress { syntax: "<number>"; inherits: true; initial-value: 0; }
+
+:root {
+  --paper: #f6f0e5;
+  --paper-dim: #d7d9d2;
+  --ink: #102033;
+  --night: #07131f;
+  --line: rgba(246, 240, 229, 0.24);
+  --glass: rgba(7, 19, 31, 0.54);
+  --glass-heavy: rgba(7, 19, 31, 0.78);
+  --ember: #ff8a5b;
+  --sun: #ffd07a;
+  --ice: #bfe1ff;
+  --moss: #8fc8a4;
+  --display: Bahnschrift, "Aptos Display", "Arial Narrow", system-ui, sans-serif;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: "Aptos", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --header-h: 4rem;
+}
+
+
+*, *::before, *::after { box-sizing: border-box; }
+html { margin: 0; background: var(--night); color-scheme: dark; -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--night); color: var(--paper); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
+button, a { font: inherit; }
+button { color: inherit; }
+a { color: inherit; }
+::selection { color: var(--night); background: var(--sun); }
+
+.skip-link { position: fixed; z-index: 999; top: .75rem; left: .75rem; transform: translateY(-180%); padding: .7rem 1rem; color: var(--night); background: var(--paper); border-radius: 999px; font-weight: 800; transition: transform .2s var(--ease); }
+.skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 2px solid var(--sun); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.eyebrow { margin: 0 0 1rem; color: var(--sun); font-family: var(--mono); font-size: .68rem; font-weight: 700; letter-spacing: .18em; line-height: 1.4; text-transform: uppercase; }
+.eyebrow::before { content: ""; display: inline-block; width: 2rem; height: 1px; margin: 0 .7rem .22rem 0; background: currentColor; }
+
+html:not(.js) .stage, html:not(.js) .site-chrome, html:not(.js) .telemetry, html:not(.js) .route-rail, html:not(.js) .door, html:not(.js) .drive-control { display: none; }
+html:not(.js) .story { position: relative; }
+html:not(.js) .hero, html:not(.js) .chapter, html:not(.js) .dip-scene, html:not(.js) .summit, html:not(.js) .epilogue, html:not(.js) .studio { min-height: auto; padding: 6rem 6vw; background: linear-gradient(135deg, var(--fallback, #b7563f), #0e2130); }
+html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .scroll-cue i, .ambient-orbit { animation: none !important; }
+  .zone-copy, .species-callout, .landmark-note { opacity: 1 !important; transform: none !important; }
+}
+
+
+/* The road is the interface. */
+.stage { position: fixed; z-index: 0; inset: 0; overflow: hidden; background: #c95c44; pointer-events: none; }
+.landscape { width: 100%; height: 100%; }
+.stage::after { content: ""; position: absolute; inset: 0; opacity: .16; mix-blend-mode: soft-light; background: repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, rgba(0,0,0,.06) 0 1px, transparent 1px 5px), radial-gradient(circle, rgba(255,255,255,.14) 0 1px, transparent 1.5px); background-size: auto, auto, 8px 8px; }
+.stage-vignette { position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, transparent 0 34%, rgba(3,11,18,.12) 67%, rgba(3,11,18,.58) 130%); }
+
+/* The opening car-door seam creates the first scroll act. */
+.door { position: fixed; z-index: 2; inset: 0; pointer-events: none; overflow: hidden; }
+.door::before, .door::after { content: ""; position: absolute; top: 0; bottom: 0; width: 51%; background: linear-gradient(100deg, #030a10, #11191f 76%, #03070a); box-shadow: 0 0 4rem rgba(0,0,0,.85); transition: transform .1s linear; }
+.door::before { left: 0; transform: translate3d(calc(var(--departure, 0) * -102%),0,0); }
+.door::after { right: 0; transform: translate3d(calc(var(--departure, 0) * 102%),0,0) scaleX(-1); }
+.door-seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: linear-gradient(transparent 4%, rgba(255,199,112,.9) 35%, rgba(255,255,255,.7) 70%, transparent); box-shadow: 0 0 2rem #ff9f69; opacity: calc(1 - var(--departure, 0)); }
+
+.site-chrome { position: fixed; z-index: 40; top: 0; right: 0; left: 0; height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1.25rem; opacity: var(--chrome, 0); transform: translateY(calc((1 - var(--chrome, 0)) * -1rem)); transition: opacity .25s, transform .25s; pointer-events: none; }
+.site-chrome::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(rgba(4,12,20,.62), transparent); }
+.brand-lockup, .chapter-live { pointer-events: auto; }
+.brand-lockup { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; }
+.brand-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid rgba(255,255,255,.6); border-radius: 50%; font-family: var(--mono); font-size: .6rem; font-weight: 800; }
+.brand-word { font-family: var(--mono); font-size: .61rem; font-weight: 700; letter-spacing: .16em; line-height: 1.25; text-transform: uppercase; }
+.chapter-live { display: flex; align-items: center; gap: .7rem; }
+.chapter-live span { color: rgba(246,240,229,.58); font-family: var(--mono); font-size: .58rem; letter-spacing: .13em; text-transform: uppercase; }
+.chapter-live b { font-size: .72rem; font-weight: 700; }
+
+.global-progress { position: fixed; z-index: 50; top: 0; left: 0; width: 100%; height: 3px; background: rgba(255,255,255,.13); transform-origin: left; }
+.global-progress i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg,#ff8059,#ffd178,#c5e5ff); box-shadow: 0 0 1rem rgba(255,203,121,.45); transform: scaleX(var(--progress,0)); transform-origin: left; }
+
+/* A compact model instrument, not a floating dashboard. */
+.telemetry { position: fixed; z-index: 45; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: auto repeat(4,minmax(6rem,1fr)) auto; align-items: stretch; min-height: 3.6rem; border-top: 1px solid rgba(255,255,255,.28); background: rgba(4,12,20,.78); opacity: var(--chrome,0); backdrop-filter: blur(18px) saturate(1.3); transform: translateY(calc((1 - var(--chrome,0)) * 100%)); transition: opacity .25s, transform .25s; }
+.telemetry-label { display: flex; align-items: center; padding: 0 1.15rem; color: rgba(246,240,229,.56); font-family: var(--mono); font-size: .54rem; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
+.telemetry-label::before { content: ""; width: .44rem; height: .44rem; margin-right: .55rem; border-radius: 50%; background: var(--sun); box-shadow: 0 0 .8rem var(--sun); }
+.telemetry .metric { display: flex; align-items: baseline; justify-content: center; gap: .42rem; padding: .65rem .8rem; border-left: 1px solid rgba(255,255,255,.14); }
+.telemetry .metric b { font-family: var(--display); font-size: 1.34rem; font-stretch: condensed; font-variant-numeric: tabular-nums; line-height: 1; }
+.telemetry .metric span { color: rgba(246,240,229,.5); font-family: var(--mono); font-size: .51rem; letter-spacing: .1em; text-transform: uppercase; }
+.grade.up { color: var(--sun); }
+.grade.down { color: var(--ice); }
+.model-note { display: flex; align-items: center; padding: 0 1rem; color: rgba(246,240,229,.42); font-family: var(--mono); font-size: .49rem; letter-spacing: .08em; text-transform: uppercase; }
+
+/* Miniature switchback navigator. */
+.route-rail { position: fixed; z-index: 42; top: 50%; right: 1rem; width: 3rem; height: 22rem; opacity: var(--chrome,0); transform: translateY(-52%); }
+.route-rail::before { content: ""; position: absolute; inset: 1rem .85rem; opacity: .55; background: linear-gradient(142deg, transparent 0 8%, rgba(255,255,255,.45) 8.5% 9%, transparent 9.5% 24%, rgba(255,255,255,.45) 24.5% 25%, transparent 25.5% 40%, rgba(255,255,255,.45) 40.5% 41%, transparent 41.5% 56%, rgba(255,255,255,.45) 56.5% 57%, transparent 57.5% 72%, rgba(255,255,255,.45) 72.5% 73%, transparent 73.5%); }
+.route-rail a { position: absolute; left: var(--x); top: var(--y); display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; text-decoration: none; }
+.route-rail a::before { content: ""; width: .48rem; height: .48rem; border: 1px solid rgba(255,255,255,.72); border-radius: 50%; background: rgba(4,12,20,.55); transition: transform .2s var(--ease),background .2s; }
+.route-rail a::after { content: attr(data-label); position: absolute; top: 50%; right: 2.55rem; width: max-content; max-width: 11rem; padding: .32rem .5rem; border: 1px solid rgba(255,255,255,.18); border-radius: .35rem; color: var(--paper); background: rgba(4,12,20,.82); font-family: var(--mono); font-size: .54rem; letter-spacing: .09em; text-transform: uppercase; opacity: 0; transform: translate(.4rem,-50%); transition: opacity .2s,transform .2s; }
+.route-rail a:hover::after, .route-rail a:focus-visible::after { opacity: 1; transform: translate(0,-50%); }
+.route-rail a[aria-current="step"]::before { background: var(--paper); transform: scale(1.6); box-shadow: 0 0 1rem rgba(255,255,255,.65); }
+
+.compare-seam { position: fixed; z-index: 6; top: 0; bottom: 0; left: var(--compare,50%); width: 1px; background: rgba(255,255,255,.85); box-shadow: 0 0 2rem rgba(255,255,255,.5); opacity: var(--compare-active,0); pointer-events: none; }
+.compare-seam::before { content: "DESERT FLOOR"; position: absolute; top: 5.5rem; right: .8rem; width: max-content; color: var(--sun); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .16em; }
+.compare-seam::after { content: "SUMMIT"; position: absolute; top: 5.5rem; left: .8rem; color: var(--ice); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .16em; }
+
+/* Auto Ascent: a tiny expedition cruise control, deliberately separate from telemetry. */
+.drive-control { position: fixed; z-index: 48; right: 1rem; bottom: 4.55rem; display: flex; align-items: center; gap: .72rem; min-height: 3.55rem; padding: .42rem .85rem .42rem .45rem; border: 1px solid rgba(255,255,255,.32); border-radius: 999px; color: var(--paper); background: rgba(4,12,20,.76); box-shadow: 0 1rem 3rem rgba(0,0,0,.22); opacity: var(--journey-ui,1); cursor: pointer; backdrop-filter: blur(18px) saturate(1.3); transition: color .25s,background .25s,border-color .25s,opacity .25s,transform .25s; }
+.drive-control:hover { color: var(--night); background: var(--paper); border-color: var(--paper); transform: translateY(-2px); }
+.drive-control:active { transform: translateY(0) scale(.98); }
+.drive-dial { position: relative; display: grid; place-items: center; width: 2.55rem; height: 2.55rem; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(var(--sun) 0 var(--drive-deg,0deg),rgba(255,255,255,.16) var(--drive-deg,0deg) 360deg); }
+.drive-dial::before { content:""; position:absolute; inset:3px; border-radius:50%; background:#0b1721; transition:background .25s; }
+.drive-control:hover .drive-dial::before { background:var(--paper); }
+.drive-dial i { position:relative; z-index:1; width:0; height:0; margin-left:3px; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:8px solid currentColor; }
+.drive-copy { display:block; min-width:10.5rem; text-align:left; }
+.drive-copy b { display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.13em; line-height:1.25; text-transform:uppercase; }
+.drive-copy small { display:block; margin-top:.16rem; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.47rem; letter-spacing:.05em; white-space:nowrap; }
+.drive-control:hover .drive-copy small { color:rgba(7,19,31,.62); }
+.auto-driving .drive-control { border-color:rgba(255,208,122,.62); box-shadow:0 0 0 .3rem rgba(255,208,122,.07),0 1rem 3rem rgba(0,0,0,.24); }
+.auto-driving .drive-dial { animation:drive-pulse 2.2s ease-in-out infinite; }
+.auto-driving .drive-dial i { width:10px; height:11px; margin:0; border:0; border-left:3px solid currentColor; border-right:3px solid currentColor; }
+.journey-retired .drive-control { pointer-events:none; }
+@keyframes drive-pulse { 50% { box-shadow:0 0 1.2rem rgba(255,208,122,.5); } }
+
+@media (max-width: 760px) {
+  :root { --header-h: 3.6rem; }
+  .site-chrome { padding-inline: .8rem; }
+  .brand-word, .chapter-live span { display: none; }
+  .route-rail { display: none; }
+  .telemetry { grid-template-columns: repeat(3,1fr); bottom: env(safe-area-inset-bottom,0); min-height: 3.8rem; }
+  .telemetry-label,.model-note,.telemetry .metric.gain { display: none; }
+  .telemetry .metric { padding: .55rem .3rem; border-left: 1px solid rgba(255,255,255,.12); }
+  .telemetry .metric b { font-size: 1.08rem; }
+  .telemetry .metric span { display: block; font-size: .43rem; }
+  .compare-seam::before,.compare-seam::after { top: 4.6rem; font-size: .47rem; }
+  .drive-control { right:.65rem; bottom:calc(4.45rem + env(safe-area-inset-bottom,0)); min-height:3.1rem; padding:.32rem .65rem .32rem .35rem; }
+  .drive-dial { width:2.3rem; height:2.3rem; }
+  .drive-copy { min-width:0; }
+  .drive-copy small { display:none; }
+}
+
+@media (max-height: 540px) and (orientation: landscape) {
+  .telemetry { min-height: 2.8rem; }
+  .telemetry .metric { padding-block: .35rem; }
+  .route-rail { display: none; }
+}
+
+
+.story { position: relative; z-index: 10; }
+.hero,.chapter,.dip-scene,.summit,.epilogue,.studio { position: relative; min-height: 112svh; padding: max(10vh,6rem) max(7vw,5rem) max(16vh,8rem); }
+
+/* Opening frame: title sits on the closed car doors, then the world opens behind it. */
+.hero { display: grid; align-items: center; min-height: 115svh; padding-top: 6rem; }
+.hero-grid { display: grid; grid-template-columns: minmax(15rem,.9fr) minmax(18rem,1.1fr); align-items: center; gap: clamp(1.5rem,5vw,7rem); width: min(92rem,100%); margin: 0 auto; }
+.hero-number { margin-left: -.06em; color: transparent; font-family: var(--display); font-size: clamp(15rem,39vw,38rem); font-weight: 900; font-stretch: condensed; letter-spacing: -.13em; line-height: .64; -webkit-text-stroke: 2px rgba(246,240,229,.68); filter: drop-shadow(0 1.5rem 3rem rgba(0,0,0,.35)); }
+.hero-title { position: relative; z-index: 2; }
+.hero-title .eyebrow { color: var(--sun); }
+.hero h1 { margin: 0; font-family: var(--display); font-size: clamp(4.4rem,10vw,10rem); font-weight: 820; font-stretch: condensed; letter-spacing: -.075em; line-height: .72; text-transform: uppercase; }
+.hero h1 em { display: block; margin-top: .24em; color: var(--sun); font-family: var(--serif); font-size: .56em; font-weight: 400; letter-spacing: -.06em; line-height: .8; text-transform: none; }
+.hero-lede { max-width: 36rem; margin: 2rem 0 0; color: rgba(246,240,229,.85); font-size: clamp(1rem,1.25vw,1.25rem); }
+.hero-baseline { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; max-width: 31rem; margin-top: 2rem; background: rgba(255,255,255,.2); }
+.hero-baseline div { padding: .7rem .8rem; background: rgba(4,12,20,.64); }
+.hero-baseline span { display: block; color: rgba(246,240,229,.5); font-family: var(--mono); font-size: .49rem; letter-spacing: .1em; text-transform: uppercase; }
+.hero-baseline b { display: block; margin-top: .2rem; font-family: var(--display); font-size: 1.2rem; }
+.scroll-cue { display: inline-flex; align-items: center; gap: .75rem; margin-top: 2.3rem; font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-decoration: none; text-transform: uppercase; }
+.scroll-cue i { position: relative; width: 2.7rem; height: 2.7rem; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; }
+.scroll-cue i::after { content:""; position:absolute; left:50%; top:.72rem; width:.45rem; height:.45rem; border-right:1px solid white; border-bottom:1px solid white; transform:translateX(-50%) rotate(45deg); animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 50% { transform: translate(-50%,.55rem) rotate(45deg); } }
+.title-asterisk { color: var(--sun); }
+.hero-footnote { position: absolute; right: max(7vw,5rem); bottom: 7rem; color: rgba(246,240,229,.52); font-family: var(--mono); font-size: .53rem; letter-spacing: .09em; text-transform: uppercase; }
+
+/* Chapters are annotations in a landscape, not cards. */
+.chapter { display: grid; align-items: center; min-height: 116svh; overflow: clip; }
+.chapter.panorama { min-height: 154svh; }
+.chapter.deep { min-height: 132svh; }
+.zone-copy { position: relative; width: min(62rem,82vw); opacity: calc(.12 + var(--focus,0) * .88); transform: translate3d(calc((1 - var(--focus,0)) * var(--drift, -5rem)), calc((.5 - var(--local,.5)) * 5rem),0); filter: blur(calc((1 - var(--focus,0)) * 5px)); text-shadow: 0 .2rem 1.5rem rgba(0,0,0,.35); }
+.chapter.align-right .zone-copy { justify-self: end; --drift: 5rem; text-align: right; }
+.chapter.align-center .zone-copy { justify-self: center; text-align: center; }
+.zone-index { display: flex; align-items: center; gap: .8rem; color: var(--zone); font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.align-right .zone-index { justify-content: flex-end; }
+.align-center .zone-index { justify-content: center; }
+.zone-index b { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid currentColor; border-radius: 50%; font-size: .63rem; }
+.zone-copy h2 { max-width: 10ch; margin: 1rem 0 0; font-family: var(--display); font-size: clamp(4.5rem,11vw,11rem); font-weight: 790; font-stretch: condensed; letter-spacing: -.075em; line-height: .72; text-transform: uppercase; text-wrap: balance; }
+.align-right .zone-copy h2 { margin-left: auto; }
+.align-center .zone-copy h2 { margin-inline: auto; }
+.zone-copy h2 em { display: block; color: var(--zone); font-family: var(--serif); font-size: .43em; font-weight: 400; letter-spacing: -.045em; line-height: .9; text-transform: none; }
+.sensory { max-width: 35rem; margin: 1.65rem 0 0; color: rgba(246,240,229,.9); font-size: clamp(1rem,1.25vw,1.25rem); line-height: 1.55; }
+.align-right .sensory { margin-left: auto; }
+.align-center .sensory { margin-inline: auto; }
+.threshold { display: inline-flex; align-items: center; gap: .7rem; margin-top: 1.25rem; color: var(--zone); font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.threshold::before { content:""; width: 3rem; height: 1px; background: currentColor; }
+
+.landmark-note { position: absolute; top: 20%; right: 7vw; width: 13rem; padding-left: 1rem; border-left: 1px solid var(--zone); opacity: calc(var(--focus,0) * .85); transform: translateY(calc((1 - var(--focus,0)) * 3rem)); }
+.align-right .landmark-note { right: auto; left: 7vw; text-align: left; }
+.landmark-note span { display:block; color:var(--zone); font-family:var(--mono); font-size:.52rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.landmark-note b { display:block; margin-top:.35rem; font-family:var(--serif); font-size:1.05rem; font-weight:400; }
+.landmark-note small { display:block; margin-top:.35rem; color:rgba(246,240,229,.56); font-size:.68rem; }
+
+.species-callout { position: absolute; left: var(--x); top: var(--y); display: flex; align-items: center; gap: .55rem; color: rgba(246,240,229,.78); font-family: var(--mono); font-size: .49rem; letter-spacing: .1em; text-transform: uppercase; opacity: calc(var(--focus,0) * .9); transform: translateY(calc((1 - var(--focus,0)) * 1.5rem)); pointer-events: none; }
+.species-callout::before { content:""; width:1.8rem; height:1px; background:var(--zone); box-shadow:0 0 .5rem var(--zone); }
+
+.fact-drawer { width: min(30rem,100%); margin-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.28); }
+.align-right .fact-drawer { margin-left: auto; text-align: left; }
+.align-center .fact-drawer { margin-inline: auto; text-align: left; }
+.fact-drawer summary { min-height: 2.75rem; display: flex; align-items: center; color: rgba(246,240,229,.67); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+.fact-drawer summary::marker { color:var(--zone); }
+.fact-drawer p { margin: 0 0 1rem; color: rgba(246,240,229,.72); font-family: var(--serif); font-size: .95rem; }
+
+/* Windy Point gets a real look-back control. */
+.lookback { width: min(30rem,100%); margin-top: 1.7rem; padding: 1rem; border: 1px solid rgba(255,255,255,.24); background: rgba(4,12,20,.48); text-align: left; backdrop-filter: blur(12px); }
+.lookback label { display:flex; justify-content:space-between; gap:1rem; color:var(--zone); font-family:var(--mono); font-size:.54rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.lookback input,.compare-control input { width:100%; min-height:2rem; margin:.65rem 0 .2rem; accent-color:var(--sun); cursor:ew-resize; }
+.lookback-scale { display:flex; justify-content:space-between; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.48rem; letter-spacing:.08em; text-transform:uppercase; }
+
+.dip-scene { display:grid; place-items:center; min-height:105svh; text-align:center; }
+.dip-inner { width:min(54rem,90vw); opacity: calc(.15 + var(--focus,0) * .85); transform: translateY(calc((.5 - var(--local,.5)) * 10rem)); }
+.dip-arrow { display:block; color:var(--ice); font-family:var(--display); font-size:clamp(8rem,22vw,20rem); line-height:.55; transform:rotate(180deg); }
+.dip-scene h2 { margin:1.5rem 0 0; font-family:var(--display); font-size:clamp(4rem,9vw,9rem); font-weight:800; letter-spacing:-.07em; line-height:.75; text-transform:uppercase; }
+.dip-scene p { max-width:40rem; margin:1.4rem auto 0; font-family:var(--serif); font-size:clamp(1.15rem,2vw,1.6rem); }
+
+/* The summit pulls back to reveal the full ecological transect. */
+.summit { display:grid; align-items:center; min-height:188svh; padding-top:25vh; padding-bottom:25vh; }
+.summit-inner { width:min(78rem,100%); margin:auto; text-align:center; opacity:calc(.18 + var(--focus,0) * .82); }
+.summit .eyebrow::before { display:none; }
+.summit-number { margin:0; color:transparent; font-family:var(--display); font-size:clamp(9rem,27vw,27rem); font-weight:900; letter-spacing:-.095em; line-height:.65; -webkit-text-stroke:2px rgba(246,240,229,.78); }
+.summit-number small { display:block; margin-top:.5em; color:var(--paper); font-family:var(--mono); font-size:.038em; letter-spacing:.25em; text-transform:uppercase; -webkit-text-stroke:0; }
+.summit h2 { max-width:18ch; margin:2.5rem auto 0; font-family:var(--serif); font-size:clamp(2rem,4.4vw,4.5rem); font-weight:400; letter-spacing:-.045em; line-height:1.03; text-wrap:balance; }
+.summit h2 strong { color:var(--ice); font-weight:400; }
+.summit-statement { max-width:58rem; margin:1.5rem auto 0; color:rgba(246,240,229,.72); font-size:clamp(.95rem,1.2vw,1.15rem); }
+.summit-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; max-width:58rem; margin:3rem auto 0; overflow:hidden; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.2); }
+.summit-stats div { padding:1rem; background:rgba(4,12,20,.72); }
+.summit-stats b { display:block; font-family:var(--display); font-size:1.8rem; }
+.summit-stats span { color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.5rem; letter-spacing:.1em; text-transform:uppercase; }
+.compare-control { max-width:40rem; margin:2rem auto 0; padding:1rem 1.15rem; border:1px solid rgba(255,255,255,.28); background:rgba(4,12,20,.58); backdrop-filter:blur(12px); }
+.compare-control label { display:flex; justify-content:space-between; color:var(--paper); font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.compare-control .range-labels { display:flex; justify-content:space-between; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.47rem; letter-spacing:.09em; text-transform:uppercase; }
+.endpoint-note { max-width:48rem; margin:1rem auto 0; color:rgba(246,240,229,.46); font-size:.68rem; }
+
+.epilogue { min-height:128svh; display:grid; align-items:center; background:linear-gradient(to bottom,transparent,rgba(2,8,13,.74)); }
+.epilogue-inner { width:min(74rem,100%); margin:auto; }
+.epilogue h2 { max-width:13ch; margin:0; font-family:var(--display); font-size:clamp(4rem,9vw,9rem); font-weight:800; letter-spacing:-.075em; line-height:.76; text-transform:uppercase; }
+.epilogue h2 em { display:block; color:var(--ice); font-family:var(--serif); font-size:.43em; font-weight:400; letter-spacing:-.04em; line-height:.95; text-transform:none; }
+.truth-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:3rem; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.2); }
+.truth-grid article { min-height:15rem; padding:1.4rem; background:rgba(4,12,20,.82); }
+.truth-grid b { color:var(--ice); font-family:var(--display); font-size:3rem; }
+.truth-grid h3 { margin:2.4rem 0 .6rem; font-family:var(--serif); font-size:1.25rem; font-weight:400; }
+.truth-grid p { margin:0; color:rgba(246,240,229,.62); font-size:.8rem; }
+.fragile { max-width:57rem; margin:3rem 0 0 auto; padding-left:1.5rem; border-left:2px solid var(--ember); font-family:var(--serif); font-size:clamp(1.25rem,2.1vw,1.85rem); }
+
+.studio { min-height:100svh; display:grid; place-items:center; background:rgba(2,8,13,.72); }
+.studio-inner { width:min(72rem,100%); }
+.studio h2 { max-width:15ch; margin:0; font-family:var(--display); font-size:clamp(4rem,8vw,8rem); font-weight:800; letter-spacing:-.075em; line-height:.78; text-transform:uppercase; }
+.studio h2 em { display:block; color:var(--sun); font-family:var(--serif); font-size:.43em; font-weight:400; letter-spacing:-.04em; line-height:1; text-transform:none; }
+.studio-copy { max-width:43rem; margin:1.6rem 0 0; color:rgba(246,240,229,.7); }
+.actions { display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2rem; }
+.button { display:inline-flex; align-items:center; min-height:3.1rem; padding:0 1.2rem; border:1px solid rgba(255,255,255,.4); border-radius:999px; font-size:.75rem; font-weight:750; text-decoration:none; }
+.button.primary { color:var(--night); background:var(--paper); border-color:var(--paper); }
+.button:hover { color:var(--night); background:var(--sun); border-color:var(--sun); }
+.footer { position:relative; z-index:10; display:flex; justify-content:space-between; gap:2rem; padding:2rem max(7vw,5rem) 6rem; color:rgba(246,240,229,.45); background:#02080d; font-size:.67rem; }
+.footer p { max-width:46rem; margin:0; }
+
+@media (max-width:760px) {
+  .hero,.chapter,.dip-scene,.summit,.epilogue,.studio { padding:7rem 1rem 7rem; }
+  .hero { min-height:118svh; }
+  .hero-grid { grid-template-columns:1fr; gap:0; }
+  .hero-number { position:absolute; top:16%; left:-5vw; z-index:-1; font-size:72vw; opacity:.55; }
+  .hero-title { align-self:end; padding-top:18vh; }
+  .hero h1 { font-size:clamp(4.5rem,24vw,7.5rem); }
+  .hero-baseline { max-width:none; }
+  .hero-footnote { right:1rem; bottom:5.5rem; max-width:18rem; text-align:right; }
+  .chapter,.chapter.panorama,.chapter.deep { min-height:124svh; }
+  .zone-copy { width:100%; }
+  .zone-copy h2 { font-size:clamp(4rem,21vw,7rem); }
+  .chapter.align-right .zone-copy,.chapter.align-center .zone-copy { justify-self:stretch; text-align:left; }
+  .align-right .zone-index,.align-center .zone-index { justify-content:flex-start; }
+  .align-right .zone-copy h2,.align-center .zone-copy h2,.align-right .sensory,.align-center .sensory { margin-left:0; }
+  .align-right .fact-drawer,.align-center .fact-drawer { margin-left:0; }
+  .landmark-note,.align-right .landmark-note { top:auto; right:1rem; bottom:6rem; left:auto; width:11rem; }
+  .species-callout { display:none; }
+  .lookback { width:100%; }
+  .dip-scene { min-height:105svh; }
+  .summit { min-height:165svh; }
+  .summit-number { font-size:29vw; }
+  .summit-stats { grid-template-columns:1fr 1fr; }
+  .truth-grid { grid-template-columns:1fr; }
+  .truth-grid article { min-height:11rem; }
+  .truth-grid h3 { margin-top:1.3rem; }
+  .epilogue,.studio { min-height:auto; padding-block:10rem; }
+  .footer { flex-direction:column; padding:2rem 1rem 6rem; }
+}
+
+@media (min-width:761px) and (max-width:1050px) {
+  .model-note { display:none; }
+  .telemetry { grid-template-columns:auto repeat(4,minmax(5rem,1fr)); }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .zone-copy,.dip-inner,.summit-inner { opacity:1; transform:none; filter:none; }
+}
+
+</style>
+<a class="skip-link" href="#story">Skip to the ascent</a>
+
+<div class="stage" aria-hidden="true">
+  <canvas class="landscape"></canvas>
+  <div class="stage-vignette"></div>
+</div>
+<div class="door" aria-hidden="true"><i class="door-seam"></i></div>
+<div class="compare-seam" aria-hidden="true"></div>
+<div class="global-progress" aria-hidden="true"><i></i></div>
+
+<button class="drive-control" id="drive-control" type="button" aria-pressed="false" aria-label="Begin a slow automatic ascent to the summit">
+  <span class="drive-dial" aria-hidden="true"><i></i></span>
+  <span class="drive-copy"><b id="drive-label">Auto ascent</b><small id="drive-status">Cruise to the summit · about 100 sec</small></span>
+</button>
+
+<header class="site-chrome">
+  <a class="brand-lockup" href="#top" aria-label="27 Miles to Canada, return to the desert floor">
+    <span class="brand-mark">27</span><span class="brand-word">Desert Data Labs<br>Field Ascent 01</span>
+  </a>
+  <div class="chapter-live" aria-live="polite"><span>Crossing</span><b id="live-zone">Sonoran Desertscrub</b></div>
+</header>
+
+<nav class="route-rail" aria-label="Life-zone switchbacks">
+  <a href="#zone-1" data-band="0" data-label="Sonoran Desert" aria-label="Jump to Sonoran Desertscrub" style="--x:0;--y:0"></a>
+  <a href="#zone-2" data-band="1" data-label="Grassland" aria-label="Jump to Semidesert Grassland" style="--x:1rem;--y:3.4rem"></a>
+  <a href="#zone-3" data-band="2" data-label="Oak Woodland" aria-label="Jump to Madrean Oak Woodland" style="--x:0;--y:6.8rem"></a>
+  <a href="#zone-4" data-band="3" data-label="Windy Point" aria-label="Jump to Windy Point" style="--x:1rem;--y:10.2rem"></a>
+  <a href="#zone-5" data-band="4" data-label="Ponderosa" aria-label="Jump to Ponderosa Pine Forest" style="--x:0;--y:13.6rem"></a>
+  <a href="#zone-6" data-band="5" data-label="Mixed Conifer" aria-label="Jump to Mixed-Conifer Forest" style="--x:1rem;--y:17rem"></a>
+  <a href="#summit" data-band="6" data-label="Summit" aria-label="Jump to Mount Lemmon summit" style="--x:0;--y:20.4rem"></a>
+</nav>
+
+<aside class="telemetry" aria-label="Modeled ascent instrument">
+  <div class="telemetry-label">Modeled ascent</div>
+  <div class="metric"><b id="live-mile">0.0</b><span>mile</span></div>
+  <div class="metric"><b id="live-elevation">2,700</b><span>feet</span></div>
+  <div class="metric"><b id="live-temp">100°</b><span>approx. °F</span></div>
+  <div class="metric gain"><b class="grade up" id="live-grade">▲</b><span>road grade</span></div>
+  <div class="model-note">Illustrative summer baseline · ~3.5°F / 1,000 ft</div>
+  <span class="sr-only" id="live-announcement" aria-live="polite"></span>
+</aside>
+
+<main class="story" id="story" tabindex="-1">
+  <section class="hero timeline-node" id="top" data-mile="0">
+    <div class="hero-grid">
+      <div class="hero-number" aria-hidden="true">27</div>
+      <div class="hero-title">
+        <p class="eyebrow">Catalina Highway · Tucson, Arizona · 32.4° N</p>
+        <h1>27 Miles <em>to Canada<span class="title-asterisk">*</span></em></h1>
+        <p class="hero-lede">Close the car door in a hundred-degree desert. Open it again in fir shade. Between those two moments, one road climbs through six living worlds.</p>
+        <div class="hero-baseline"><div><span>Start</span><b>2,700 ft</b></div><div><span>Summit</span><b>9,157 ft</b></div><div><span>Air change</span><b>~25°F</b></div></div>
+        <a class="scroll-cue" href="#zone-1"><i aria-hidden="true"></i>Open the door</a>
+      </div>
+    </div>
+    <p class="hero-footnote">*A continental sequence compressed by elevation—not Canada, and not an identical climate.</p>
+  </section>
+
+  <section class="chapter timeline-node" id="zone-1" data-band="0" data-mile="2.7" style="--zone:#ffd07a;--fallback:#c75b43">
+    <div class="zone-copy">
+      <p class="zone-index"><b>01</b> Sonoran floor · 2,700–4,000 ft</p>
+      <h2>Sonoran <em>Desertscrub</em></h2>
+      <p class="sensory">Heat moves in waves. The horizon is all distance and hard blue sky, punctuated by a forest that stores its water standing upright.</p>
+      <p class="threshold">The climb begins inside the saguaro forest</p>
+      <details class="fact-drawer"><summary>Field note · the last saguaro</summary><p>These giants mark the mountain's lowest life zone. Before the grassland arrives, the final saguaro falls behind you—and never returns above this line.</p></details>
+    </div>
+    <aside class="landmark-note"><span>Mile 2.7</span><b>Babad Do'ag</b><small>“Frog Mountain,” the Tohono O'odham name for the range.</small></aside>
+    <span class="species-callout" style="--x:70%;--y:64%">saguaro</span><span class="species-callout" style="--x:13%;--y:76%">ocotillo</span>
+  </section>
+
+  <section class="chapter align-right timeline-node" id="zone-2" data-band="1" data-mile="5.5" style="--zone:#e8d087;--fallback:#9a7b51">
+    <div class="zone-copy">
+      <p class="zone-index"><b>02</b> Around mile 6 · 4,000–5,000 ft</p>
+      <h2>Grass <em>takes the wind</em></h2>
+      <p class="sensory">The cactus releases the slope. Sotol flashes silver, yucca spears the skyline, and the first moving grass makes departure feel real.</p>
+      <p class="threshold">The desert floor has dropped 1,670 feet</p>
+      <details class="fact-drawer"><summary>Field note · reverse seasons</summary><p>Molino Basin closes for summer rather than winter. When the summit is snowed in, this lower campground can be perfect.</p></details>
+    </div>
+    <aside class="landmark-note"><span>Mile 5.5</span><b>Molino Basin</b><small>The narrow handoff between cactus and oak.</small></aside>
+    <span class="species-callout" style="--x:12%;--y:63%">sotol</span><span class="species-callout" style="--x:66%;--y:78%">Palmer agave</span>
+  </section>
+
+  <section class="chapter align-center deep timeline-node" id="zone-3" data-band="2" data-mile="9.1" style="--zone:#a9d09a;--fallback:#58715a">
+    <div class="zone-copy">
+      <p class="zone-index"><b>03</b> Around mile 9 · 5,000–6,000 ft</p>
+      <h2>The island <em>closes around you</em></h2>
+      <p class="sensory">Shade returns from the edges. Evergreen oak crowns the slope while a sea of desert remains visible far below.</p>
+      <p class="threshold">A cool forest stranded above hot lowlands</p>
+      <details class="fact-drawer"><summary>What makes a sky island?</summary><p>Isolation. Each wooded peak rises from desert like land from water, connecting northward to the forests of Mexico's Sierra Madre.</p></details>
+    </div>
+    <aside class="landmark-note"><span>Mile 9.1</span><b>Seven Cataracts</b><small>Seasonal water after monsoon rain or snowmelt.</small></aside>
+    <span class="species-callout" style="--x:9%;--y:42%">Emory oak</span><span class="species-callout" style="--x:73%;--y:70%">Mexican jay</span>
+  </section>
+
+  <section class="chapter panorama timeline-node" id="zone-4" data-band="3" data-mile="14" style="--zone:#9ed0cc;--fallback:#456474">
+    <div class="zone-copy">
+      <p class="zone-index"><b>04</b> Windy Point · 6,400 ft</p>
+      <h2>Look <em>back down</em></h2>
+      <p class="sensory">Granite hoodoos whip past the shoulder. At the overlook, the first tall pines stand above a desert now nearly 3,700 feet below.</p>
+      <div class="lookback">
+        <label for="lookback-range"><span>Turn the view</span><span id="lookback-value">Toward the desert</span></label>
+        <input id="lookback-range" type="range" min="0" max="100" value="72" aria-label="Turn the Windy Point view between road ahead and desert below">
+        <div class="lookback-scale"><span>Road ahead</span><span>Desert below</span></div>
+      </div>
+    </div>
+    <aside class="landmark-note"><span>Mile 14</span><b>Windy Point</b><small>About 13°F cooler than the modeled base.</small></aside>
+    <span class="species-callout" style="--x:63%;--y:69%">Arizona pine</span><span class="species-callout" style="--x:15%;--y:28%">Catalina granite</span>
+  </section>
+
+  <section class="chapter align-right deep timeline-node" id="zone-5" data-band="4" data-mile="17" style="--zone:#b9d6b3;--fallback:#31565c">
+    <div class="zone-copy">
+      <p class="zone-index"><b>05</b> Rose Canyon · 7,000–8,000 ft</p>
+      <h2>Enter <em>the tall forest</em></h2>
+      <p class="sensory">The composition turns vertical: dark trunks, bands of sun, dry needles, and bark warmed enough to smell like vanilla.</p>
+      <p class="threshold">Tucson becomes difficult to believe</p>
+      <details class="fact-drawer"><summary>Field note · lean close</summary><p>Sun-warmed ponderosa bark can smell distinctly of vanilla or butterscotch. Nearby, Rose Canyon even holds a small stocked trout lake.</p></details>
+    </div>
+    <aside class="landmark-note"><span>Mile 17</span><b>Rose Canyon</b><small>Ponderosa forest at almost exactly 7,000 feet.</small></aside>
+    <span class="species-callout" style="--x:16%;--y:65%">ponderosa pine</span><span class="species-callout" style="--x:61%;--y:35%">Steller's jay</span>
+  </section>
+
+  <section class="chapter timeline-node" id="zone-6" data-band="5" data-mile="19.6" style="--zone:#bfe1ff;--fallback:#203956">
+    <div class="zone-copy">
+      <p class="zone-index"><b>06</b> Palisades · 8,000–9,157 ft</p>
+      <h2>Mixed <em>conifer</em></h2>
+      <p class="sensory">Aspen flash pale between Douglas-fir and true white fir. You have entered the heritage “Canadian” life zone—without a single spruce tree.</p>
+      <p class="threshold">Similar temperature regime · different climate</p>
+      <details class="fact-drawer"><summary>Why call it “Canadian”?</summary><p>It is old life-zone language for a familiar forest form and cool temperature regime. Mount Lemmon is still Arizona: monsoon rhythm, Tucson daylight, local species.</p></details>
+    </div>
+    <aside class="landmark-note"><span>Mile 19.6</span><b>Palisades</b><small>The interpretive gateway to fir and aspen.</small></aside>
+    <span class="species-callout" style="--x:69%;--y:61%">Douglas-fir</span><span class="species-callout" style="--x:10%;--y:72%">quaking aspen</span>
+  </section>
+
+  <section class="dip-scene timeline-node" data-mile="25" data-band="5">
+    <div class="dip-inner">
+      <span class="dip-arrow" aria-hidden="true">↑</span>
+      <p class="eyebrow">Mile 25 · Summerhaven · 7,790 ft</p>
+      <h2>The road goes down.</h2>
+      <p>After cresting near 8,000 feet, the highway loses more than 200 feet into the village. Watch the instrument: elevation falls, the modeled air warms, then Ski Run Road pitches up for the final climb.</p>
+    </div>
+  </section>
+
+  <section class="summit timeline-node" id="summit" data-mile="28.8" data-band="6">
+    <div class="summit-inner">
+      <p class="eyebrow">True high point · Mount Lemmon</p>
+      <p class="summit-number">9,157<small>feet above the Sonoran Desert</small></p>
+      <h2>One mountain compressed a <strong>continental sequence.</strong></h2>
+      <p class="summit-statement">Climb these 27 signed byway miles and the air cools about 25°F, carrying you through the same sequence of vegetation zones you would cross driving on the order of a thousand miles north toward Canada—a similar temperature regime and biome succession, not an identical climate.</p>
+      <div class="summit-stats"><div><b>6,457</b><span>net vertical feet</span></div><div><b>6</b><span>biotic communities</span></div><div><b>~25°F</b><span>modeled change</span></div><div><b>~7,000</b><span>total climbing</span></div></div>
+      <div class="compare-control">
+        <label for="compare-range"><span>Climate portal</span><span>Drag the seam</span></label>
+        <input id="compare-range" type="range" min="5" max="95" value="50" aria-label="Compare the Sonoran Desert floor with the summit landscape">
+        <div class="range-labels"><span>100°F · 2,700 ft</span><span>~77°F · 9,157 ft</span></div>
+      </div>
+      <p class="endpoint-note">“27 miles” is the rounded scenic-byway figure. The drive to SkyCenter is about 28.8 miles and ends just below the true summit, near 9,134 feet.</p>
+    </div>
+  </section>
+
+  <section class="epilogue">
+    <div class="epilogue-inner">
+      <p class="eyebrow">The analogy ends here</p>
+      <h2>Altitude imitates latitude. <em>It does not replace it.</em></h2>
+      <div class="truth-grid">
+        <article><b>01</b><h3>The daylight stays in Tucson.</h3><p>The peak keeps a 32° north day-length cycle, not Canada's long summer days and short winter ones.</p></article>
+        <article><b>02</b><h3>The monsoon writes the weather.</h3><p>Cooler air arrives inside Arizona's own summer-monsoon and winter-storm rhythm.</p></article>
+        <article><b>03</b><h3>The species do not map one for one.</h3><p>The resemblance is forest form and temperature—not identical soils, moisture, fire history, or species.</p></article>
+      </div>
+      <p class="fragile">These bands have already crept upslope with recent warming. The mixed-conifer forest at the summit has nowhere higher left to go.</p>
+    </div>
+  </section>
+
+  <section class="studio">
+    <div class="studio-inner">
+      <p class="eyebrow">Desert Data Labs · interactive fieldwork</p>
+      <h2>Your data deserves a landscape. <em>Not another slide deck.</em></h2>
+      <p class="studio-copy">We turn conservation, research, and impact data into experiences people can feel, explore, and remember.</p>
+      <div class="actions"><a class="button primary" href="https://desertdatalabs.com/contact.html">Start a project ↗</a><a class="button" href="https://desertdatalabs.com/case-studies.html">Explore our work</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><p>27 Miles to Canada · A Desert Data Labs field ascent</p><p>Elevation, climate, species, and life-zone ranges are grounded in U.S. Forest Service, University of Arizona, SEINet, and published Sky Island research. Boundaries are interpretive and move with slope, aspect, fire, and climate.</p></footer>
+
+<script>
+window.M27 = {
+  bands: [
+    { name: "Sonoran Desertscrub", sky: ["#f7a260", "#d15d47"], ridge: ["#a83e34", "#5f292d"], flora: "#173f38", accent: "#ffd07a" },
+    { name: "Semidesert Grassland", sky: ["#d9aa68", "#8b8b68"], ridge: ["#7d6948", "#3f5548"], flora: "#243f34", accent: "#e8d087" },
+    { name: "Madrean Oak Woodland", sky: ["#97a984", "#58756b"], ridge: ["#496b56", "#253f3b"], flora: "#152e2c", accent: "#a9d09a" },
+    { name: "Pine-Oak Woodland", sky: ["#789ca3", "#436476"], ridge: ["#385c5c", "#1f3942"], flora: "#102c30", accent: "#9ed0cc" },
+    { name: "Ponderosa Pine Forest", sky: ["#557c91", "#29495b"], ridge: ["#244e50", "#152f39"], flora: "#0d272b", accent: "#b9d6b3" },
+    { name: "Mixed-Conifer Forest", sky: ["#294361", "#101f38"], ridge: ["#183746", "#091d29"], flora: "#061a23", accent: "#bfe1ff" }
+  ],
+  profile: [
+    [0, 2700], [2.7, 3550], [5.5, 4370], [9.1, 5100], [14, 6400],
+    [17, 7000], [19.6, 7900], [20.5, 8000], [25, 7790], [27, 8350], [28.8, 9157]
+  ],
+  baseElevation: 2700,
+  summitElevation: 9157,
+  baseTemperature: 100,
+  lapseRate: 3.5
+};
+
+
+/* One canvas, one scheduler, one route state. The highway is the visual spine. */
+window.MountainScene=(function(){
+  var canvas,ctx,w=1,h=1,dpr=1,raf=0,dirty=true,lastTs=0,visible=true;
+  var S={progress:0,band:0,pointerX:.5,pointerY:.5,targetX:.5,targetY:.5,lookback:.72,compare:.5,compareActive:false,velocity:0};
+  var M=window.M27,reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+  function mix(a,b,t){return a+(b-a)*t;}
+  function smooth(t){t=clamp(t,0,1);return t*t*(3-2*t);}
+  function seeded(n){var x=Math.sin(n*127.13+19.71)*43758.5453;return x-Math.floor(x);}
+  function rgb(hex){hex=hex.replace("#","");return[parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16)];}
+  function color(a,b,t){var x=rgb(a),y=rgb(b);return"rgb("+Math.round(mix(x[0],y[0],t))+","+Math.round(mix(x[1],y[1],t))+","+Math.round(mix(x[2],y[2],t))+")";}
+  function bandColor(key,slot,f){var s=clamp(f,0,5),lo=Math.floor(s),hi=Math.min(5,lo+1),t=s-lo;return color(M.bands[lo][key][slot],M.bands[hi][key][slot],smooth(t));}
+  function floraColor(f){var s=clamp(f,0,5),lo=Math.floor(s),hi=Math.min(5,lo+1),t=s-lo;return color(M.bands[lo].flora,M.bands[hi].flora,smooth(t));}
+
+  function invalidate(){dirty=true;if(!raf&&visible)raf=requestAnimationFrame(frame);}
+  function resize(){if(!canvas)return;var r=canvas.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,w<700?1.5:2);w=Math.max(1,Math.round(r.width));h=Math.max(1,Math.round(r.height));canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);invalidate();}
+
+  function ridge(seed,base,amp,fill,drift,jag){
+    var shift=(S.pointerX-.5)*drift+(S.lookback-.5)*drift*.7;
+    ctx.beginPath();ctx.moveTo(-100,h+30);ctx.lineTo(-100,base);
+    var n=11;
+    for(var i=0;i<=n;i++){
+      var x=i/n*(w+200)-100+shift;
+      var spike=seeded(seed*19+i)*(amp*(.55+jag*.4));
+      var wave=Math.sin(i*(1.1+jag*.25)+seed)*amp*.28;
+      var y=base-spike-wave;
+      if(i===0)ctx.lineTo(x,y);else{var px=(i-1)/n*(w+200)-100+shift;ctx.quadraticCurveTo((px+x)/2,y-amp*.08*seeded(i+seed),x,y);}
+    }
+    ctx.lineTo(w+100,h+30);ctx.closePath();ctx.fillStyle=fill;ctx.fill();
+  }
+
+  function topo(f,alpha){ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle="#fff";ctx.lineWidth=1;var look=(S.lookback-.5)*45;
+    for(var j=0;j<9;j++){ctx.beginPath();for(var x=-80;x<=w+80;x+=18){var y=h*(.13+j*.068)+Math.sin(x*.006+j*.83+f*.75)*(14+j*4)+look;if(x===-80)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}ctx.restore();}
+
+  function sun(f){var t=clamp(f/5,0,1),x=mix(w*.78,w*.22,t)+(S.pointerX-.5)*18+(S.lookback-.5)*w*.08,y=mix(h*.2,h*.25,t)+(S.pointerY-.5)*10,r=mix(Math.min(w,h)*.07,Math.min(w,h)*.038,t);
+    var halo=ctx.createRadialGradient(x,y,0,x,y,r*5);halo.addColorStop(0,t>.7?"rgba(202,229,255,.38)":"rgba(255,216,132,.52)");halo.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=halo;ctx.fillRect(x-r*5,y-r*5,r*10,r*10);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=t>.72?"#d8edff":"#ffd07a";ctx.fill();}
+
+  function roadPoint(t,f){var horizon=mix(h*.58,h*.5,clamp(f/5,0,1));var vanish=w*(.5+(S.lookback-.5)*.26+Math.sin(f*.88)*.035);var y=horizon+Math.pow(t,1.38)*(h-horizon+20);var curve=Math.sin(t*3.6+f*.72)*w*.045*t+(S.pointerX-.5)*18*t;var width=mix(1,w*.32,Math.pow(t,1.9));return{x:vanish+curve,y:y,width:width};}
+  function road(f){var pts=[],n=46;for(var i=0;i<=n;i++)pts.push(roadPoint(i/n,f));
+    ctx.beginPath();for(i=0;i<=n;i++){var a=pts[i];if(i===0)ctx.moveTo(a.x-a.width,a.y);else ctx.lineTo(a.x-a.width,a.y);}for(i=n;i>=0;i--){a=pts[i];ctx.lineTo(a.x+a.width,a.y);}ctx.closePath();var g=ctx.createLinearGradient(0,h*.5,0,h);g.addColorStop(0,"rgba(12,18,22,.6)");g.addColorStop(1,"#151b1e");ctx.fillStyle=g;ctx.fill();
+    ctx.strokeStyle="rgba(246,240,229,.65)";ctx.lineWidth=1.3;ctx.beginPath();pts.forEach(function(p,k){if(k===0)ctx.moveTo(p.x-p.width,p.y);else ctx.lineTo(p.x-p.width,p.y);});ctx.stroke();ctx.beginPath();pts.forEach(function(p,k){if(k===0)ctx.moveTo(p.x+p.width,p.y);else ctx.lineTo(p.x+p.width,p.y);});ctx.stroke();
+    ctx.save();ctx.strokeStyle="#ffd07a";ctx.shadowColor="#ffd07a";ctx.shadowBlur=8;ctx.lineCap="round";
+    var phase=Math.floor(S.progress*220);for(i=3;i<n-1;i++){if((i+phase)%6<3){var p0=pts[i],p1=pts[i+1];ctx.lineWidth=mix(.5,5,Math.pow(i/n,2));ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.lineTo(p1.x,p1.y);ctx.stroke();}}ctx.restore();
+  }
+
+  function saguaro(x,y,s,a){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.strokeStyle=floraColor(0);ctx.lineCap="round";ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-72);ctx.stroke();ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-1,-43);ctx.lineTo(-14,-43);ctx.lineTo(-14,-58);ctx.moveTo(1,-31);ctx.lineTo(15,-31);ctx.lineTo(15,-49);ctx.stroke();ctx.restore();}
+  function yucca(x,y,s,a,tm){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.strokeStyle=floraColor(1);ctx.lineWidth=2.4;ctx.lineCap="round";for(var i=-4;i<=4;i++){ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(i*3+Math.sin(tm*.001+i)*3,-20,i*8,-31-Math.abs(i));ctx.stroke();}ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,-4);ctx.lineTo(0,-64);ctx.stroke();ctx.restore();}
+  function oak(x,y,s,a){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.fillStyle=floraColor(2);ctx.fillRect(-2,-42,4,44);[[-16,-43,15],[15,-44,17],[0,-60,22],[-5,-72,14]].forEach(function(c){ctx.beginPath();ctx.arc(c[0],c[1],c[2],0,6.3);ctx.fill();});ctx.restore();}
+  function pine(x,y,s,a,aspen){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;if(aspen){ctx.fillStyle="rgba(240,235,215,.87)";ctx.fillRect(-2,-86,4,88);ctx.fillStyle="#72835f";ctx.beginPath();ctx.arc(0,-88,13,0,6.3);ctx.fill();}else{ctx.fillStyle=floraColor(5);ctx.fillRect(-2,-72,4,74);for(var i=0;i<4;i++){var yy=-34-i*17,half=24-i*3;ctx.beginPath();ctx.moveTo(0,yy-37);ctx.lineTo(-half,yy+7);ctx.lineTo(half,yy+7);ctx.closePath();ctx.fill();}}ctx.restore();}
+  function hoodoo(x,y,s,a){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.fillStyle="#685650";ctx.beginPath();ctx.moveTo(-13,0);ctx.lineTo(-9,-47);ctx.lineTo(-15,-61);ctx.lineTo(-8,-72);ctx.lineTo(-5,-103);ctx.lineTo(5,-98);ctx.lineTo(8,-70);ctx.lineTo(15,-62);ctx.lineTo(9,-49);ctx.lineTo(14,0);ctx.closePath();ctx.fill();ctx.restore();}
+  function plant(b,x,y,s,a,tm,i){if(b===0)saguaro(x,y,s,a);else if(b===1)yucca(x,y,s,a,tm);else if(b===2)oak(x,y,s*.82,a);else if(b===3){if(i%5===0)hoodoo(x,y,s*1.1,a);else if(i%2)pine(x,y,s*.9,a,false);else oak(x,y,s*.7,a);}else if(b===4)pine(x,y,s*1.08,a,false);else pine(x,y,s*1.08,a,i%6===0);}
+  function roadside(f,tm){var lo=Math.floor(clamp(f,0,5)),fr=clamp(f,0,5)-lo;for(var i=0;i<30;i++){var t=(seeded(i*3+4)+S.progress*3.7)%1,p=roadPoint(t,f),side=i%2?-1:1;var margin=p.width+mix(9,w*.14,t)*(.38+seeded(i+8)*.75);var x=p.x+side*margin,y=p.y+mix(2,20,t)*seeded(i+16),sc=.13+Math.pow(t,2.05)*2.5;plant(lo,x,y,sc,1-fr,tm,i);if(lo<5)plant(lo+1,x,y,sc,fr,tm,i);}}
+
+  function canopy(f){var oakA=clamp(1-Math.abs(f-2),0,1)*.9,forestA=clamp((f-3.65)*1.5,0,1);if(oakA){ctx.save();ctx.globalAlpha=oakA;ctx.fillStyle=floraColor(2);for(var i=0;i<13;i++){ctx.beginPath();ctx.arc(i/12*w+Math.sin(i)*22,-8+seeded(i)*28,45+seeded(i+9)*40,0,6.3);ctx.fill();}ctx.restore();}if(forestA){ctx.save();ctx.globalAlpha=forestA*.58;ctx.fillStyle=floraColor(5);for(i=0;i<10;i++){var x=i/9*w+(seeded(i+44)-.5)*70,ww=10+seeded(i)*13;ctx.fillRect(x-ww/2,0,ww,h);};ctx.restore();}}
+  function particles(f,tm){var mode=f<.8?0:f<2?1:f>4.5?2:-1;if(mode<0)return;ctx.save();var baseAlpha=ctx.globalAlpha;for(var i=0;i<(w<700?20:36);i++){var x=(seeded(i*7+2)*w+Math.sin(tm*.0005+i)*18)%w,y=(seeded(i*11+5)*h+tm*(mode===2?.004:.002)*(1+seeded(i)))%h;ctx.globalAlpha=baseAlpha*(.1+seeded(i+2)*.25);if(mode===0){ctx.fillStyle="#ffd08a";ctx.fillRect(x,y,1.5,1.5);}else if(mode===1){ctx.strokeStyle="#d7c885";ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+6+S.velocity*12,y+2);ctx.stroke();}else{ctx.fillStyle=i%4===0?"#e9e2ca":"#aecbd8";ctx.beginPath();ctx.ellipse(x,y,2.5,1,tm*.0003+i,0,6.3);ctx.fill();}}ctx.restore();}
+
+  function normalScene(f,tm){var sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,bandColor("sky",0,f));sky.addColorStop(1,bandColor("sky",1,f));ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);sun(f);topo(f,.1);var hf=clamp(f/5,0,1),base=mix(h*.65,h*.59,hf),jag=clamp((f-2.4)*.45,0,1);ridge(1.2,base,h*.2,bandColor("ridge",0,f),10,jag);ridge(2.7,base+h*.1,h*.18,bandColor("ridge",0,f),20,jag);ridge(4.1,base+h*.19,h*.16,bandColor("ridge",1,f),32,jag);road(f);roadside(f,tm);canopy(f);particles(f,tm);}
+
+  function overview(tm){var sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,"#203b5a");sky.addColorStop(1,"#07131f");ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);topo(5,.15);var peakX=w*.73,peakY=h*.16,baseY=h*.88;ctx.save();ctx.beginPath();ctx.moveTo(-40,baseY);ctx.lineTo(w*.1,h*.79);ctx.lineTo(w*.28,h*.64);ctx.lineTo(w*.44,h*.5);ctx.lineTo(w*.59,h*.35);ctx.lineTo(peakX,peakY);ctx.lineTo(w*.82,h*.29);ctx.lineTo(w+40,h*.54);ctx.lineTo(w+40,h+30);ctx.lineTo(-40,h+30);ctx.closePath();ctx.clip();var colors=["#b84e3e","#af7e4d","#557058","#315b60","#214750","#102b3a"];for(var i=0;i<6;i++){var y0=baseY-(i+1)*(baseY-peakY)/6,y1=baseY-i*(baseY-peakY)/6;var g=ctx.createLinearGradient(0,y0,w,y1);g.addColorStop(0,colors[i]);g.addColorStop(1,color(colors[i],"#07131f",.4));ctx.fillStyle=g;ctx.fillRect(0,y0-3,w,y1-y0+6);}ctx.restore();ctx.strokeStyle="rgba(246,240,229,.34)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-40,baseY);ctx.lineTo(w*.1,h*.79);ctx.lineTo(w*.28,h*.64);ctx.lineTo(w*.44,h*.5);ctx.lineTo(w*.59,h*.35);ctx.lineTo(peakX,peakY);ctx.lineTo(w*.82,h*.29);ctx.lineTo(w+40,h*.54);ctx.stroke();
+    var route=[[.08,.82],[.26,.76],[.17,.68],[.39,.62],[.31,.54],[.56,.47],[.47,.4],[.68,.32],[.6,.25],[.73,.17]];ctx.save();ctx.strokeStyle="#ffd07a";ctx.shadowColor="#ffd07a";ctx.shadowBlur=12;ctx.lineWidth=2.5;ctx.beginPath();route.forEach(function(p,k){var x=p[0]*w,y=p[1]*h;if(k===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();ctx.fillStyle="#f6f0e5";route.forEach(function(p){ctx.beginPath();ctx.arc(p[0]*w,p[1]*h,2.5,0,6.3);ctx.fill();});ctx.restore();particles(5,tm);}
+
+  function draw(tm){ctx.globalAlpha=1;ctx.clearRect(0,0,w,h);if(S.compareActive){ctx.save();ctx.beginPath();ctx.rect(0,0,w*S.compare,h);ctx.clip();normalScene(0,tm);ctx.restore();ctx.save();ctx.beginPath();ctx.rect(w*S.compare,0,w*(1-S.compare),h);ctx.clip();overview(tm);ctx.restore();}else{normalScene(S.band,tm);var ov=smooth((S.progress-.88)/.12);if(ov>0){ctx.save();ctx.globalAlpha=ov;overview(tm);ctx.restore();}}ctx.globalAlpha=1;}
+
+  function frame(ts){raf=0;if(!visible)return;var dx=S.targetX-S.pointerX,dy=S.targetY-S.pointerY;if(!reduce){S.pointerX+=dx*.07;S.pointerY+=dy*.07;}else{S.pointerX=S.targetX;S.pointerY=S.targetY;}draw(ts);dirty=false;S.velocity*=.86;var moving=Math.abs(dx)+Math.abs(dy)>.003||Math.abs(S.velocity)>.015;if(moving)raf=requestAnimationFrame(frame);lastTs=ts;}
+  function setState(next){for(var k in next)S[k]=next[k];invalidate();}
+  function point(x,y){S.targetX=clamp(x,0,1);S.targetY=clamp(y,0,1);if(!reduce)invalidate();}
+  function init(){canvas=document.querySelector(".landscape");if(!canvas)return;ctx=canvas.getContext("2d");window.addEventListener("resize",resize,{passive:true});document.addEventListener("visibilitychange",function(){visible=!document.hidden;if(!visible&&raf){cancelAnimationFrame(raf);raf=0;}else invalidate();});resize();}
+  return{init:init,setState:setState,point:point,resize:resize};
+})();
+
+
+/* A single data-driven timeline controls copy, landscape, route, and instruments. */
+window.Climb=(function(){
+  var M=window.M27,nodes=[],chapters=[],centers=[],nodeMiles=[],raf=0,lastY=0,lastBand=-1,compare=.5,lookback=.72;
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches,els={},cache={};
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+  function mix(a,b,t){return a+(b-a)*t;}
+  function comma(n){return Math.round(n).toLocaleString("en-US");}
+  function setText(el,key,value){if(el&&cache[key]!==value){cache[key]=value;el.textContent=value;}}
+  function sampleProfile(m){var p=M.profile;if(m<=p[0][0])return p[0][1];for(var i=0;i<p.length-1;i++){if(m<=p[i+1][0]){var t=(m-p[i][0])/(p[i+1][0]-p[i][0]);return mix(p[i][1],p[i+1][1],t);}}return p[p.length-1][1];}
+  function measure(){centers=nodes.map(function(n){return n.offsetTop+n.offsetHeight*.5;});nodeMiles=nodes.map(function(n){return parseFloat(n.dataset.mile)||0;});requestRender();}
+  function mileAt(ref){if(!centers.length||ref<=centers[0])return nodeMiles[0]||0;for(var i=0;i<centers.length-1;i++){if(ref<=centers[i+1]){var t=(ref-centers[i])/(centers[i+1]-centers[i]);return mix(nodeMiles[i],nodeMiles[i+1],t);}}return nodeMiles[nodeMiles.length-1];}
+  function bandAt(ref){var bc=chapters.map(function(n){return n.offsetTop+n.offsetHeight*.5;});if(!bc.length||ref<=bc[0])return 0;for(var i=0;i<bc.length-1;i++){if(ref<=bc[i+1])return i+(ref-bc[i])/(bc[i+1]-bc[i]);}return 5;}
+  function activeAt(ref){var best=0,d=Infinity;chapters.forEach(function(n,i){var x=Math.abs((n.offsetTop+n.offsetHeight*.5)-ref);if(x<d){d=x;best=i;}});var summit=document.getElementById("summit");if(summit&&ref>summit.offsetTop+summit.offsetHeight*.18)return 6;return best;}
+  function nodeFocus(ref){nodes.forEach(function(n){var local=(ref-n.offsetTop)/Math.max(1,n.offsetHeight),focus=clamp(1-Math.abs(local-.5)*2.4,0,1);n.style.setProperty("--local",local.toFixed(3));n.style.setProperty("--focus",focus.toFixed(3));});}
+  function gradeAt(m){var a=sampleProfile(clamp(m-.06,0,28.8)),b=sampleProfile(clamp(m+.06,0,28.8));return b-a;}
+
+  function render(){raf=0;var y=window.pageYOffset||0,vh=window.innerHeight,ref=y+vh*.5,mile=clamp(mileAt(ref),0,28.8),p=mile/28.8,bf=bandAt(ref),elev=sampleProfile(mile),temp=M.baseTemperature-((elev-M.baseElevation)/1000)*M.lapseRate,grade=gradeAt(mile),band=activeAt(ref),velocity=clamp((y-lastY)/Math.max(vh,1),-.18,.18);lastY=y;
+    var departure=clamp(y/(vh*.68),0,1),chrome=clamp((y-vh*.16)/(vh*.34),0,1),ep=document.querySelector(".epilogue"),retire=ep?clamp((y-ep.offsetTop+vh*.25)/(vh*.45),0,1):0;chrome*=1-retire;
+    document.documentElement.style.setProperty("--departure",departure.toFixed(3));document.documentElement.style.setProperty("--chrome",chrome.toFixed(3));document.documentElement.style.setProperty("--progress",p.toFixed(4));
+    document.documentElement.style.setProperty("--journey-ui",(1-retire).toFixed(3));document.documentElement.classList.toggle("journey-retired",retire>.96);
+    nodeFocus(ref);
+    setText(els.mile,"mile",mile.toFixed(1));setText(els.elevation,"elev",comma(elev));setText(els.temp,"temp",Math.round(temp)+"°");
+    var down=grade<-.5;setText(els.grade,"grade",down?"▼":"▲");els.grade.classList.toggle("down",down);els.grade.classList.toggle("up",!down);
+    if(band!==lastBand){lastBand=band;var name=band===6?"Mount Lemmon summit":M.bands[band].name;setText(els.zone,"zone",name);setText(els.announcement,"announce",(down?"Descending through ":"Entering ")+name+", about "+comma(elev)+" feet.");document.querySelectorAll(".route-rail a").forEach(function(a,i){if(i===band)a.setAttribute("aria-current","step");else a.removeAttribute("aria-current");});}
+    var summit=document.getElementById("summit"),compareActive=!!(summit&&ref>summit.offsetTop&&ref<summit.offsetTop+summit.offsetHeight);document.documentElement.style.setProperty("--compare-active",compareActive?"1":"0");document.documentElement.style.setProperty("--compare",(compare*100).toFixed(1)+"%");
+    var sceneProgress=reduce?(band===6?1:[2.7,5.5,9.1,14,17,19.6][band]/28.8):p,sceneBand=reduce?Math.min(band,5):bf;
+    window.MountainScene.setState({progress:sceneProgress,band:sceneBand,lookback:lookback,compare:compare,compareActive:compareActive,velocity:reduce?0:velocity});
+  }
+  function requestRender(){if(!raf)raf=requestAnimationFrame(render);}
+  function bind(){window.addEventListener("scroll",requestRender,{passive:true});window.addEventListener("resize",measure,{passive:true});window.addEventListener("pointermove",function(e){if(!reduce)window.MountainScene.point(e.clientX/window.innerWidth,e.clientY/window.innerHeight);},{passive:true});
+    var look=document.getElementById("lookback-range"),lookVal=document.getElementById("lookback-value");look.addEventListener("input",function(){lookback=parseInt(look.value,10)/100;lookVal.textContent=lookback>.58?"Toward the desert":"Road ahead";requestRender();});
+    var comp=document.getElementById("compare-range");comp.addEventListener("input",function(){compare=parseInt(comp.value,10)/100;requestRender();});
+    document.querySelectorAll("details").forEach(function(d){d.addEventListener("toggle",measure);});
+    if("ResizeObserver" in window){var ro=new ResizeObserver(measure);ro.observe(document.getElementById("story"));}
+  }
+  function init(){nodes=Array.prototype.slice.call(document.querySelectorAll(".timeline-node[data-mile]"));chapters=Array.prototype.slice.call(document.querySelectorAll(".chapter[data-band]"));els={mile:document.getElementById("live-mile"),elevation:document.getElementById("live-elevation"),temp:document.getElementById("live-temp"),grade:document.getElementById("live-grade"),zone:document.getElementById("live-zone"),announcement:document.getElementById("live-announcement")};measure();bind();render();}
+  return{init:init};
+})();
+
+
+/* Slow, interruptible cruise control for the full ascent. */
+window.AutoJourney=(function(){
+  var button,label,status,raf=0,last=0,state="idle",reduce=false;
+  var SPEED_IN_VIEWPORTS_PER_SECOND=.105;
+  function targetY(){var summit=document.getElementById("summit");return summit?Math.max(0,summit.offsetTop+summit.offsetHeight*.5-window.innerHeight*.5):document.documentElement.scrollHeight-window.innerHeight;}
+  function setState(next,message){state=next;var playing=next==="playing";document.documentElement.classList.toggle("auto-driving",playing);button.setAttribute("aria-pressed",playing?"true":"false");button.setAttribute("aria-label",playing?"Pause the automatic ascent":"Begin or resume the slow automatic ascent to the summit");
+    if(next==="playing"){label.textContent="Pause ascent";status.textContent="Cruising · take the wheel anytime";}
+    else if(next==="paused"){label.textContent="Resume ascent";status.textContent=message||"Journey paused";}
+    else if(next==="complete"){label.textContent="Replay ascent";status.textContent="Summit reached · 9,157 ft";}
+    else{label.textContent=reduce?"Jump to summit":"Auto ascent";status.textContent=reduce?"Reduced-motion shortcut":"Cruise to the summit · about 100 sec";}}
+  function stop(message){if(raf)cancelAnimationFrame(raf);raf=0;last=0;if(state==="playing")setState("paused",message||"You took the wheel");}
+  function finish(){if(raf)cancelAnimationFrame(raf);raf=0;last=0;setState("complete");}
+  function frame(ts){if(state!=="playing")return;var target=targetY(),y=window.pageYOffset||0;if(y>=target-1){window.scrollTo(0,target);finish();return;}if(!last)last=ts;var dt=Math.min(50,ts-last)/1000;last=ts;var speed=window.innerHeight*SPEED_IN_VIEWPORTS_PER_SECOND;window.scrollTo(0,Math.min(target,y+speed*dt));var pct=target?Math.min(1,(window.pageYOffset||0)/target):1;document.documentElement.style.setProperty("--drive-deg",Math.round(pct*360)+"deg");raf=requestAnimationFrame(frame);}
+  function start(){var target=targetY();if(reduce){window.scrollTo({top:target,behavior:"auto"});setState("complete");return;}if(state==="complete"||(window.pageYOffset||0)>=target-4){window.scrollTo(0,0);document.documentElement.style.setProperty("--drive-deg","0deg");}setState("playing");last=0;raf=requestAnimationFrame(frame);}
+  function toggle(){state==="playing"?stop("Journey paused"):start();}
+  function syncProgress(){if(state==="playing")return;var target=targetY(),pct=target?clamp01((window.pageYOffset||0)/target):0;document.documentElement.style.setProperty("--drive-deg",Math.round(pct*360)+"deg");}
+  function clamp01(v){return Math.max(0,Math.min(1,v));}
+  function takeWheel(e){if(state!=="playing")return;if(e&&button.contains(e.target))return;stop("You took the wheel");}
+  function init(){button=document.getElementById("drive-control");label=document.getElementById("drive-label");status=document.getElementById("drive-status");if(!button)return;reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;setState("idle");syncProgress();button.addEventListener("click",toggle);window.addEventListener("scroll",syncProgress,{passive:true});window.addEventListener("wheel",takeWheel,{passive:true});window.addEventListener("touchstart",takeWheel,{passive:true});window.addEventListener("pointerdown",takeWheel,{passive:true});window.addEventListener("keydown",function(e){if(e.target===button)return;if(e.key==="Escape"||state==="playing")takeWheel(e);});document.addEventListener("visibilitychange",function(){if(document.hidden&&state==="playing")stop("Paused while you were away");});
+    var mq=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)");if(mq&&mq.addEventListener)mq.addEventListener("change",function(e){reduce=e.matches;if(state==="playing")stop("Motion preference changed");setState("idle");});}
+  return{init:init,stop:stop};
+})();
+
+
+(function(){
+  document.documentElement.classList.add("js");
+  function start(){
+    try {
+      window.MountainScene.init();
+      window.Climb.init();
+      if(window.AutoJourney) window.AutoJourney.init();
+    } catch (error) {
+      document.documentElement.classList.remove("js");
+      if(window.console) console.error("The climb fell back to its static edition.",error);
+    }
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start); else start();
+})();
+
+</script>
+</body>
+</html>
