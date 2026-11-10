@@ -1,26 +1,27 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { margin: 0; background: var(--night); color-scheme: dark; -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--night); color: var(--paper); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
-button, a { font: inherit; }
+body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--night); color: var(--paper); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.55; }
+button, a, input { font: inherit; }
 button { color: inherit; }
 a { color: inherit; }
 ::selection { color: var(--night); background: var(--sun); }
 
-.skip-link { position: fixed; z-index: 999; top: .75rem; left: .75rem; transform: translateY(-180%); padding: .7rem 1rem; color: var(--night); background: var(--paper); border-radius: 999px; font-weight: 800; transition: transform .2s var(--ease); }
+.skip-link { position: fixed; z-index: 999; top: .75rem; left: .75rem; transform: translateY(-180%); padding: .7rem 1rem; color: var(--night); background: var(--paper); border-radius: 999px; font-weight: 700; transition: transform .2s var(--ease); }
 .skip-link:focus { transform: translateY(0); }
 :focus-visible { outline: 2px solid var(--sun); outline-offset: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.eyebrow { margin: 0 0 1rem; color: var(--sun); font-family: var(--mono); font-size: .68rem; font-weight: 700; letter-spacing: .18em; line-height: 1.4; text-transform: uppercase; }
-.eyebrow::before { content: ""; display: inline-block; width: 2rem; height: 1px; margin: 0 .7rem .22rem 0; background: currentColor; }
+.eyebrow { margin: 0 0 1rem; color: var(--sun); font-family: var(--sans); font-size: .8125rem; font-weight: 700; letter-spacing: .14em; line-height: 1.4; text-transform: uppercase; }
+.eyebrow::before { content: ""; display: inline-block; width: 2rem; height: 1px; margin: 0 .7rem .25rem 0; background: currentColor; }
 
-html:not(.js) .stage, html:not(.js) .site-chrome, html:not(.js) .telemetry, html:not(.js) .route-rail, html:not(.js) .door, html:not(.js) .drive-control { display: none; }
-html:not(.js) .story { position: relative; }
-html:not(.js) .hero, html:not(.js) .chapter, html:not(.js) .dip-scene, html:not(.js) .summit, html:not(.js) .epilogue, html:not(.js) .studio { min-height: auto; padding: 6rem 6vw; background: linear-gradient(135deg, var(--fallback, #b7563f), #0e2130); }
-html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: none; }
+/* No JavaScript: the stacked static edition. */
+html:not(.js) .stage, html:not(.js) .site-chrome, html:not(.js) .ascent-bar { display: none; }
+html:not(.js) .hero, html:not(.js) .chapter, html:not(.js) .dip-scene, html:not(.js) .summit, html:not(.js) .epilogue { min-height: auto; padding: 6rem 6vw; background: linear-gradient(135deg, var(--fallback, #b7563f), #0e2130); }
+html:not(.js) .zone-copy, html:not(.js) .dip-inner, html:not(.js) .summit-inner { opacity: 1; }
+html:not(.js) .footer { padding-bottom: 2rem; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .scroll-cue i, .ambient-orbit { animation: none !important; }
-  .zone-copy, .species-callout, .landmark-note { opacity: 1 !important; transform: none !important; }
+  .scroll-cue i::after { animation: none !important; }
+  .zone-copy, .dip-inner, .summit-inner { opacity: 1 !important; }
 }

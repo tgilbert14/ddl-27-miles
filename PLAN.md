@@ -1,44 +1,44 @@
-# 27 Miles to Canada — The Switchback
+# 27 Miles to Canada: the real road
 
 An interactive Desert Data Labs scroll story about the Catalina Highway climb from Tucson's Sonoran Desert to Mount Lemmon's mixed-conifer summit. Scientific copy and guardrails live in [`docs/grounding-bible.md`](docs/grounding-bible.md).
 
 ## The idea
 
-The highway is the interface. The reader begins behind a nearly closed car-door seam, opens it with the first scroll, and then advances along a glowing road rendered in perspective. Terrain, camera, sun, vegetation, haze, and typography change together from hot desert to cool high forest.
+The reader drives the real road over the real mountain. A three.js view rides the General Hitchcock Highway as it is mapped in OpenStreetMap, over terrain from Mapzen Terrain Tiles at true vertical scale, and the copy sits over it on soft dark scrims.
 
-All visible state comes from one route timeline keyed to real narrative mileposts. That same timeline drives:
+All visible state comes from one timeline: scroll position gives a highway mile, and the mile gives
 
-- the road and ecological landscape;
-- the active life-zone title;
-- modeled elevation, temperature, mile, and road direction;
-- section focus and transitions;
-- the real 200-foot Summerhaven descent;
-- the summit pullback.
+- the camera's place on the road (it follows about 350 m behind and 90 m above, looking 600 m ahead, with critically damped smoothing);
+- the measured road elevation, interpolated from `data/route.json`;
+- the modelled temperature (100°F at 2,700 ft, minus 3.5°F per 1,000 ft);
+- the sky and haze colours of the community the road is in;
+- the handle on the profile bar.
 
-This avoids the common scrollytelling failure where the copy describes one location while the visual and instrument have already drifted into another.
+Scroll stays the single source of truth. The profile bar writes scroll through the inverse mapping (`Climb.yForMile`).
 
-## Signature moments
+## Moments
 
-1. **Open the door.** A dark seam parts to reveal desert light and a road entering the frame.
-2. **The last saguaro.** Desert vegetation passes the viewer in perspective and disappears below its elevation threshold.
-3. **The island closes around you.** Oak canopy enters from the edges, creating a physical sense of enclosure.
-4. **Look back from Windy Point.** An accessible range control turns the camera between the road ahead and the desert below.
-5. **The road goes down.** Elevation, modeled temperature, and direction all respond to the Summerhaven dip before the final climb.
-6. **Pull back.** Near the summit, the driving view transforms into a complete six-band mountain transect with the traveled switchback glowing across it.
-7. **Climate portal.** A draggable seam compares the 100°F desert start with the approximately 77°F summit while keeping both states explicitly labeled.
-8. **Auto Ascent.** A slow cruise control carries the visitor from their current position to the summit in roughly 100 seconds. Any wheel, touch, pointer, or keyboard input immediately hands control back to the visitor; reduced-motion mode turns it into a direct summit shortcut.
+1. **Mile 0.** The title sits over the view from where the highway begins.
+2. **Six communities.** The terrain is coloured by elevation into six bands (edges at 4,000 / 5,000 / 6,000 / 7,000 / 8,000 ft, blended over about 150 ft). Low-poly plants are placed by band along the road: no saguaro above 4,000 ft, no conifer below 6,000 ft.
+3. **Look back from Windy Point.** The range control really turns the camera, up to 180 degrees, toward the Tucson basin. Outside that chapter the look-back eases back to the road ahead.
+4. **The road goes down.** The profile shows the measured crest (8,180 ft, mile 20.4) and the dip (7,734 ft, mile 22.5) before Ski Run Road.
+5. **Pull back.** Entering the summit, the camera rises to a high oblique view from the south-west with the whole road drawn across the mountain.
+6. **Auto ascent.** The play button at the left of the profile bar cruises to the summit with 3 s pauses at each stop; any input hands control back; reduced motion turns it into a jump.
 
-## Visual language
+## One control
 
-- Condensed expedition typography rather than ornamental cards.
-- Copy placed directly into landscape negative space.
-- Coral desert heat transitioning to alpine cyan and midnight blue.
-- Fine contour geometry, tactile print grain, and a glowing yellow route.
-- Section-specific composition and pacing instead of six repeated layouts.
-- No photos, inline SVG illustrations, scrolljacking, autoplay, or speculative climate claims.
+A single bar fixed to the bottom: play/pause, readouts (mile; feet · measured; °F · modelled) and the measured elevation profile with seven stop ticks. It is backed by a real `<input type="range">` for keyboard and screen readers; pointer drags and taps on the profile scroll the page.
+
+## Data
+
+`tools/build_data.py` (run with `uv run --with numpy --with pillow python tools/build_data.py`) downloads and caches the tiles and OSM data and writes:
+
+- `data/height.webp`: 1024 px terrain sheet, height in metres = (R*256 + G) * step + lo, about 37 m per pixel;
+- `data/route.json`: the road sampled every 40 m with highway miles, elevation in feet and sheet positions;
+- `data/meta.json`: sheet bounds and scale, plus nearby named places.
 
 ## Build
 
-`build.js` concatenates the source fragments into `index.html` and `fragment.html`. The landscape is decorative Canvas; all claims, controls, and navigation remain semantic HTML. A single invalidated animation scheduler is used, rendering only while scrolling or interacting. The page includes reduced-motion, mobile, keyboard, and no-JavaScript fallbacks.
+`build.js` concatenates the `src/` fragments in manifest order into `index.html` and `fragment.html` as one `<script type="module">`. The scene imports `./vendor/three.module.min.js` (three r160) and fetches `data/` with relative URLs. If WebGL or the data fail, the page gets `no-gl`, keeps a CSS gradient sky and everything else works. The view renders only when something changes, caps device pixel ratio at 1.5 on phones and 2 on desktop, and pauses when the tab is hidden. Reduced-motion, phone, keyboard and no-JavaScript editions are kept.
 
-`og.png` is the bespoke share card. The output remains dependency-free and compatible with the project's static/GitHub Pages workflow.
+`og.png` is the share card.

@@ -1,0 +1,48 @@
+/* The one control: play button, readouts and the measured road profile, fixed to the bottom. */
+.ascent-bar { position: fixed; z-index: 45; right: 0; bottom: 0; left: 0; height: calc(var(--bar-h) + var(--safe-b)); display: grid; grid-template-columns: auto auto minmax(0,1fr); grid-template-rows: 1fr auto; grid-template-areas: "play metrics profile" "play status profile"; align-items: center; gap: .15rem 1.25rem; padding: .6rem 1.25rem calc(.6rem + var(--safe-b)); border-top: 1px solid var(--line); background: rgba(4,12,20,.88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+
+.drive-control { grid-area: play; display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; color: var(--paper); background: rgba(255,255,255,.06); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.drive-control:hover { color: var(--night); background: var(--sun); border-color: var(--sun); }
+.drive-icon { width: 0; height: 0; margin-left: 3px; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 11px solid currentColor; }
+.auto-driving .drive-control { border-color: var(--sun); }
+.auto-driving .drive-icon { width: 12px; height: 14px; margin: 0; border: 0; border-left: 4px solid currentColor; border-right: 4px solid currentColor; }
+
+.readouts { grid-area: metrics; display: flex; align-items: flex-end; gap: 1.25rem; align-self: end; }
+.metric { display: flex; flex-direction: column; min-width: 0; }
+.metric b { font-family: var(--display); font-size: 1.75rem; font-weight: 700; line-height: 1; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.metric span { margin-top: .2rem; color: var(--paper-3); font-size: .8125rem; line-height: 1.2; white-space: nowrap; }
+
+.bar-status { grid-area: status; align-self: start; margin: 0; overflow: hidden; color: var(--sun); font-size: .875rem; font-weight: 600; line-height: 1.3; white-space: nowrap; text-overflow: ellipsis; }
+.bar-status .drive-status { display: none; }
+.auto-status .bar-status .drive-status { display: inline; }
+.auto-status .bar-status .place { display: none; }
+
+.profile { grid-area: profile; position: relative; align-self: stretch; min-width: 0; border-radius: .5rem; cursor: pointer; touch-action: none; -webkit-user-select: none; user-select: none; }
+.profile.dragging { cursor: grabbing; }
+.profile.focused, .profile:has(.profile-range:focus-visible) { outline: 2px solid var(--sun); outline-offset: 3px; }
+.profile-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+.profile-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none; }
+.profile-stops { position: absolute; inset: 0; pointer-events: none; }
+.profile-stops button { position: absolute; top: 0; min-height: 1rem; padding: 0 .3rem; border: 0; border-radius: .25rem; color: var(--paper-2); background: transparent; font-size: .75rem; font-weight: 600; line-height: 1rem; white-space: nowrap; transform: translateX(-50%); pointer-events: auto; cursor: pointer; }
+.profile-stops button.low { top: 1rem; }
+.profile-stops button.end { transform: translateX(-90%); }
+.profile-stops button:hover, .profile-stops button[aria-current] { color: var(--sun); }
+
+.pf-band { opacity: .42; }
+.pf-driven .pf-band { opacity: 1; }
+.pf-line { fill: none; stroke: rgba(246,240,229,.6); stroke-width: 1.5; stroke-linejoin: round; }
+.pf-line-driven { fill: none; stroke: var(--sun); stroke-width: 2; stroke-linejoin: round; }
+.pf-tick { stroke: rgba(246,240,229,.55); stroke-width: 1; stroke-dasharray: 2 2; }
+.pf-handle-line { stroke: var(--sun); stroke-width: 1.5; }
+.pf-handle { fill: var(--sun); stroke: var(--night); stroke-width: 2; }
+
+@media (max-width: 760px) {
+  .ascent-bar { grid-template-columns: auto minmax(0,1fr); grid-template-rows: auto minmax(0,1fr); grid-template-areas: "play metrics" "profile profile"; gap: .2rem .75rem; padding: .35rem 1rem calc(.3rem + var(--safe-b)); }
+  .drive-control { width: 2.5rem; height: 2.5rem; }
+  .readouts { justify-content: space-between; gap: .5rem; align-self: center; }
+  .metric b { font-size: 1.125rem; }
+  .metric span { margin-top: .1rem; }
+  .metric span { font-size: .75rem; }
+  .bar-status { grid-area: profile; z-index: 1; align-self: start; justify-self: start; max-width: 60%; padding-left: .2rem; font-size: .75rem; pointer-events: none; }
+  .profile-stops { display: none; }
+}
