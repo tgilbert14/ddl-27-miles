@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>27 Miles to Canada · Climb Mount Lemmon</title>
-<meta name="description" content="Climb 6,457 feet through six living worlds on Arizona's Catalina Highway. A cinematic field ascent by Desert Data Labs.">
+<meta name="description" content="Climb 6,288 feet through six biotic communities on Arizona's Catalina Highway, on the real road and the real terrain.">
 <meta property="og:title" content="27 Miles to Canada">
-<meta property="og:description" content="Six life zones. 6,457 vertical feet. One astonishing desert drive.">
+<meta property="og:description" content="Six biotic communities. 28 measured miles. One desert drive.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tgilbert14.github.io/ddl-27-miles/">
 <meta property="og:image" content="https://tgilbert14.github.io/ddl-27-miles/og.png">
@@ -16,303 +16,295 @@
 <meta name="twitter:image" content="https://tgilbert14.github.io/ddl-27-miles/og.png">
 <meta name="theme-color" content="#0e1b2a">
 <link rel="canonical" href="https://tgilbert14.github.io/ddl-27-miles/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="modulepreload" href="./vendor/three.module.min.js">
+<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 <style>
-/* 27 MILES TO CANADA — visual tokens */
-@property --progress { syntax: "<number>"; inherits: true; initial-value: 0; }
-
+/* 27 MILES TO CANADA · visual tokens */
 :root {
   --paper: #f6f0e5;
-  --paper-dim: #d7d9d2;
+  --paper-2: rgba(246, 240, 229, 0.86);
+  --paper-3: rgba(246, 240, 229, 0.74);
   --ink: #102033;
   --night: #07131f;
+  --scrim: rgba(5, 12, 20, 0.66);
   --line: rgba(246, 240, 229, 0.24);
-  --glass: rgba(7, 19, 31, 0.54);
-  --glass-heavy: rgba(7, 19, 31, 0.78);
   --ember: #ff8a5b;
   --sun: #ffd07a;
   --ice: #bfe1ff;
-  --moss: #8fc8a4;
-  --display: Bahnschrift, "Aptos Display", "Arial Narrow", system-ui, sans-serif;
-  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --sans: "Aptos", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
-  --mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  --display: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+  --sans: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
+  --serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
   --ease: cubic-bezier(.16, 1, .3, 1);
   --header-h: 4rem;
+  --bar-h: 7.5rem;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+@media (max-width: 760px) {
+  :root { --header-h: 3.5rem; --bar-h: 6.25rem; }
 }
 
 
 *, *::before, *::after { box-sizing: border-box; }
 html { margin: 0; background: var(--night); color-scheme: dark; -webkit-text-size-adjust: 100%; }
-body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--night); color: var(--paper); font-family: var(--sans); font-size: 1rem; line-height: 1.55; }
-button, a { font: inherit; }
+body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--night); color: var(--paper); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.55; }
+button, a, input { font: inherit; }
 button { color: inherit; }
 a { color: inherit; }
 ::selection { color: var(--night); background: var(--sun); }
 
-.skip-link { position: fixed; z-index: 999; top: .75rem; left: .75rem; transform: translateY(-180%); padding: .7rem 1rem; color: var(--night); background: var(--paper); border-radius: 999px; font-weight: 800; transition: transform .2s var(--ease); }
+.skip-link { position: fixed; z-index: 999; top: .75rem; left: .75rem; transform: translateY(-180%); padding: .7rem 1rem; color: var(--night); background: var(--paper); border-radius: 999px; font-weight: 700; transition: transform .2s var(--ease); }
 .skip-link:focus { transform: translateY(0); }
 :focus-visible { outline: 2px solid var(--sun); outline-offset: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.eyebrow { margin: 0 0 1rem; color: var(--sun); font-family: var(--mono); font-size: .68rem; font-weight: 700; letter-spacing: .18em; line-height: 1.4; text-transform: uppercase; }
-.eyebrow::before { content: ""; display: inline-block; width: 2rem; height: 1px; margin: 0 .7rem .22rem 0; background: currentColor; }
+.eyebrow { margin: 0 0 1rem; color: var(--sun); font-family: var(--sans); font-size: .8125rem; font-weight: 700; letter-spacing: .14em; line-height: 1.4; text-transform: uppercase; }
+.eyebrow::before { content: ""; display: inline-block; width: 2rem; height: 1px; margin: 0 .7rem .25rem 0; background: currentColor; }
 
-html:not(.js) .stage, html:not(.js) .site-chrome, html:not(.js) .telemetry, html:not(.js) .route-rail, html:not(.js) .door, html:not(.js) .drive-control { display: none; }
-html:not(.js) .story { position: relative; }
-html:not(.js) .hero, html:not(.js) .chapter, html:not(.js) .dip-scene, html:not(.js) .summit, html:not(.js) .epilogue, html:not(.js) .studio { min-height: auto; padding: 6rem 6vw; background: linear-gradient(135deg, var(--fallback, #b7563f), #0e2130); }
-html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: none; }
+/* No JavaScript: the stacked static edition. */
+html:not(.js) .stage, html:not(.js) .site-chrome, html:not(.js) .ascent-bar { display: none; }
+html:not(.js) .hero, html:not(.js) .chapter, html:not(.js) .dip-scene, html:not(.js) .summit, html:not(.js) .epilogue { min-height: auto; padding: 6rem 6vw; background: linear-gradient(135deg, var(--fallback, #b7563f), #0e2130); }
+html:not(.js) .zone-copy, html:not(.js) .dip-inner, html:not(.js) .summit-inner { opacity: 1; }
+html:not(.js) .footer { padding-bottom: 2rem; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .scroll-cue i, .ambient-orbit { animation: none !important; }
-  .zone-copy, .species-callout, .landmark-note { opacity: 1 !important; transform: none !important; }
+  .scroll-cue i::after { animation: none !important; }
+  .zone-copy, .dip-inner, .summit-inner { opacity: 1 !important; }
 }
 
 
-/* The road is the interface. */
-.stage { position: fixed; z-index: 0; inset: 0; overflow: hidden; background: #c95c44; pointer-events: none; }
-.landscape { width: 100%; height: 100%; }
-.stage::after { content: ""; position: absolute; inset: 0; opacity: .16; mix-blend-mode: soft-light; background: repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, rgba(0,0,0,.06) 0 1px, transparent 1px 5px), radial-gradient(circle, rgba(255,255,255,.14) 0 1px, transparent 1.5px); background-size: auto, auto, 8px 8px; }
-.stage-vignette { position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, transparent 0 34%, rgba(3,11,18,.12) 67%, rgba(3,11,18,.58) 130%); }
+/* The 3D view sits behind everything. Without WebGL it is just this sky gradient. */
+.stage { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; background: linear-gradient(to bottom, var(--sky-top, #f7a260), var(--sky-bottom, #d15d47) 62%, #5f292d); transition: background-color .4s; }
+/* no fade-in: the canvas is clear until its first frame, so the sky gradient behind it shows through */
+.landscape { display: block; width: 100%; height: 100%; }
+.no-gl .landscape { display: none; }
+/* soft darkening top and bottom so the header and bar always read */
+.stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(4,12,20,.42), transparent 18%, transparent 72%, rgba(4,12,20,.5)); }
 
-/* The opening car-door seam creates the first scroll act. */
-.door { position: fixed; z-index: 2; inset: 0; pointer-events: none; overflow: hidden; }
-.door::before, .door::after { content: ""; position: absolute; top: 0; bottom: 0; width: 51%; background: linear-gradient(100deg, #030a10, #11191f 76%, #03070a); box-shadow: 0 0 4rem rgba(0,0,0,.85); transition: transform .1s linear; }
-.door::before { left: 0; transform: translate3d(calc(var(--departure, 0) * -102%),0,0); }
-.door::after { right: 0; transform: translate3d(calc(var(--departure, 0) * 102%),0,0) scaleX(-1); }
-.door-seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: linear-gradient(transparent 4%, rgba(255,199,112,.9) 35%, rgba(255,255,255,.7) 70%, transparent); box-shadow: 0 0 2rem #ff9f69; opacity: calc(1 - var(--departure, 0)); }
-
-.site-chrome { position: fixed; z-index: 40; top: 0; right: 0; left: 0; height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1.25rem; opacity: var(--chrome, 0); transform: translateY(calc((1 - var(--chrome, 0)) * -1rem)); transition: opacity .25s, transform .25s; pointer-events: none; }
-.site-chrome::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(rgba(4,12,20,.62), transparent); }
+.site-chrome { position: fixed; z-index: 40; top: 0; right: 0; left: 0; height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1.25rem; pointer-events: none; }
 .brand-lockup, .chapter-live { pointer-events: auto; }
 .brand-lockup { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; }
-.brand-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid rgba(255,255,255,.6); border-radius: 50%; font-family: var(--mono); font-size: .6rem; font-weight: 800; }
-.brand-word { font-family: var(--mono); font-size: .61rem; font-weight: 700; letter-spacing: .16em; line-height: 1.25; text-transform: uppercase; }
-.chapter-live { display: flex; align-items: center; gap: .7rem; }
-.chapter-live span { color: rgba(246,240,229,.58); font-family: var(--mono); font-size: .58rem; letter-spacing: .13em; text-transform: uppercase; }
-.chapter-live b { font-size: .72rem; font-weight: 700; }
-
-.global-progress { position: fixed; z-index: 50; top: 0; left: 0; width: 100%; height: 3px; background: rgba(255,255,255,.13); transform-origin: left; }
-.global-progress i { display: block; width: 100%; height: 100%; background: linear-gradient(90deg,#ff8059,#ffd178,#c5e5ff); box-shadow: 0 0 1rem rgba(255,203,121,.45); transform: scaleX(var(--progress,0)); transform-origin: left; }
-
-/* A compact model instrument, not a floating dashboard. */
-.telemetry { position: fixed; z-index: 45; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: auto repeat(4,minmax(6rem,1fr)) auto; align-items: stretch; min-height: 3.6rem; border-top: 1px solid rgba(255,255,255,.28); background: rgba(4,12,20,.78); opacity: var(--chrome,0); backdrop-filter: blur(18px) saturate(1.3); transform: translateY(calc((1 - var(--chrome,0)) * 100%)); transition: opacity .25s, transform .25s; }
-.telemetry-label { display: flex; align-items: center; padding: 0 1.15rem; color: rgba(246,240,229,.56); font-family: var(--mono); font-size: .54rem; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
-.telemetry-label::before { content: ""; width: .44rem; height: .44rem; margin-right: .55rem; border-radius: 50%; background: var(--sun); box-shadow: 0 0 .8rem var(--sun); }
-.telemetry .metric { display: flex; align-items: baseline; justify-content: center; gap: .42rem; padding: .65rem .8rem; border-left: 1px solid rgba(255,255,255,.14); }
-.telemetry .metric b { font-family: var(--display); font-size: 1.34rem; font-stretch: condensed; font-variant-numeric: tabular-nums; line-height: 1; }
-.telemetry .metric span { color: rgba(246,240,229,.5); font-family: var(--mono); font-size: .51rem; letter-spacing: .1em; text-transform: uppercase; }
-.grade.up { color: var(--sun); }
-.grade.down { color: var(--ice); }
-.model-note { display: flex; align-items: center; padding: 0 1rem; color: rgba(246,240,229,.42); font-family: var(--mono); font-size: .49rem; letter-spacing: .08em; text-transform: uppercase; }
-
-/* Miniature switchback navigator. */
-.route-rail { position: fixed; z-index: 42; top: 50%; right: 1rem; width: 3rem; height: 22rem; opacity: var(--chrome,0); transform: translateY(-52%); }
-.route-rail::before { content: ""; position: absolute; inset: 1rem .85rem; opacity: .55; background: linear-gradient(142deg, transparent 0 8%, rgba(255,255,255,.45) 8.5% 9%, transparent 9.5% 24%, rgba(255,255,255,.45) 24.5% 25%, transparent 25.5% 40%, rgba(255,255,255,.45) 40.5% 41%, transparent 41.5% 56%, rgba(255,255,255,.45) 56.5% 57%, transparent 57.5% 72%, rgba(255,255,255,.45) 72.5% 73%, transparent 73.5%); }
-.route-rail a { position: absolute; left: var(--x); top: var(--y); display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; text-decoration: none; }
-.route-rail a::before { content: ""; width: .48rem; height: .48rem; border: 1px solid rgba(255,255,255,.72); border-radius: 50%; background: rgba(4,12,20,.55); transition: transform .2s var(--ease),background .2s; }
-.route-rail a::after { content: attr(data-label); position: absolute; top: 50%; right: 2.55rem; width: max-content; max-width: 11rem; padding: .32rem .5rem; border: 1px solid rgba(255,255,255,.18); border-radius: .35rem; color: var(--paper); background: rgba(4,12,20,.82); font-family: var(--mono); font-size: .54rem; letter-spacing: .09em; text-transform: uppercase; opacity: 0; transform: translate(.4rem,-50%); transition: opacity .2s,transform .2s; }
-.route-rail a:hover::after, .route-rail a:focus-visible::after { opacity: 1; transform: translate(0,-50%); }
-.route-rail a[aria-current="step"]::before { background: var(--paper); transform: scale(1.6); box-shadow: 0 0 1rem rgba(255,255,255,.65); }
-
-.compare-seam { position: fixed; z-index: 6; top: 0; bottom: 0; left: var(--compare,50%); width: 1px; background: rgba(255,255,255,.85); box-shadow: 0 0 2rem rgba(255,255,255,.5); opacity: var(--compare-active,0); pointer-events: none; }
-.compare-seam::before { content: "DESERT FLOOR"; position: absolute; top: 5.5rem; right: .8rem; width: max-content; color: var(--sun); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .16em; }
-.compare-seam::after { content: "SUMMIT"; position: absolute; top: 5.5rem; left: .8rem; color: var(--ice); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .16em; }
-
-/* Auto Ascent: a tiny expedition cruise control, deliberately separate from telemetry. */
-.drive-control { position: fixed; z-index: 48; right: 1rem; bottom: 4.55rem; display: flex; align-items: center; gap: .72rem; min-height: 3.55rem; padding: .42rem .85rem .42rem .45rem; border: 1px solid rgba(255,255,255,.32); border-radius: 999px; color: var(--paper); background: rgba(4,12,20,.76); box-shadow: 0 1rem 3rem rgba(0,0,0,.22); opacity: var(--journey-ui,1); cursor: pointer; backdrop-filter: blur(18px) saturate(1.3); transition: color .25s,background .25s,border-color .25s,opacity .25s,transform .25s; }
-.drive-control:hover { color: var(--night); background: var(--paper); border-color: var(--paper); transform: translateY(-2px); }
-.drive-control:active { transform: translateY(0) scale(.98); }
-.drive-dial { position: relative; display: grid; place-items: center; width: 2.55rem; height: 2.55rem; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(var(--sun) 0 var(--drive-deg,0deg),rgba(255,255,255,.16) var(--drive-deg,0deg) 360deg); }
-.drive-dial::before { content:""; position:absolute; inset:3px; border-radius:50%; background:#0b1721; transition:background .25s; }
-.drive-control:hover .drive-dial::before { background:var(--paper); }
-.drive-dial i { position:relative; z-index:1; width:0; height:0; margin-left:3px; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:8px solid currentColor; }
-.drive-copy { display:block; min-width:10.5rem; text-align:left; }
-.drive-copy b { display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.13em; line-height:1.25; text-transform:uppercase; }
-.drive-copy small { display:block; margin-top:.16rem; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.47rem; letter-spacing:.05em; white-space:nowrap; }
-.drive-control:hover .drive-copy small { color:rgba(7,19,31,.62); }
-.auto-driving .drive-control { border-color:rgba(255,208,122,.62); box-shadow:0 0 0 .3rem rgba(255,208,122,.07),0 1rem 3rem rgba(0,0,0,.24); }
-.auto-driving .drive-dial { animation:drive-pulse 2.2s ease-in-out infinite; }
-.auto-driving .drive-dial i { width:10px; height:11px; margin:0; border:0; border-left:3px solid currentColor; border-right:3px solid currentColor; }
-.journey-retired .drive-control { pointer-events:none; }
-@keyframes drive-pulse { 50% { box-shadow:0 0 1.2rem rgba(255,208,122,.5); } }
+.brand-mark { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; font-size: .8125rem; font-weight: 700; background: rgba(4,12,20,.4); }
+.brand-word { font-size: .75rem; font-weight: 700; letter-spacing: .12em; line-height: 1.25; text-transform: uppercase; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+.chapter-live { display: flex; align-items: center; gap: .6rem; padding: .3rem .75rem; border-radius: 999px; background: rgba(4,12,20,.55); }
+.chapter-live span { color: var(--paper-3); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+.chapter-live b { font-size: .875rem; font-weight: 600; }
 
 @media (max-width: 760px) {
-  :root { --header-h: 3.6rem; }
-  .site-chrome { padding-inline: .8rem; }
+  .site-chrome { padding-inline: .75rem; }
   .brand-word, .chapter-live span { display: none; }
-  .route-rail { display: none; }
-  .telemetry { grid-template-columns: repeat(3,1fr); bottom: env(safe-area-inset-bottom,0); min-height: 3.8rem; }
-  .telemetry-label,.model-note,.telemetry .metric.gain { display: none; }
-  .telemetry .metric { padding: .55rem .3rem; border-left: 1px solid rgba(255,255,255,.12); }
-  .telemetry .metric b { font-size: 1.08rem; }
-  .telemetry .metric span { display: block; font-size: .43rem; }
-  .compare-seam::before,.compare-seam::after { top: 4.6rem; font-size: .47rem; }
-  .drive-control { right:.65rem; bottom:calc(4.45rem + env(safe-area-inset-bottom,0)); min-height:3.1rem; padding:.32rem .65rem .32rem .35rem; }
-  .drive-dial { width:2.3rem; height:2.3rem; }
-  .drive-copy { min-width:0; }
-  .drive-copy small { display:none; }
-}
-
-@media (max-height: 540px) and (orientation: landscape) {
-  .telemetry { min-height: 2.8rem; }
-  .telemetry .metric { padding-block: .35rem; }
-  .route-rail { display: none; }
+  .chapter-live b { font-size: .8125rem; }
 }
 
 
 .story { position: relative; z-index: 10; }
-.hero,.chapter,.dip-scene,.summit,.epilogue,.studio { position: relative; min-height: 112svh; padding: max(10vh,6rem) max(7vw,5rem) max(16vh,8rem); }
+.hero, .chapter, .dip-scene, .summit, .epilogue { position: relative; min-height: 112svh; padding: max(10vh,6rem) max(6vw,4rem) max(14vh,8rem); }
 
-/* Opening frame: title sits on the closed car doors, then the world opens behind it. */
-.hero { display: grid; align-items: center; min-height: 115svh; padding-top: 6rem; }
-.hero-grid { display: grid; grid-template-columns: minmax(15rem,.9fr) minmax(18rem,1.1fr); align-items: center; gap: clamp(1.5rem,5vw,7rem); width: min(92rem,100%); margin: 0 auto; }
-.hero-number { margin-left: -.06em; color: transparent; font-family: var(--display); font-size: clamp(15rem,39vw,38rem); font-weight: 900; font-stretch: condensed; letter-spacing: -.13em; line-height: .64; -webkit-text-stroke: 2px rgba(246,240,229,.68); filter: drop-shadow(0 1.5rem 3rem rgba(0,0,0,.35)); }
-.hero-title { position: relative; z-index: 2; }
-.hero-title .eyebrow { color: var(--sun); }
-.hero h1 { margin: 0; font-family: var(--display); font-size: clamp(4.4rem,10vw,10rem); font-weight: 820; font-stretch: condensed; letter-spacing: -.075em; line-height: .72; text-transform: uppercase; }
-.hero h1 em { display: block; margin-top: .24em; color: var(--sun); font-family: var(--serif); font-size: .56em; font-weight: 400; letter-spacing: -.06em; line-height: .8; text-transform: none; }
-.hero-lede { max-width: 36rem; margin: 2rem 0 0; color: rgba(246,240,229,.85); font-size: clamp(1rem,1.25vw,1.25rem); }
-.hero-baseline { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; max-width: 31rem; margin-top: 2rem; background: rgba(255,255,255,.2); }
-.hero-baseline div { padding: .7rem .8rem; background: rgba(4,12,20,.64); }
-.hero-baseline span { display: block; color: rgba(246,240,229,.5); font-family: var(--mono); font-size: .49rem; letter-spacing: .1em; text-transform: uppercase; }
-.hero-baseline b { display: block; margin-top: .2rem; font-family: var(--display); font-size: 1.2rem; }
-.scroll-cue { display: inline-flex; align-items: center; gap: .75rem; margin-top: 2.3rem; font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-decoration: none; text-transform: uppercase; }
-.scroll-cue i { position: relative; width: 2.7rem; height: 2.7rem; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; }
-.scroll-cue i::after { content:""; position:absolute; left:50%; top:.72rem; width:.45rem; height:.45rem; border-right:1px solid white; border-bottom:1px solid white; transform:translateX(-50%) rotate(45deg); animation: cue 1.8s ease-in-out infinite; }
-@keyframes cue { 50% { transform: translate(-50%,.55rem) rotate(45deg); } }
+/* Copy always sits on a soft dark scrim (the ::before panels below) so it reads over any part of the 3D view. */
+
+/* Opening frame: the title over the view from mile 0. */
+.hero { display: grid; align-items: center; min-height: 112svh; padding-top: 6rem; }
+.hero-grid { display: grid; grid-template-columns: minmax(12rem,.8fr) minmax(18rem,1.2fr); align-items: center; gap: clamp(1.5rem,4vw,5rem); width: min(92rem,100%); margin: 0 auto; }
+.hero-number { margin-left: -.06em; color: transparent; font-family: var(--display); font-size: clamp(13rem,34vw,34rem); font-weight: 700; letter-spacing: -.09em; line-height: .7; -webkit-text-stroke: 2px rgba(246,240,229,.75); filter: drop-shadow(0 1rem 2rem rgba(0,0,0,.4)); }
+.hero-title { position: relative; isolation: isolate; padding: 2rem 2.25rem; }
+.hero-title::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: 1.5rem; background: var(--scrim); box-shadow: 0 0 3rem 1.5rem var(--scrim); }
+.hero h1 { margin: 0; font-family: var(--display); font-size: clamp(4rem,8.5vw,8.5rem); font-weight: 700; letter-spacing: -.045em; line-height: .84; text-transform: uppercase; }
+.hero h1 em { display: block; margin-top: .14em; color: var(--sun); font-family: var(--serif); font-size: .56em; font-style: italic; font-weight: 400; letter-spacing: -.02em; line-height: .95; text-transform: none; }
+.hero-lede { max-width: 36rem; margin: 1.75rem 0 0; color: var(--paper-2); font-size: clamp(1.0625rem,1.3vw,1.25rem); }
+.hero-baseline { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; max-width: 31rem; margin-top: 1.75rem; background: rgba(255,255,255,.22); }
+.hero-baseline div { padding: .7rem .8rem; background: rgba(4,12,20,.72); }
+.hero-baseline span { display: block; color: var(--paper-3); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+.hero-baseline b { display: block; margin-top: .15rem; font-family: var(--display); font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.scroll-cue { display: inline-flex; align-items: center; gap: .75rem; margin-top: 2rem; font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-decoration: none; text-transform: uppercase; }
+.scroll-cue i { position: relative; width: 2.75rem; height: 2.75rem; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; }
+.scroll-cue i::after { content: ""; position: absolute; left: 50%; top: .75rem; width: .45rem; height: .45rem; border-right: 1px solid white; border-bottom: 1px solid white; transform: translateX(-50%) rotate(45deg); animation: cue 1.8s ease-in-out infinite; }
+@keyframes cue { 50% { transform: translate(-50%,.5rem) rotate(45deg); } }
 .title-asterisk { color: var(--sun); }
-.hero-footnote { position: absolute; right: max(7vw,5rem); bottom: 7rem; color: rgba(246,240,229,.52); font-family: var(--mono); font-size: .53rem; letter-spacing: .09em; text-transform: uppercase; }
+.hero-footnote { position: absolute; right: max(6vw,4rem); bottom: calc(var(--bar-h) + 2rem); max-width: 26rem; margin: 0; padding: .4rem .7rem; border-radius: .5rem; color: var(--paper-2); background: rgba(4,12,20,.6); font-size: .75rem; letter-spacing: .06em; text-align: right; text-transform: uppercase; }
 
-/* Chapters are annotations in a landscape, not cards. */
-.chapter { display: grid; align-items: center; min-height: 116svh; overflow: clip; }
-.chapter.panorama { min-height: 154svh; }
-.chapter.deep { min-height: 132svh; }
-.zone-copy { position: relative; width: min(62rem,82vw); opacity: calc(.12 + var(--focus,0) * .88); transform: translate3d(calc((1 - var(--focus,0)) * var(--drift, -5rem)), calc((.5 - var(--local,.5)) * 5rem),0); filter: blur(calc((1 - var(--focus,0)) * 5px)); text-shadow: 0 .2rem 1.5rem rgba(0,0,0,.35); }
-.chapter.align-right .zone-copy { justify-self: end; --drift: 5rem; text-align: right; }
-.chapter.align-center .zone-copy { justify-self: center; text-align: center; }
-.zone-index { display: flex; align-items: center; gap: .8rem; color: var(--zone); font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+/* Chapters: annotations over the landscape, alternating sides so the road stays in view. */
+.chapter { display: grid; align-items: center; min-height: 116svh; }
+.chapter.panorama { min-height: 150svh; }
+.chapter.deep { min-height: 128svh; }
+.zone-copy { width: min(40rem,100%); padding: 2rem 2.25rem; opacity: calc(.3 + var(--focus,1) * .7); transition: opacity .15s linear; }
+.zone-copy { position: relative; isolation: isolate; }
+.zone-copy::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: 1.5rem; background: var(--scrim); box-shadow: 0 0 3rem 1.5rem var(--scrim); }
+.chapter.align-right .zone-copy { justify-self: end; text-align: right; }
+.zone-index { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .8rem; margin: 0; color: var(--zone); font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .align-right .zone-index { justify-content: flex-end; }
-.align-center .zone-index { justify-content: center; }
-.zone-index b { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid currentColor; border-radius: 50%; font-size: .63rem; }
-.zone-copy h2 { max-width: 10ch; margin: 1rem 0 0; font-family: var(--display); font-size: clamp(4.5rem,11vw,11rem); font-weight: 790; font-stretch: condensed; letter-spacing: -.075em; line-height: .72; text-transform: uppercase; text-wrap: balance; }
+.zone-index b { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid currentColor; border-radius: 50%; font-size: .8125rem; }
+.zone-index .zone-range { flex-basis: 100%; color: var(--paper-3); font-weight: 600; letter-spacing: .08em; }
+.zone-copy h2 { max-width: 10ch; margin: 1rem 0 0; font-family: var(--display); font-size: clamp(3.5rem,8vw,8rem); font-weight: 700; letter-spacing: -.045em; line-height: .86; text-transform: uppercase; text-wrap: balance; }
 .align-right .zone-copy h2 { margin-left: auto; }
-.align-center .zone-copy h2 { margin-inline: auto; }
-.zone-copy h2 em { display: block; color: var(--zone); font-family: var(--serif); font-size: .43em; font-weight: 400; letter-spacing: -.045em; line-height: .9; text-transform: none; }
-.sensory { max-width: 35rem; margin: 1.65rem 0 0; color: rgba(246,240,229,.9); font-size: clamp(1rem,1.25vw,1.25rem); line-height: 1.55; }
+.zone-copy h2 em { display: block; margin-top: .1em; color: var(--zone); font-family: var(--serif); font-size: .45em; font-style: italic; font-weight: 400; letter-spacing: -.015em; line-height: 1; text-transform: none; }
+.sensory { max-width: 34rem; margin: 1.5rem 0 0; color: var(--paper-2); font-size: clamp(1.0625rem,1.3vw,1.25rem); line-height: 1.55; }
 .align-right .sensory { margin-left: auto; }
-.align-center .sensory { margin-inline: auto; }
-.threshold { display: inline-flex; align-items: center; gap: .7rem; margin-top: 1.25rem; color: var(--zone); font-family: var(--mono); font-size: .58rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
-.threshold::before { content:""; width: 3rem; height: 1px; background: currentColor; }
+.species { margin: .9rem 0 0; color: var(--paper-3); font-size: .9375rem; letter-spacing: .04em; }
 
-.landmark-note { position: absolute; top: 20%; right: 7vw; width: 13rem; padding-left: 1rem; border-left: 1px solid var(--zone); opacity: calc(var(--focus,0) * .85); transform: translateY(calc((1 - var(--focus,0)) * 3rem)); }
-.align-right .landmark-note { right: auto; left: 7vw; text-align: left; }
-.landmark-note span { display:block; color:var(--zone); font-family:var(--mono); font-size:.52rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
-.landmark-note b { display:block; margin-top:.35rem; font-family:var(--serif); font-size:1.05rem; font-weight:400; }
-.landmark-note small { display:block; margin-top:.35rem; color:rgba(246,240,229,.56); font-size:.68rem; }
-
-.species-callout { position: absolute; left: var(--x); top: var(--y); display: flex; align-items: center; gap: .55rem; color: rgba(246,240,229,.78); font-family: var(--mono); font-size: .49rem; letter-spacing: .1em; text-transform: uppercase; opacity: calc(var(--focus,0) * .9); transform: translateY(calc((1 - var(--focus,0)) * 1.5rem)); pointer-events: none; }
-.species-callout::before { content:""; width:1.8rem; height:1px; background:var(--zone); box-shadow:0 0 .5rem var(--zone); }
-
-.fact-drawer { width: min(30rem,100%); margin-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.28); }
+.fact-drawer { width: min(30rem,100%); margin-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.3); }
 .align-right .fact-drawer { margin-left: auto; text-align: left; }
-.align-center .fact-drawer { margin-inline: auto; text-align: left; }
-.fact-drawer summary { min-height: 2.75rem; display: flex; align-items: center; color: rgba(246,240,229,.67); font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
-.fact-drawer summary::marker { color:var(--zone); }
-.fact-drawer p { margin: 0 0 1rem; color: rgba(246,240,229,.72); font-family: var(--serif); font-size: .95rem; }
+.fact-drawer summary { min-height: 2.75rem; display: flex; align-items: center; color: var(--paper-2); font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+.fact-drawer summary::marker { color: var(--zone); }
+.fact-drawer p { margin: 0 0 1rem; color: var(--paper-2); font-family: var(--serif); font-size: 1rem; }
 
-/* Windy Point gets a real look-back control. */
-.lookback { width: min(30rem,100%); margin-top: 1.7rem; padding: 1rem; border: 1px solid rgba(255,255,255,.24); background: rgba(4,12,20,.48); text-align: left; backdrop-filter: blur(12px); }
-.lookback label { display:flex; justify-content:space-between; gap:1rem; color:var(--zone); font-family:var(--mono); font-size:.54rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
-.lookback input,.compare-control input { width:100%; min-height:2rem; margin:.65rem 0 .2rem; accent-color:var(--sun); cursor:ew-resize; }
-.lookback-scale { display:flex; justify-content:space-between; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.48rem; letter-spacing:.08em; text-transform:uppercase; }
+/* Windy Point: the look-back control turns the real camera. */
+.lookback { width: min(30rem,100%); margin-top: 1.5rem; padding: 1rem; border: 1px solid rgba(255,255,255,.26); border-radius: .75rem; background: rgba(4,12,20,.5); text-align: left; }
+.lookback label { display: flex; justify-content: space-between; gap: 1rem; color: var(--zone); font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.lookback input { width: 100%; min-height: 2.75rem; margin: .4rem 0 .1rem; accent-color: var(--sun); cursor: ew-resize; }
+.lookback-scale { display: flex; justify-content: space-between; color: var(--paper-3); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
 
-.dip-scene { display:grid; place-items:center; min-height:105svh; text-align:center; }
-.dip-inner { width:min(54rem,90vw); opacity: calc(.15 + var(--focus,0) * .85); transform: translateY(calc((.5 - var(--local,.5)) * 10rem)); }
-.dip-arrow { display:block; color:var(--ice); font-family:var(--display); font-size:clamp(8rem,22vw,20rem); line-height:.55; transform:rotate(180deg); }
-.dip-scene h2 { margin:1.5rem 0 0; font-family:var(--display); font-size:clamp(4rem,9vw,9rem); font-weight:800; letter-spacing:-.07em; line-height:.75; text-transform:uppercase; }
-.dip-scene p { max-width:40rem; margin:1.4rem auto 0; font-family:var(--serif); font-size:clamp(1.15rem,2vw,1.6rem); }
+.dip-scene { display: grid; place-items: center; min-height: 105svh; text-align: center; }
+.dip-inner { position: relative; isolation: isolate; width: min(48rem,100%); padding: 2rem 2.25rem; opacity: calc(.3 + var(--focus,1) * .7); }
+.dip-inner::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: 1.5rem; background: var(--scrim); box-shadow: 0 0 3rem 1.5rem var(--scrim); }
+.dip-arrow { display: block; color: var(--ice); font-family: var(--display); font-size: clamp(6rem,16vw,14rem); line-height: .6; transform: rotate(180deg); }
+.dip-scene .eyebrow::before { display: none; }
+.dip-scene h2 { margin: 1.25rem 0 0; font-family: var(--display); font-size: clamp(3.25rem,7vw,7rem); font-weight: 700; letter-spacing: -.045em; line-height: .86; text-transform: uppercase; }
+.dip-scene p:not(.eyebrow) { max-width: 40rem; margin: 1.25rem auto 0; font-family: var(--serif); font-size: clamp(1.125rem,1.8vw,1.45rem); }
 
-/* The summit pulls back to reveal the full ecological transect. */
-.summit { display:grid; align-items:center; min-height:188svh; padding-top:25vh; padding-bottom:25vh; }
-.summit-inner { width:min(78rem,100%); margin:auto; text-align:center; opacity:calc(.18 + var(--focus,0) * .82); }
-.summit .eyebrow::before { display:none; }
-.summit-number { margin:0; color:transparent; font-family:var(--display); font-size:clamp(9rem,27vw,27rem); font-weight:900; letter-spacing:-.095em; line-height:.65; -webkit-text-stroke:2px rgba(246,240,229,.78); }
-.summit-number small { display:block; margin-top:.5em; color:var(--paper); font-family:var(--mono); font-size:.038em; letter-spacing:.25em; text-transform:uppercase; -webkit-text-stroke:0; }
-.summit h2 { max-width:18ch; margin:2.5rem auto 0; font-family:var(--serif); font-size:clamp(2rem,4.4vw,4.5rem); font-weight:400; letter-spacing:-.045em; line-height:1.03; text-wrap:balance; }
-.summit h2 strong { color:var(--ice); font-weight:400; }
-.summit-statement { max-width:58rem; margin:1.5rem auto 0; color:rgba(246,240,229,.72); font-size:clamp(.95rem,1.2vw,1.15rem); }
-.summit-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; max-width:58rem; margin:3rem auto 0; overflow:hidden; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.2); }
-.summit-stats div { padding:1rem; background:rgba(4,12,20,.72); }
-.summit-stats b { display:block; font-family:var(--display); font-size:1.8rem; }
-.summit-stats span { color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.5rem; letter-spacing:.1em; text-transform:uppercase; }
-.compare-control { max-width:40rem; margin:2rem auto 0; padding:1rem 1.15rem; border:1px solid rgba(255,255,255,.28); background:rgba(4,12,20,.58); backdrop-filter:blur(12px); }
-.compare-control label { display:flex; justify-content:space-between; color:var(--paper); font-family:var(--mono); font-size:.56rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
-.compare-control .range-labels { display:flex; justify-content:space-between; color:rgba(246,240,229,.5); font-family:var(--mono); font-size:.47rem; letter-spacing:.09em; text-transform:uppercase; }
-.endpoint-note { max-width:48rem; margin:1rem auto 0; color:rgba(246,240,229,.46); font-size:.68rem; }
+/* Summit: the camera pulls back to the whole climb first; the copy arrives after. */
+.summit { display: grid; align-items: start; min-height: 190svh; padding-top: 85svh; padding-bottom: 20vh; }
+.summit-inner { position: relative; isolation: isolate; width: min(62rem,100%); margin: 0 auto; padding: 2rem 2.25rem; text-align: center; opacity: calc(.3 + var(--focus,1) * .7); }
+.summit-inner::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: 1.5rem; background: var(--scrim); box-shadow: 0 0 3rem 1.5rem var(--scrim); }
+.summit .eyebrow::before { display: none; }
+.summit-number { margin: 0; color: transparent; font-family: var(--display); font-size: clamp(7rem,20vw,20rem); font-weight: 700; letter-spacing: -.06em; line-height: .8; -webkit-text-stroke: 2px rgba(246,240,229,.85); }
+.summit-number small { display: block; margin-top: .6rem; color: var(--paper); font-size: .875rem; font-weight: 700; letter-spacing: .2em; line-height: 1.3; text-transform: uppercase; -webkit-text-stroke: 0; }
+.summit h2 { max-width: 18ch; margin: 2rem auto 0; font-family: var(--serif); font-size: clamp(2rem,4vw,4rem); font-weight: 400; letter-spacing: -.02em; line-height: 1.05; text-wrap: balance; }
+.summit h2 strong { color: var(--ice); font-weight: 600; }
+.summit-statement { max-width: 52rem; margin: 1.5rem auto 0; color: var(--paper-2); font-size: clamp(1.0625rem,1.2vw,1.2rem); }
+.summit-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; max-width: 54rem; margin: 2.5rem auto 0; overflow: hidden; border: 1px solid rgba(255,255,255,.24); border-radius: .5rem; background: rgba(255,255,255,.22); }
+.summit-stats div { padding: 1rem; background: rgba(4,12,20,.78); }
+.summit-stats b { display: block; font-family: var(--display); font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.summit-stats span { color: var(--paper-3); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+.temp-line { margin: 1.5rem auto 0; color: var(--paper); font-size: .9375rem; font-weight: 600; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.endpoint-note { max-width: 44rem; margin: .75rem auto 0; color: var(--paper-3); font-size: .875rem; }
 
-.epilogue { min-height:128svh; display:grid; align-items:center; background:linear-gradient(to bottom,transparent,rgba(2,8,13,.74)); }
-.epilogue-inner { width:min(74rem,100%); margin:auto; }
-.epilogue h2 { max-width:13ch; margin:0; font-family:var(--display); font-size:clamp(4rem,9vw,9rem); font-weight:800; letter-spacing:-.075em; line-height:.76; text-transform:uppercase; }
-.epilogue h2 em { display:block; color:var(--ice); font-family:var(--serif); font-size:.43em; font-weight:400; letter-spacing:-.04em; line-height:.95; text-transform:none; }
-.truth-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:3rem; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.2); }
-.truth-grid article { min-height:15rem; padding:1.4rem; background:rgba(4,12,20,.82); }
-.truth-grid b { color:var(--ice); font-family:var(--display); font-size:3rem; }
-.truth-grid h3 { margin:2.4rem 0 .6rem; font-family:var(--serif); font-size:1.25rem; font-weight:400; }
-.truth-grid p { margin:0; color:rgba(246,240,229,.62); font-size:.8rem; }
-.fragile { max-width:57rem; margin:3rem 0 0 auto; padding-left:1.5rem; border-left:2px solid var(--ember); font-family:var(--serif); font-size:clamp(1.25rem,2.1vw,1.85rem); }
+.epilogue { min-height: 120svh; display: grid; align-items: center; background: linear-gradient(to bottom, transparent, rgba(2,8,13,.82) 30%, rgba(2,8,13,.92)); }
+.epilogue-inner { width: min(74rem,100%); margin: auto; }
+.epilogue h2 { max-width: 13ch; margin: 0; font-family: var(--display); font-size: clamp(3.25rem,7.5vw,7.5rem); font-weight: 700; letter-spacing: -.045em; line-height: .86; text-transform: uppercase; }
+.epilogue h2 em { display: block; margin-top: .1em; color: var(--ice); font-family: var(--serif); font-size: .45em; font-style: italic; font-weight: 400; letter-spacing: -.015em; line-height: 1; text-transform: none; }
+.truth-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 2.5rem; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.2); }
+.truth-grid article { min-height: 14rem; padding: 1.4rem; background: rgba(4,12,20,.9); }
+.truth-grid b { color: var(--ice); font-family: var(--display); font-size: 2.6rem; font-weight: 700; }
+.truth-grid h3 { margin: 2rem 0 .6rem; font-family: var(--serif); font-size: 1.25rem; font-weight: 600; }
+.truth-grid p { margin: 0; color: var(--paper-2); font-size: 1rem; }
+.fragile { max-width: 57rem; margin: 2.5rem 0 0 auto; padding-left: 1.5rem; border-left: 2px solid var(--ember); font-family: var(--serif); font-size: clamp(1.25rem,2vw,1.75rem); }
 
-.studio { min-height:100svh; display:grid; place-items:center; background:rgba(2,8,13,.72); }
-.studio-inner { width:min(72rem,100%); }
-.studio h2 { max-width:15ch; margin:0; font-family:var(--display); font-size:clamp(4rem,8vw,8rem); font-weight:800; letter-spacing:-.075em; line-height:.78; text-transform:uppercase; }
-.studio h2 em { display:block; color:var(--sun); font-family:var(--serif); font-size:.43em; font-weight:400; letter-spacing:-.04em; line-height:1; text-transform:none; }
-.studio-copy { max-width:43rem; margin:1.6rem 0 0; color:rgba(246,240,229,.7); }
-.actions { display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2rem; }
-.button { display:inline-flex; align-items:center; min-height:3.1rem; padding:0 1.2rem; border:1px solid rgba(255,255,255,.4); border-radius:999px; font-size:.75rem; font-weight:750; text-decoration:none; }
-.button.primary { color:var(--night); background:var(--paper); border-color:var(--paper); }
-.button:hover { color:var(--night); background:var(--sun); border-color:var(--sun); }
-.footer { position:relative; z-index:10; display:flex; justify-content:space-between; gap:2rem; padding:2rem max(7vw,5rem) 6rem; color:rgba(246,240,229,.45); background:#02080d; font-size:.67rem; }
-.footer p { max-width:46rem; margin:0; }
+/* What is measured, what is drawn. */
+.method { position: relative; padding: 5rem max(6vw,4rem); background: #050d15; border-top: 1px solid var(--line); }
+.method-inner { width: min(62rem,100%); margin: 0 auto; }
+.method h2 { margin: 0 0 2rem; font-family: var(--serif); font-size: clamp(1.6rem,2.6vw,2.2rem); font-weight: 600; letter-spacing: -.01em; }
+.method-list { display: grid; grid-template-columns: 9rem 1fr; gap: 0 2rem; margin: 0; }
+.method-list dt { padding: 1rem 0; border-top: 1px solid var(--line); color: var(--sun); font-size: .8125rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.method-list dd { margin: 0; padding: .8rem 0; border-top: 1px solid var(--line); }
+.method-list ul { margin: 0; padding: 0; list-style: none; }
+.method-list li { padding: .2rem 0; color: var(--paper-2); font-size: 1.0625rem; }
 
-@media (max-width:760px) {
-  .hero,.chapter,.dip-scene,.summit,.epilogue,.studio { padding:7rem 1rem 7rem; }
-  .hero { min-height:118svh; }
-  .hero-grid { grid-template-columns:1fr; gap:0; }
-  .hero-number { position:absolute; top:16%; left:-5vw; z-index:-1; font-size:72vw; opacity:.55; }
-  .hero-title { align-self:end; padding-top:18vh; }
-  .hero h1 { font-size:clamp(4.5rem,24vw,7.5rem); }
-  .hero-baseline { max-width:none; }
-  .hero-footnote { right:1rem; bottom:5.5rem; max-width:18rem; text-align:right; }
-  .chapter,.chapter.panorama,.chapter.deep { min-height:124svh; }
-  .zone-copy { width:100%; }
-  .zone-copy h2 { font-size:clamp(4rem,21vw,7rem); }
-  .chapter.align-right .zone-copy,.chapter.align-center .zone-copy { justify-self:stretch; text-align:left; }
-  .align-right .zone-index,.align-center .zone-index { justify-content:flex-start; }
-  .align-right .zone-copy h2,.align-center .zone-copy h2,.align-right .sensory,.align-center .sensory { margin-left:0; }
-  .align-right .fact-drawer,.align-center .fact-drawer { margin-left:0; }
-  .landmark-note,.align-right .landmark-note { top:auto; right:1rem; bottom:6rem; left:auto; width:11rem; }
-  .species-callout { display:none; }
-  .lookback { width:100%; }
-  .dip-scene { min-height:105svh; }
-  .summit { min-height:165svh; }
-  .summit-number { font-size:29vw; }
-  .summit-stats { grid-template-columns:1fr 1fr; }
-  .truth-grid { grid-template-columns:1fr; }
-  .truth-grid article { min-height:11rem; }
-  .truth-grid h3 { margin-top:1.3rem; }
-  .epilogue,.studio { min-height:auto; padding-block:10rem; }
-  .footer { flex-direction:column; padding:2rem 1rem 6rem; }
+.footer { position: relative; z-index: 10; padding: 2rem max(6vw,4rem) calc(var(--bar-h) + var(--safe-b) + 2rem); color: var(--paper-3); background: #02080d; font-size: .875rem; }
+.footer p { max-width: 52rem; margin: 0; }
+.footer-line { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.25rem; margin-bottom: 1rem !important; color: var(--paper); font-size: 1rem; }
+.footer-line span { font-weight: 600; }
+.footer-line a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--sun); text-underline-offset: .2em; }
+
+@media (max-width: 760px) {
+  .hero, .chapter, .dip-scene, .summit, .epilogue { padding: 6rem 1rem 7rem; }
+  .hero { min-height: 112svh; }
+  .hero-grid { grid-template-columns: 1fr; gap: 0; }
+  .hero-number { position: absolute; top: 12%; left: -4vw; z-index: -1; font-size: 64vw; opacity: .6; }
+  .hero-title { align-self: end; margin-top: 24vh; padding: 1.25rem 1rem; }
+  .hero h1 { font-size: clamp(3.5rem,17vw,5.5rem); }
+  .hero-baseline { max-width: none; }
+  .hero-baseline b { font-size: 1.125rem; }
+  .hero-footnote { position: static; margin-top: 2rem; max-width: none; text-align: left; }
+  .chapter, .chapter.panorama, .chapter.deep { min-height: 120svh; }
+  .zone-copy { width: 100%; padding: 1.25rem 1rem; }
+  .zone-copy h2 { font-size: clamp(3rem,15vw,5rem); }
+  .chapter.align-right .zone-copy { justify-self: stretch; text-align: left; }
+  .align-right .zone-index { justify-content: flex-start; }
+  .align-right .zone-copy h2, .align-right .sensory, .align-right .fact-drawer { margin-left: 0; }
+  .lookback { width: 100%; }
+  .dip-inner, .summit-inner { padding: 1.25rem 1rem; }
+  .summit { min-height: 170svh; padding-top: 80svh; }
+  .summit-number { font-size: 27vw; }
+  .summit-stats { grid-template-columns: 1fr 1fr; }
+  .truth-grid { grid-template-columns: 1fr; }
+  .truth-grid article { min-height: 0; }
+  .truth-grid h3 { margin-top: 1rem; }
+  .epilogue { min-height: auto; padding-block: 8rem; }
+  .method { padding: 4rem 1rem; }
+  .method-list { grid-template-columns: 1fr; }
+  .method-list dd { border-top: 0; padding-top: 0; }
+  .footer { padding-inline: 1rem; }
 }
 
-@media (min-width:761px) and (max-width:1050px) {
-  .model-note { display:none; }
-  .telemetry { grid-template-columns:auto repeat(4,minmax(5rem,1fr)); }
+/* Copy stays out of the road's way: a compact card, low on the screen on phones. */
+.zone-copy { width: min(29rem,100%); padding: 1.5rem 1.75rem; }
+.zone-copy h2 { font-size: clamp(2.5rem,4.6vw,4.25rem); line-height: .92; }
+.sensory { margin-top: 1rem; }
+.hero-title { max-width: 30rem; }
+.hero h1 { font-size: clamp(3.5rem,6.5vw,6rem); }
+.dip-inner { width: min(38rem,100%); }
+.dip-scene h2 { font-size: clamp(2.5rem,5vw,4.5rem); }
+@media (max-width: 760px) {
+  .chapter, .chapter.panorama, .chapter.deep { align-items: end; padding-bottom: calc(10svh + var(--bar-h) + 1.5rem); }
+  .zone-copy { padding: 1rem; }
+  .zone-copy h2 { margin-top: .5rem; font-size: clamp(2rem,10vw,2.75rem); }
+  .sensory { font-size: 1rem; line-height: 1.45; }
+  .hero h1 { font-size: clamp(3rem,15vw,4.25rem); }
 }
 
-@media (prefers-reduced-motion:reduce) {
-  .zone-copy,.dip-inner,.summit-inner { opacity:1; transform:none; filter:none; }
+
+/* The one control: play button, readouts and the measured road profile, fixed to the bottom. */
+.ascent-bar { position: fixed; z-index: 45; right: 0; bottom: 0; left: 0; height: calc(var(--bar-h) + var(--safe-b)); display: grid; grid-template-columns: auto auto minmax(0,1fr); grid-template-rows: 1fr auto; grid-template-areas: "play metrics profile" "play status profile"; align-items: center; gap: .15rem 1.25rem; padding: .6rem 1.25rem calc(.6rem + var(--safe-b)); border-top: 1px solid var(--line); background: rgba(4,12,20,.88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+
+.drive-control { grid-area: play; display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; color: var(--paper); background: rgba(255,255,255,.06); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.drive-control:hover { color: var(--night); background: var(--sun); border-color: var(--sun); }
+.drive-icon { width: 0; height: 0; margin-left: 3px; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 11px solid currentColor; }
+.auto-driving .drive-control { border-color: var(--sun); }
+.auto-driving .drive-icon { width: 12px; height: 14px; margin: 0; border: 0; border-left: 4px solid currentColor; border-right: 4px solid currentColor; }
+
+.readouts { grid-area: metrics; display: flex; align-items: flex-end; gap: 1.25rem; align-self: end; }
+.metric { display: flex; flex-direction: column; min-width: 0; }
+.metric b { font-family: var(--display); font-size: 1.75rem; font-weight: 700; line-height: 1; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.metric span { margin-top: .2rem; color: var(--paper-3); font-size: .8125rem; line-height: 1.2; white-space: nowrap; }
+
+.bar-status { grid-area: status; align-self: start; margin: 0; overflow: hidden; color: var(--sun); font-size: .875rem; font-weight: 600; line-height: 1.3; white-space: nowrap; text-overflow: ellipsis; }
+.bar-status .drive-status { display: none; }
+.auto-status .bar-status .drive-status { display: inline; }
+.auto-status .bar-status .place { display: none; }
+
+.profile { grid-area: profile; position: relative; align-self: stretch; min-width: 0; border-radius: .5rem; cursor: pointer; touch-action: none; -webkit-user-select: none; user-select: none; }
+.profile.dragging { cursor: grabbing; }
+.profile.focused, .profile:has(.profile-range:focus-visible) { outline: 2px solid var(--sun); outline-offset: 3px; }
+.profile-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+.profile-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none; }
+.profile-stops { position: absolute; inset: 0; pointer-events: none; }
+.profile-stops button { position: absolute; top: 0; min-height: 1rem; padding: 0 .3rem; border: 0; border-radius: .25rem; color: var(--paper-2); background: transparent; font-size: .75rem; font-weight: 600; line-height: 1rem; white-space: nowrap; transform: translateX(-50%); pointer-events: auto; cursor: pointer; }
+.profile-stops button.low { top: 1rem; }
+.profile-stops button.end { transform: translateX(-90%); }
+.profile-stops button:hover, .profile-stops button[aria-current] { color: var(--sun); }
+
+.pf-band { opacity: .42; }
+.pf-driven .pf-band { opacity: 1; }
+.pf-line { fill: none; stroke: rgba(246,240,229,.6); stroke-width: 1.5; stroke-linejoin: round; }
+.pf-line-driven { fill: none; stroke: var(--sun); stroke-width: 2; stroke-linejoin: round; }
+.pf-tick { stroke: rgba(246,240,229,.55); stroke-width: 1; stroke-dasharray: 2 2; }
+.pf-handle-line { stroke: var(--sun); stroke-width: 1.5; }
+.pf-handle { fill: var(--sun); stroke: var(--night); stroke-width: 2; }
+
+@media (max-width: 760px) {
+  .ascent-bar { grid-template-columns: auto minmax(0,1fr); grid-template-rows: auto minmax(0,1fr); grid-template-areas: "play metrics" "profile profile"; gap: .2rem .75rem; padding: .35rem 1rem calc(.3rem + var(--safe-b)); }
+  .drive-control { width: 2.5rem; height: 2.5rem; }
+  .readouts { justify-content: space-between; gap: .5rem; align-self: center; }
+  .metric b { font-size: 1.125rem; }
+  .metric span { margin-top: .1rem; }
+  .metric span { font-size: .75rem; }
+  .bar-status { grid-area: profile; z-index: 1; align-self: start; justify-self: start; max-width: 60%; padding-left: .2rem; font-size: .75rem; pointer-events: none; }
+  .profile-stops { display: none; }
 }
 
 </style>
@@ -320,16 +312,7 @@ html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: n
 
 <div class="stage" aria-hidden="true">
   <canvas class="landscape"></canvas>
-  <div class="stage-vignette"></div>
 </div>
-<div class="door" aria-hidden="true"><i class="door-seam"></i></div>
-<div class="compare-seam" aria-hidden="true"></div>
-<div class="global-progress" aria-hidden="true"><i></i></div>
-
-<button class="drive-control" id="drive-control" type="button" aria-pressed="false" aria-label="Begin a slow automatic ascent to the summit">
-  <span class="drive-dial" aria-hidden="true"><i></i></span>
-  <span class="drive-copy"><b id="drive-label">Auto ascent</b><small id="drive-status">Cruise to the summit · about 2 min</small></span>
-</button>
 
 <header class="site-chrome">
   <a class="brand-lockup" href="#top" aria-label="27 Miles to Canada, return to the desert floor">
@@ -338,25 +321,24 @@ html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: n
   <div class="chapter-live" aria-live="polite"><span>Crossing</span><b id="live-zone">Sonoran Desertscrub</b></div>
 </header>
 
-<nav class="route-rail" aria-label="Life-zone switchbacks">
-  <a href="#zone-1" data-band="0" data-label="Sonoran Desert" aria-label="Jump to Sonoran Desertscrub" style="--x:0;--y:0"></a>
-  <a href="#zone-2" data-band="1" data-label="Grassland" aria-label="Jump to Semidesert Grassland" style="--x:1rem;--y:3.4rem"></a>
-  <a href="#zone-3" data-band="2" data-label="Oak Woodland" aria-label="Jump to Madrean Oak Woodland" style="--x:0;--y:6.8rem"></a>
-  <a href="#zone-4" data-band="3" data-label="Windy Point" aria-label="Jump to Windy Point" style="--x:1rem;--y:10.2rem"></a>
-  <a href="#zone-5" data-band="4" data-label="Ponderosa" aria-label="Jump to Ponderosa Pine Forest" style="--x:0;--y:13.6rem"></a>
-  <a href="#zone-6" data-band="5" data-label="Mixed Conifer" aria-label="Jump to Mixed-Conifer Forest" style="--x:1rem;--y:17rem"></a>
-  <a href="#summit" data-band="6" data-label="Summit" aria-label="Jump to Mount Lemmon summit" style="--x:0;--y:20.4rem"></a>
-</nav>
-
-<aside class="telemetry" aria-label="Modeled ascent instrument">
-  <div class="telemetry-label">Modeled ascent</div>
-  <div class="metric"><b id="live-mile">0.0</b><span>mile</span></div>
-  <div class="metric"><b id="live-elevation">2,700</b><span>feet</span></div>
-  <div class="metric"><b id="live-temp">100°</b><span>approx. °F</span></div>
-  <div class="metric gain"><b class="grade up" id="live-grade">▲</b><span>road grade</span></div>
-  <div class="model-note">Illustrative summer baseline · ~3.5°F / 1,000 ft</div>
+<div class="ascent-bar" id="ascent-bar" role="region" aria-label="Measured road profile">
+  <button class="drive-control" id="drive-control" type="button" aria-pressed="false" aria-label="Begin a slow automatic ascent to the summit">
+    <span class="drive-icon" aria-hidden="true"></span><span class="sr-only" id="drive-label">Auto ascent</span>
+  </button>
+  <div class="readouts">
+    <div class="metric"><b id="live-mile">0.0</b><span>mile</span></div>
+    <div class="metric"><b id="live-elevation">2,860</b><span>feet · measured</span></div>
+    <div class="metric"><b id="live-temp">99°</b><span>°F · modelled</span></div>
+  </div>
+  <p class="bar-status"><span class="place" id="live-place">Highway start</span><span class="drive-status" id="drive-status" aria-live="polite"></span></p>
+  <div class="profile" id="profile">
+    <svg class="profile-svg" aria-hidden="true" focusable="false"></svg>
+    <div class="profile-stops"></div>
+    <label class="sr-only" for="mile-range">Position on the road, in miles</label>
+    <input class="profile-range" id="mile-range" type="range" min="0" max="281" step="1" value="0" aria-valuetext="Mile 0.0, 2,860 feet, Highway start">
+  </div>
   <span class="sr-only" id="live-announcement" aria-live="polite"></span>
-</aside>
+</div>
 
 <main class="story" id="story" tabindex="-1">
   <section class="hero timeline-node" id="top" data-mile="0">
@@ -366,110 +348,95 @@ html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: n
         <p class="eyebrow">Catalina Highway · Tucson, Arizona · 32.4° N</p>
         <h1>27 Miles <em>to Canada<span class="title-asterisk">*</span></em></h1>
         <p class="hero-lede">Close the car door in a hundred-degree desert. Open it again in fir shade. Between those two moments, one road climbs through six living worlds.</p>
-        <div class="hero-baseline"><div><span>Start</span><b>2,700 ft</b></div><div><span>Summit</span><b>9,157 ft</b></div><div><span>Air change</span><b>~25°F</b></div></div>
+        <div class="hero-baseline"><div><span>Start</span><b>2,860 ft</b></div><div><span>Summit</span><b>9,157 ft</b></div><div><span>Air change</span><b>~25°F</b></div></div>
         <a class="scroll-cue" href="#zone-1"><i aria-hidden="true"></i>Open the door</a>
       </div>
     </div>
     <p class="hero-footnote">*A continental sequence compressed by elevation—not Canada, and not an identical climate.</p>
   </section>
 
-  <section class="chapter timeline-node" id="zone-1" data-band="0" data-mile="2.7" style="--zone:#ffd07a;--fallback:#c75b43">
+  <section class="chapter timeline-node" id="zone-1" data-band="0" data-mile="2.635" style="--zone:#ffd07a;--fallback:#c75b43">
     <div class="zone-copy">
-      <p class="zone-index"><b>01</b> Sonoran floor · 2,700–4,000 ft</p>
+      <p class="zone-index"><b>01</b><span>Mile 2.6 · Babad Do'ag · 3,579 ft</span><span class="zone-range">Sonoran floor · below 4,000 ft</span></p>
       <h2>Sonoran <em>Desertscrub</em></h2>
       <p class="sensory">Heat moves in waves. The horizon is all distance and hard blue sky, punctuated by a forest that stores its water standing upright.</p>
-      <p class="threshold">The climb begins inside the saguaro forest</p>
+      <p class="species">saguaro · ocotillo</p>
       <details class="fact-drawer"><summary>Field note · the last saguaro</summary><p>These giants mark the mountain's lowest life zone. Before the grassland arrives, the final saguaro falls behind you—and never returns above this line.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 2.7</span><b>Babad Do'ag</b><small>“Frog Mountain,” the Tohono O'odham name for the range.</small></aside>
-    <span class="species-callout" style="--x:70%;--y:64%">saguaro</span><span class="species-callout" style="--x:13%;--y:76%">ocotillo</span>
   </section>
 
-  <section class="chapter align-right timeline-node" id="zone-2" data-band="1" data-mile="5.5" style="--zone:#e8d087;--fallback:#9a7b51">
+  <section class="chapter align-right timeline-node" id="zone-2" data-band="1" data-mile="5.617" style="--zone:#e8d087;--fallback:#9a7b51">
     <div class="zone-copy">
-      <p class="zone-index"><b>02</b> Around mile 6 · 4,000–5,000 ft</p>
+      <p class="zone-index"><b>02</b><span>Mile 5.6 · Molino Basin · 4,368 ft</span><span class="zone-range">4,000–5,000 ft</span></p>
       <h2>Grass <em>takes the wind</em></h2>
       <p class="sensory">The cactus releases the slope. Sotol flashes silver, yucca spears the skyline, and the first moving grass makes departure feel real.</p>
-      <p class="threshold">The desert floor has dropped 1,670 feet</p>
+      <p class="species">sotol · Palmer agave</p>
       <details class="fact-drawer"><summary>Field note · reverse seasons</summary><p>Molino Basin closes for summer rather than winter. When the summit is snowed in, this lower campground can be perfect.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 5.5</span><b>Molino Basin</b><small>The narrow handoff between cactus and oak.</small></aside>
-    <span class="species-callout" style="--x:12%;--y:63%">sotol</span><span class="species-callout" style="--x:66%;--y:78%">Palmer agave</span>
   </section>
 
-  <section class="chapter align-center deep timeline-node" id="zone-3" data-band="2" data-mile="9.1" style="--zone:#a9d09a;--fallback:#58715a">
+  <section class="chapter deep timeline-node" id="zone-3" data-band="2" data-mile="9.122" style="--zone:#a9d09a;--fallback:#58715a">
     <div class="zone-copy">
-      <p class="zone-index"><b>03</b> Around mile 9 · 5,000–6,000 ft</p>
+      <p class="zone-index"><b>03</b><span>Mile 9.1 · Seven Cataracts · 5,337 ft</span><span class="zone-range">5,000–6,000 ft</span></p>
       <h2>The island <em>closes around you</em></h2>
       <p class="sensory">Shade returns from the edges. Evergreen oak crowns the slope while a sea of desert remains visible far below.</p>
-      <p class="threshold">A cool forest stranded above hot lowlands</p>
+      <p class="species">Emory oak · Mexican jay</p>
       <details class="fact-drawer"><summary>What makes a sky island?</summary><p>Isolation. Each wooded peak rises from desert like land from water, connecting northward to the forests of Mexico's Sierra Madre.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 9.1</span><b>Seven Cataracts</b><small>Seasonal water after monsoon rain or snowmelt.</small></aside>
-    <span class="species-callout" style="--x:9%;--y:42%">Emory oak</span><span class="species-callout" style="--x:73%;--y:70%">Mexican jay</span>
   </section>
 
-  <section class="chapter panorama timeline-node" id="zone-4" data-band="3" data-mile="14" style="--zone:#9ed0cc;--fallback:#456474">
+  <section class="chapter panorama timeline-node" id="zone-4" data-band="3" data-mile="13.919" style="--zone:#9ed0cc;--fallback:#456474">
     <div class="zone-copy">
-      <p class="zone-index"><b>04</b> Windy Point · 6,400 ft</p>
+      <p class="zone-index"><b>04</b><span>Mile 13.9 · Windy Point · 6,575 ft</span></p>
       <h2>Look <em>back down</em></h2>
       <p class="sensory">Granite hoodoos whip past the shoulder. At the overlook, the first tall pines stand above a desert now nearly 3,700 feet below.</p>
+      <p class="species">Arizona pine · Catalina granite</p>
       <div class="lookback">
         <label for="lookback-range"><span>Turn the view</span><span id="lookback-value">Toward the desert</span></label>
         <input id="lookback-range" type="range" min="0" max="100" value="72" aria-label="Turn the Windy Point view between road ahead and desert below">
         <div class="lookback-scale"><span>Road ahead</span><span>Desert below</span></div>
       </div>
     </div>
-    <aside class="landmark-note"><span>Mile 14</span><b>Windy Point</b><small>About 13°F cooler than the modeled base.</small></aside>
-    <span class="species-callout" style="--x:63%;--y:69%">Arizona pine</span><span class="species-callout" style="--x:15%;--y:28%">Catalina granite</span>
   </section>
 
-  <section class="chapter align-right deep timeline-node" id="zone-5" data-band="4" data-mile="17" style="--zone:#b9d6b3;--fallback:#31565c">
+  <section class="chapter align-right deep timeline-node" id="zone-5" data-band="4" data-mile="16.976" style="--zone:#b9d6b3;--fallback:#31565c">
     <div class="zone-copy">
-      <p class="zone-index"><b>05</b> Rose Canyon · 7,000–8,000 ft</p>
+      <p class="zone-index"><b>05</b><span>Mile 17.0 · Rose Canyon · 7,229 ft</span><span class="zone-range">7,000–8,000 ft</span></p>
       <h2>Enter <em>the tall forest</em></h2>
       <p class="sensory">The composition turns vertical: dark trunks, bands of sun, dry needles, and bark warmed enough to smell like vanilla.</p>
-      <p class="threshold">Tucson becomes difficult to believe</p>
+      <p class="species">ponderosa pine · Steller's jay</p>
       <details class="fact-drawer"><summary>Field note · lean close</summary><p>Sun-warmed ponderosa bark can smell distinctly of vanilla or butterscotch. Nearby, Rose Canyon even holds a small stocked trout lake.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 17</span><b>Rose Canyon</b><small>Ponderosa forest at almost exactly 7,000 feet.</small></aside>
-    <span class="species-callout" style="--x:16%;--y:65%">ponderosa pine</span><span class="species-callout" style="--x:61%;--y:35%">Steller's jay</span>
   </section>
 
-  <section class="chapter timeline-node" id="zone-6" data-band="5" data-mile="19.6" style="--zone:#bfe1ff;--fallback:#203956">
+  <section class="chapter timeline-node" id="zone-6" data-band="5" data-mile="19.61" style="--zone:#bfe1ff;--fallback:#203956">
     <div class="zone-copy">
-      <p class="zone-index"><b>06</b> Palisades · 8,000–9,157 ft</p>
+      <p class="zone-index"><b>06</b><span>Mile 19.6 · Palisades · 7,947 ft</span><span class="zone-range">8,000–9,157 ft</span></p>
       <h2>Mixed <em>conifer</em></h2>
       <p class="sensory">Aspen flash pale between Douglas-fir and true white fir. You have entered the heritage “Canadian” life zone—without a single spruce tree.</p>
-      <p class="threshold">Similar temperature regime · different climate</p>
+      <p class="species">Douglas-fir · quaking aspen</p>
       <details class="fact-drawer"><summary>Why call it “Canadian”?</summary><p>It is old life-zone language for a familiar forest form and cool temperature regime. Mount Lemmon is still Arizona: monsoon rhythm, Tucson daylight, local species.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 19.6</span><b>Palisades</b><small>The interpretive gateway to fir and aspen.</small></aside>
-    <span class="species-callout" style="--x:69%;--y:61%">Douglas-fir</span><span class="species-callout" style="--x:10%;--y:72%">quaking aspen</span>
   </section>
 
-  <section class="dip-scene timeline-node" data-mile="25" data-band="5">
+  <section class="dip-scene timeline-node" id="dip" data-mile="22.518" data-band="5">
     <div class="dip-inner">
       <span class="dip-arrow" aria-hidden="true">↑</span>
-      <p class="eyebrow">Mile 25 · Summerhaven · 7,790 ft</p>
+      <p class="eyebrow">Mile 22.5 · below Summerhaven · 7,734 ft</p>
       <h2>The road goes down.</h2>
-      <p>After cresting near 8,000 feet, the highway loses more than 200 feet into the village. Watch the instrument: elevation falls, the modeled air warms, then Ski Run Road pitches up for the final climb.</p>
+      <p>After cresting near 8,180 feet, the highway loses about 450 feet toward the village. Watch the instrument: elevation falls, the modeled air warms, then Ski Run Road pitches up for the final climb.</p>
     </div>
   </section>
 
-  <section class="summit timeline-node" id="summit" data-mile="28.8" data-band="6">
+  <section class="summit timeline-node" id="summit" data-mile="28.06" data-band="6">
     <div class="summit-inner">
       <p class="eyebrow">True high point · Mount Lemmon</p>
       <p class="summit-number">9,157<small>feet above the Sonoran Desert</small></p>
       <h2>One mountain compressed a <strong>continental sequence.</strong></h2>
       <p class="summit-statement">Climb these 27 signed byway miles and the air cools about 25°F, carrying you through the same sequence of vegetation zones you would cross driving on the order of a thousand miles north toward Canada—a similar temperature regime and biome succession, not an identical climate.</p>
-      <div class="summit-stats"><div><b>6,457</b><span>net vertical feet</span></div><div><b>6</b><span>biotic communities</span></div><div><b>~25°F</b><span>modeled change</span></div><div><b>~7,000</b><span>total climbing</span></div></div>
-      <div class="compare-control">
-        <label for="compare-range"><span>Climate portal</span><span>Drag the seam</span></label>
-        <input id="compare-range" type="range" min="5" max="95" value="50" aria-label="Compare the Sonoran Desert floor with the summit landscape">
-        <div class="range-labels"><span>100°F · 2,700 ft</span><span>~77°F · 9,157 ft</span></div>
-      </div>
-      <p class="endpoint-note">“27 miles” is the rounded scenic-byway figure. The drive to SkyCenter is about 28.8 miles and ends just below the true summit, near 9,134 feet.</p>
+      <div class="summit-stats"><div><b>6,288</b><span>net feet on the road</span></div><div><b>6</b><span>biotic communities</span></div><div><b>~25°F</b><span>modeled change</span></div><div><b>7,029</b><span>feet climbed</span></div></div>
+      <p class="temp-line">100°F · 2,700 ft (model base) → ~77°F · 9,148 ft</p>
+      <p class="endpoint-note">“27 miles” is the rounded scenic-byway figure. Measured on the map, the road runs 28.1 miles from the start of the General Hitchcock Highway to its end at 9,148 feet, just below the true summit.</p>
     </div>
   </section>
 
@@ -486,19 +453,44 @@ html:not(.js) .zone-copy, html:not(.js) .summit-inner { opacity: 1; transform: n
     </div>
   </section>
 
-  <section class="studio">
-    <div class="studio-inner">
-      <p class="eyebrow">Desert Data Labs · interactive fieldwork</p>
-      <h2>Your data deserves a landscape. <em>Not another slide deck.</em></h2>
-      <p class="studio-copy">We turn conservation, research, and impact data into experiences people can feel, explore, and remember.</p>
-      <div class="actions"><a class="button primary" href="https://desertdatalabs.com/contact.html">Start a project ↗</a><a class="button" href="https://desertdatalabs.com/case-studies.html">Explore our work</a></div>
+  <section class="method" aria-labelledby="method-title">
+    <div class="method-inner">
+      <h2 id="method-title">What is measured, what is drawn</h2>
+      <dl class="method-list">
+        <dt>Measured</dt>
+        <dd>
+          <ul>
+            <li>The road line, from OpenStreetMap contributors.</li>
+            <li>The terrain and every elevation, from Mapzen Terrain Tiles: about a 37 m grid for the surface and 16 m along the road. Shown at true vertical scale.</li>
+            <li>Miles, counted from where the General Hitchcock Highway begins, 4.5 road miles past Tanque Verde Road.</li>
+            <li>Feet climbed (7,029) and feet lost (740).</li>
+          </ul>
+        </dd>
+        <dt>Modelled</dt>
+        <dd>
+          <ul>
+            <li>Temperature: 100°F at 2,700 ft, falling 3.5°F per 1,000 ft. No thermometer was read.</li>
+          </ul>
+        </dd>
+        <dt>Drawn</dt>
+        <dd>
+          <ul>
+            <li>The six colour bands, set at fixed elevations. Real boundaries move with slope, aspect, fire and climate.</li>
+            <li>The plants, placed by band and drawn larger than life, not surveyed.</li>
+            <li>Sky, light and haze.</li>
+          </ul>
+        </dd>
+      </dl>
     </div>
   </section>
 </main>
 
-<footer class="footer"><p>27 Miles to Canada · A Desert Data Labs field ascent</p><p>Elevation, climate, species, and life-zone ranges are grounded in U.S. Forest Service, University of Arizona, SEINet, and published Sky Island research. Boundaries are interpretive and move with slope, aspect, fire, and climate.</p></footer>
+<footer class="footer">
+  <p class="footer-line"><span>A Desert Data Labs field ascent</span><a href="https://desertdatalabs.com/contact.html">Start a project ↗</a><a href="https://desertdatalabs.com/case-studies.html">Explore our work</a></p>
+  <p>Elevation, climate, species, and life-zone ranges are grounded in U.S. Forest Service, University of Arizona, SEINet, and published Sky Island research. Boundaries are interpretive and move with slope, aspect, fire, and climate. Road © OpenStreetMap contributors. Elevation: Mapzen Terrain Tiles.</p>
+</footer>
 
-<script>
+<script type="module">
 window.M27 = {
   bands: [
     { name: "Sonoran Desertscrub", sky: ["#f7a260", "#d15d47"], ridge: ["#a83e34", "#5f292d"], flora: "#173f38", accent: "#ffd07a" },
@@ -508,133 +500,779 @@ window.M27 = {
     { name: "Ponderosa Pine Forest", sky: ["#557c91", "#29495b"], ridge: ["#244e50", "#152f39"], flora: "#0d272b", accent: "#b9d6b3" },
     { name: "Mixed-Conifer Forest", sky: ["#294361", "#101f38"], ridge: ["#183746", "#091d29"], flora: "#061a23", accent: "#bfe1ff" }
   ],
-  profile: [
-    [0, 2700], [2.7, 3550], [5.5, 4370], [9.1, 5100], [14, 6400],
-    [17, 7000], [19.6, 7900], [20.5, 8000], [25, 7790], [27, 8350], [28.8, 9157]
+  /* Band edges in feet. The bands are drawn at fixed elevations; real boundaries move. */
+  bandEdges: [4000, 5000, 6000, 7000, 8000],
+  bandBlendFt: 150,
+  /* Measured stops on the road (route.json), at the sample where the printed elevation is read.
+     `tick` marks the seven stops on the profile. */
+  stops: [
+    { id: "top", mile: 0, ft: 2860, name: "Highway start" },
+    { id: "zone-1", mile: 2.635, ft: 3579, name: "Babad Do'ag", tick: true },
+    { id: "zone-2", mile: 5.617, ft: 4368, name: "Molino Basin", tick: true },
+    { id: "zone-3", mile: 9.122, ft: 5337, name: "Seven Cataracts", tick: true },
+    { id: "zone-4", mile: 13.919, ft: 6575, name: "Windy Point", tick: true },
+    { id: "zone-5", mile: 16.976, ft: 7229, name: "Rose Canyon", tick: true },
+    { id: "zone-6", mile: 19.61, ft: 7947, name: "Palisades", tick: true },
+    { id: "dip", mile: 22.518, ft: 7734, name: "below Summerhaven" },
+    { id: "summit", mile: 28.06, ft: 9148, name: "Summit", tick: true }
   ],
-  baseElevation: 2700,
+  /* Used only if data/route.json cannot be loaded: the measured stops plus crest, dip and Ski Run Road. */
+  coarseProfile: [[0, 2860], [2.6, 3579], [5.6, 4368], [9.1, 5337], [13.9, 6575], [17.0, 7229], [19.6, 7947], [20.43, 8180], [22.52, 7734], [24.63, 7863], [28.06, 9148]],
+  route: null,
+  miles: 28.06,
   summitElevation: 9157,
+  baseElevation: 2700,
   baseTemperature: 100,
-  lapseRate: 3.5
+  lapseRate: 3.5,
+  /* Road elevation in feet at a highway mile, interpolated between the 40 m samples. */
+  feetAt: function (mile) {
+    var r = this.route, mi, ft;
+    if (r) { mi = r.mi; ft = r.ft; }
+    else { mi = this.coarseProfile.map(function (p) { return p[0]; }); ft = this.coarseProfile.map(function (p) { return p[1]; }); }
+    var n = mi.length, lo = 0, hi = n - 1;
+    if (mile <= mi[0]) return ft[0];
+    if (mile >= mi[hi]) return ft[hi];
+    while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (mi[mid] <= mile) lo = mid; else hi = mid; }
+    var t = (mile - mi[lo]) / Math.max(1e-9, mi[hi] - mi[lo]);
+    return ft[lo] + (ft[hi] - ft[lo]) * t;
+  },
+  /* Modelled air temperature: 100°F at 2,700 ft, falling 3.5°F per 1,000 ft. */
+  tempAt: function (ft) { return this.baseTemperature - ((ft - this.baseElevation) / 1000) * this.lapseRate; }
 };
 
 
-/* One canvas, one scheduler, one route state. The highway is the visual spine. */
-window.MountainScene=(function(){
-  var canvas,ctx,w=1,h=1,dpr=1,raf=0,dirty=true,lastTs=0,visible=true,travelOffset=0;
-  var S={progress:0,band:0,pointerX:.5,pointerY:.5,targetX:.5,targetY:.5,lookback:.72,compare:.5,compareActive:false,velocity:0,traveling:false};
-  var M=window.M27,reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* The real mountain and the real road, drawn with three.js and rendered only when something changes.
+   Terrain: data/height.webp (Mapzen Terrain Tiles). Road: data/route.json (OpenStreetMap contributors).
+   World units are metres, y is up, x is east, z is south. */
+window.MountainScene = (function () {
+  var VERTICAL_EXAGGERATION = 1;          /* true scale; the page says so */
+  var FT = 3.28084, MILE = 1609.344;
+  var ROAD_WIDTH = 14, ROAD_WIDTH_OVERVIEW = 90, ROAD_COLOR = "#ffd07a";
+  var CAM_BEHIND = 350, CAM_ABOVE = 90, CAM_AHEAD = 600, CAM_FLOOR = 40, SMOOTH_TIME = 0.7, JUMP_MILES = 0.75;
+  var PLANT_SCALE = 1.9;                   /* plants are drawn larger than life so they read from the camera */
 
-  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
-  function mix(a,b,t){return a+(b-a)*t;}
-  function smooth(t){t=clamp(t,0,1);return t*t*(3-2*t);}
-  function seeded(n){var x=Math.sin(n*127.13+19.71)*43758.5453;return x-Math.floor(x);}
-  function rgb(hex){hex=hex.replace("#","");return[parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16)];}
-  function color(a,b,t){var x=rgb(a),y=rgb(b);return"rgb("+Math.round(mix(x[0],y[0],t))+","+Math.round(mix(x[1],y[1],t))+","+Math.round(mix(x[2],y[2],t))+")";}
-  function bandColor(key,slot,f){var s=clamp(f,0,5),lo=Math.floor(s),hi=Math.min(5,lo+1),t=s-lo;return color(M.bands[lo][key][slot],M.bands[hi][key][slot],smooth(t));}
-  function floraColor(f){var s=clamp(f,0,5),lo=Math.floor(s),hi=Math.min(5,lo+1),t=s-lo;return color(M.bands[lo].flora,M.bands[hi].flora,smooth(t));}
+  var M = window.M27, THREE = null, renderer, scene, camera, canvas, stage, fog, hemi, sunLight, roadMat, plantGroup;
+  var ready = false, failed = false, raf = 0, lastTs = 0, visible = !document.hidden, snapNext = true;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var phone = window.matchMedia && window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+  var S = { mile: 0, lookback: 0, overview: 0 };
+  var sheet = null, heights = null, grid = null, route = null, overviewPose = null, basin = null, lookSign = 1;
+    var lastSky = "";
 
-  function invalidate(){dirty=true;if(!raf&&visible)raf=requestAnimationFrame(frame);}
-  function resize(){if(!canvas)return;var r=canvas.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,w<700?1.5:2);w=Math.max(1,Math.round(r.width));h=Math.max(1,Math.round(r.height));canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);invalidate();}
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function mix(a, b, t) { return a + (b - a) * t; }
+  function smooth(e0, e1, x) { var t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); }
+  function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function hexMix(a, b, t) {
+    var x = parseInt(a.slice(1), 16), y = parseInt(b.slice(1), 16);
+    var r = Math.round(mix(x >> 16, y >> 16, t)), g = Math.round(mix(x >> 8 & 255, y >> 8 & 255, t)), bl = Math.round(mix(x & 255, y & 255, t));
+    return "#" + ((1 << 24) | (r << 16) | (g << 8) | bl).toString(16).slice(1);
+  }
+  function bandHex(key, slot, f) { f = clamp(f, 0, 5); var lo = Math.floor(f), hi = Math.min(5, lo + 1), t = f - lo; var a = M.bands[lo][key], b = M.bands[hi][key]; return hexMix(slot == null ? a : a[slot], slot == null ? b : b[slot], t * t * (3 - 2 * t)); }
+  function bandOfFeet(ft) { var e = M.bandEdges, b = 0; for (var i = 0; i < e.length; i++) if (ft >= e[i]) b = i + 1; return b; }
 
-  function ridge(seed,base,amp,fill,drift,jag){
-    var shift=(S.pointerX-.5)*drift+(S.lookback-.5)*drift*.7;
-    ctx.beginPath();ctx.moveTo(-100,h+30);ctx.lineTo(-100,base);
-    var n=11;
-    for(var i=0;i<=n;i++){
-      var x=i/n*(w+200)-100+shift;
-      var spike=seeded(seed*19+i)*(amp*(.55+jag*.4));
-      var wave=Math.sin(i*(1.1+jag*.25)+seed)*amp*.28;
-      var y=base-spike-wave;
-      if(i===0)ctx.lineTo(x,y);else{var px=(i-1)/n*(w+200)-100+shift;ctx.quadraticCurveTo((px+x)/2,y-amp*.08*seeded(i+seed),x,y);}
+  /* ---------- data ---------- */
+  function loadJSON(url) { return fetch(url).then(function (r) { if (!r.ok) throw new Error(url + " " + r.status); return r.json(); }); }
+  function loadHeights(info) {
+    return fetch("data/height.webp").then(function (r) { if (!r.ok) throw new Error("height.webp " + r.status); return r.blob(); })
+      .then(function (blob) {
+        if (window.createImageBitmap) return createImageBitmap(blob, { colorSpaceConversion: "none", premultiplyAlpha: "none" });
+        return new Promise(function (res, rej) { var img = new Image(); img.onload = function () { res(img); }; img.onerror = rej; img.src = URL.createObjectURL(blob); });
+      })
+      .then(function (img) {
+        var c = document.createElement("canvas"); c.width = info.w; c.height = info.h;
+        var x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(img, 0, 0);
+        var d = x.getImageData(0, 0, info.w, info.h).data, out = new Float32Array(info.w * info.h);
+        for (var i = 0; i < out.length; i++) out[i] = (d[i * 4] * 256 + d[i * 4 + 1]) * info.step + info.lo;
+        return out;
+      });
+  }
+
+  /* Sheet pixel <-> world. Pixel centres sit at (i + 0.5) / w of the 0..1 sheet. */
+  function pxToX(px) { return ((px + 0.5) / sheet.w - 0.5) * sheet.W; }
+  function pyToZ(py) { return ((py + 0.5) / sheet.h - 0.5) * sheet.D; }
+  function uToX(u) { return (u - 0.5) * sheet.W; }
+  function vToZ(v) { return (v - 0.5) * sheet.D; }
+  function sheetHeight(px, py) {
+    var w = sheet.w, h = sheet.h; px = clamp(px, 0, w - 1); py = clamp(py, 0, h - 1);
+    var x0 = Math.floor(px), y0 = Math.floor(py), x1 = Math.min(x0 + 1, w - 1), y1 = Math.min(y0 + 1, h - 1), fx = px - x0, fy = py - y0;
+    var a = heights[y0 * w + x0], b = heights[y0 * w + x1], c = heights[y1 * w + x0], d = heights[y1 * w + x1];
+    return mix(mix(a, b, fx), mix(c, d, fx), fy);
+  }
+  /* Height of the rendered mesh itself (same triangles), so the road and the camera sit on what is drawn. */
+  function groundAt(x, z) {
+    var gi = clamp(((x / sheet.W + 0.5) * sheet.w - 0.5) / (sheet.w - 1) * grid.nx, 0, grid.nx - 1e-6);
+    var gj = clamp(((z / sheet.D + 0.5) * sheet.h - 0.5) / (sheet.h - 1) * grid.nz, 0, grid.nz - 1e-6);
+    var i = Math.floor(gi), j = Math.floor(gj), fx = gi - i, fy = gj - j, row = grid.nx + 1, H = grid.y;
+    var a = H[j * row + i], b = H[j * row + i + 1], c = H[(j + 1) * row + i], d = H[(j + 1) * row + i + 1];
+    if (fx + fy <= 1) return a + (b - a) * fx + (c - a) * fy;
+    return d + (c - d) * (1 - fx) + (b - d) * (1 - fy);
+  }
+
+  /* ---------- terrain ---------- */
+  function buildTerrain() {
+    var nx = phone ? 256 : 384, nz = Math.round(nx * (sheet.h - 1) / (sheet.w - 1)), row = nx + 1, count = row * (nz + 1);
+    var pos = new Float32Array(count * 3), col = new Float32Array(count * 3), ys = new Float32Array(count);
+    for (var j = 0; j <= nz; j++) for (var i = 0; i <= nx; i++) {
+      var k = j * row + i, px = i * (sheet.w - 1) / nx, py = j * (sheet.h - 1) / nz, y = sheetHeight(px, py) * VERTICAL_EXAGGERATION;
+      pos[k * 3] = pxToX(px); pos[k * 3 + 1] = y; pos[k * 3 + 2] = pyToZ(py); ys[k] = y;
     }
-    ctx.lineTo(w+100,h+30);ctx.closePath();ctx.fillStyle=fill;ctx.fill();
+    grid = { nx: nx, nz: nz, y: ys };
+    var idx = new Uint32Array(nx * nz * 6), n = 0;
+    for (j = 0; j < nz; j++) for (i = 0; i < nx; i++) {
+      var a = j * row + i, b = a + 1, c = a + row, d = c + 1;
+      idx[n++] = a; idx[n++] = c; idx[n++] = b; idx[n++] = b; idx[n++] = c; idx[n++] = d;
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.setIndex(new THREE.BufferAttribute(idx, 1));
+    geo.computeVertexNormals();
+    var nor = geo.getAttribute("normal").array;
+    /* Six communities by elevation, edges blended over about 150 ft; steep slopes lean to the darker ridge tone. */
+    var lit = M.bands.map(function (b) { return new THREE.Color(b.ridge[0]); });
+    var shade = M.bands.map(function (b) { return new THREE.Color(b.ridge[1]); });
+    var tmpA = new THREE.Color(), tmpB = new THREE.Color(), half = M.bandBlendFt / 2;
+    for (k = 0; k < count; k++) {
+      var ft = ys[k] / VERTICAL_EXAGGERATION * FT;
+      tmpA.copy(lit[0]); tmpB.copy(shade[0]);
+      for (var e = 0; e < M.bandEdges.length; e++) {
+        var t = smooth(M.bandEdges[e] - half, M.bandEdges[e] + half, ft);
+        if (t > 0) { tmpA.lerp(lit[e + 1], t); tmpB.lerp(shade[e + 1], t); }
+      }
+      var steep = clamp((1 - nor[k * 3 + 1]) * 1.6, 0, 0.55);
+      tmpA.lerp(tmpB, steep);
+      col[k * 3] = tmpA.r; col[k * 3 + 1] = tmpA.g; col[k * 3 + 2] = tmpA.b;
+    }
+    geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    var mesh = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true }));
+    mesh.frustumCulled = false;
+    scene.add(mesh);
   }
 
-  function topo(f,alpha){ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle="#fff";ctx.lineWidth=1;var look=(S.lookback-.5)*45;
-    for(var j=0;j<9;j++){ctx.beginPath();for(var x=-80;x<=w+80;x+=18){var y=h*(.13+j*.068)+Math.sin(x*.006+j*.83+f*.75)*(14+j*4)+look;if(x===-80)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();}ctx.restore();}
-
-  function sun(f){var t=clamp(f/5,0,1),x=mix(w*.78,w*.22,t)+(S.pointerX-.5)*18+(S.lookback-.5)*w*.08,y=mix(h*.2,h*.25,t)+(S.pointerY-.5)*10,r=mix(Math.min(w,h)*.07,Math.min(w,h)*.038,t);
-    var halo=ctx.createRadialGradient(x,y,0,x,y,r*5);halo.addColorStop(0,t>.7?"rgba(202,229,255,.38)":"rgba(255,216,132,.52)");halo.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=halo;ctx.fillRect(x-r*5,y-r*5,r*10,r*10);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=t>.72?"#d8edff":"#ffd07a";ctx.fill();}
-
-  function roadPoint(t,f){var horizon=mix(h*.58,h*.5,clamp(f/5,0,1));var vanish=w*(.5+(S.lookback-.5)*.26+Math.sin(f*.88)*.035);var y=horizon+Math.pow(t,1.38)*(h-horizon+20);var curve=Math.sin(t*3.6+f*.72)*w*.045*t+(S.pointerX-.5)*18*t;var width=mix(1,w*.32,Math.pow(t,1.9));return{x:vanish+curve,y:y,width:width};}
-  function road(f){var pts=[],n=46,routeProgress=S.progress+travelOffset;for(var i=0;i<=n;i++)pts.push(roadPoint(i/n,f));
-    ctx.beginPath();for(i=0;i<=n;i++){var a=pts[i];if(i===0)ctx.moveTo(a.x-a.width,a.y);else ctx.lineTo(a.x-a.width,a.y);}for(i=n;i>=0;i--){a=pts[i];ctx.lineTo(a.x+a.width,a.y);}ctx.closePath();var g=ctx.createLinearGradient(0,h*.5,0,h);g.addColorStop(0,"rgba(12,18,22,.6)");g.addColorStop(1,"#151b1e");ctx.fillStyle=g;ctx.fill();
-    ctx.strokeStyle="rgba(246,240,229,.65)";ctx.lineWidth=1.3;ctx.beginPath();pts.forEach(function(p,k){if(k===0)ctx.moveTo(p.x-p.width,p.y);else ctx.lineTo(p.x-p.width,p.y);});ctx.stroke();ctx.beginPath();pts.forEach(function(p,k){if(k===0)ctx.moveTo(p.x+p.width,p.y);else ctx.lineTo(p.x+p.width,p.y);});ctx.stroke();
-    ctx.save();ctx.strokeStyle="#ffd07a";ctx.shadowColor="#ffd07a";ctx.shadowBlur=8;ctx.lineCap="round";
-    var phase=Math.floor(routeProgress*220);for(i=3;i<n-1;i++){if((i+phase)%6<3){var p0=pts[i],p1=pts[i+1];ctx.lineWidth=mix(.5,5,Math.pow(i/n,2));ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.lineTo(p1.x,p1.y);ctx.stroke();}}ctx.restore();
+  /* ---------- the road ---------- */
+  function buildRoute(data) {
+    var n = data.mi.length, x = new Float32Array(n), z = new Float32Array(n), y = new Float32Array(n), s = new Float32Array(n);
+    var minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity, sumY = 0;
+    for (var i = 0; i < n; i++) {
+      x[i] = uToX(data.u[i]); z[i] = vToZ(data.v[i]); s[i] = data.mi[i] * MILE;
+      y[i] = Math.max(groundAt(x[i], z[i]), data.ft[i] / FT * VERTICAL_EXAGGERATION);
+      minX = Math.min(minX, x[i]); maxX = Math.max(maxX, x[i]); minZ = Math.min(minZ, z[i]); maxZ = Math.max(maxZ, z[i]); sumY += y[i];
+    }
+    route = { n: n, x: x, z: z, y: y, s: s, box: { minX: minX, maxX: maxX, minZ: minZ, maxZ: maxZ, y: sumY / n } };
+  }
+  function buildRoad() {
+    var r = route, n = r.n, pos = new Float32Array(n * 6), lat = new Float32Array(n * 6), side = new Float32Array(n * 2), dist = new Float32Array(n * 2);
+    var half = ROAD_WIDTH / 2;
+    for (var i = 0; i < n; i++) {
+      var a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1), dx = r.x[b] - r.x[a], dz = r.z[b] - r.z[a], L = Math.hypot(dx, dz) || 1;
+      var lx = -dz / L, lz = dx / L;
+      for (var sdx = 0; sdx < 2; sdx++) {
+        var sg = sdx ? 1 : -1, v = i * 2 + sdx, ex = r.x[i] + lx * sg * half, ez = r.z[i] + lz * sg * half;
+        pos[v * 3] = r.x[i]; pos[v * 3 + 1] = Math.max(groundAt(ex, ez), r.y[i]) + 3; pos[v * 3 + 2] = r.z[i];
+        lat[v * 3] = lx; lat[v * 3 + 1] = 0; lat[v * 3 + 2] = lz; side[v] = sg; dist[v] = r.s[i];
+      }
+    }
+    var idx = [];
+    for (i = 0; i < n - 1; i++) { var p = i * 2; idx.push(p, p + 2, p + 1, p + 1, p + 2, p + 3); }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute("lateral", new THREE.BufferAttribute(lat, 3));
+    geo.setAttribute("side", new THREE.BufferAttribute(side, 1));
+    geo.setAttribute("dist", new THREE.BufferAttribute(dist, 1));
+    geo.setIndex(idx);
+    roadMat = new THREE.ShaderMaterial({
+      uniforms: THREE.UniformsUtils.merge([THREE.UniformsLib.fog, {
+        uColor: { value: new THREE.Color(ROAD_COLOR) }, uHalf: { value: half }, uLift: { value: 0 }, uDriven: { value: 0 }, uDim: { value: 0.32 }
+      }]),
+      vertexShader: [
+        "attribute vec3 lateral; attribute float side; attribute float dist;",
+        "uniform float uHalf; uniform float uLift; varying float vDist; varying float vSide;",
+        "#include <fog_pars_vertex>",
+        "void main(){",
+        "  vec3 p = position + lateral * side * uHalf + vec3(0.0, uLift, 0.0);",
+        "  vDist = dist; vSide = side;",
+        "  vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);",
+        "  gl_Position = projectionMatrix * mvPosition;",
+        "  #include <fog_vertex>",
+        "}"].join("\n"),
+      fragmentShader: [
+        "uniform vec3 uColor; uniform float uDriven; uniform float uDim; varying float vDist; varying float vSide;",
+        "#include <fog_pars_fragment>",
+        "void main(){",
+        "  float driven = 1.0 - smoothstep(uDriven - 25.0, uDriven + 25.0, vDist);",
+        "  float edge = 1.0 - smoothstep(0.55, 1.0, abs(vSide));",
+        "  vec3 c = uColor * mix(0.62, 1.15, driven);",
+        "  gl_FragColor = vec4(c, mix(uDim, 1.0, driven) * (0.55 + 0.45 * edge));",
+        "  #include <colorspace_fragment>",
+        "  #include <fog_fragment>",
+        "}"].join("\n"),
+      fog: true, transparent: true, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4
+    });
+    var mesh = new THREE.Mesh(geo, roadMat);
+    mesh.frustumCulled = false; mesh.renderOrder = 2;
+    scene.add(mesh);
   }
 
-  function saguaro(x,y,s,a){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.strokeStyle=floraColor(0);ctx.lineCap="round";ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-72);ctx.stroke();ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-1,-43);ctx.lineTo(-14,-43);ctx.lineTo(-14,-58);ctx.moveTo(1,-31);ctx.lineTo(15,-31);ctx.lineTo(15,-49);ctx.stroke();ctx.restore();}
-  function yucca(x,y,s,a,tm){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.strokeStyle=floraColor(1);ctx.lineWidth=2.4;ctx.lineCap="round";for(var i=-4;i<=4;i++){ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(i*3+Math.sin(tm*.001+i)*3,-20,i*8,-31-Math.abs(i));ctx.stroke();}ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,-4);ctx.lineTo(0,-64);ctx.stroke();ctx.restore();}
-  function oak(x,y,s,a){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.fillStyle=floraColor(2);ctx.fillRect(-2,-42,4,44);[[-16,-43,15],[15,-44,17],[0,-60,22],[-5,-72,14]].forEach(function(c){ctx.beginPath();ctx.arc(c[0],c[1],c[2],0,6.3);ctx.fill();});ctx.restore();}
-  function pine(x,y,s,a,aspen){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;if(aspen){ctx.fillStyle="rgba(240,235,215,.87)";ctx.fillRect(-2,-86,4,88);ctx.fillStyle="#72835f";ctx.beginPath();ctx.arc(0,-88,13,0,6.3);ctx.fill();}else{ctx.fillStyle=floraColor(5);ctx.fillRect(-2,-72,4,74);for(var i=0;i<4;i++){var yy=-34-i*17,half=24-i*3;ctx.beginPath();ctx.moveTo(0,yy-37);ctx.lineTo(-half,yy+7);ctx.lineTo(half,yy+7);ctx.closePath();ctx.fill();}}ctx.restore();}
-  function hoodoo(x,y,s,a){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.globalAlpha*=a;ctx.fillStyle="#685650";ctx.beginPath();ctx.moveTo(-13,0);ctx.lineTo(-9,-47);ctx.lineTo(-15,-61);ctx.lineTo(-8,-72);ctx.lineTo(-5,-103);ctx.lineTo(5,-98);ctx.lineTo(8,-70);ctx.lineTo(15,-62);ctx.lineTo(9,-49);ctx.lineTo(14,0);ctx.closePath();ctx.fill();ctx.restore();}
-  function plant(b,x,y,s,a,tm,i){if(b===0)saguaro(x,y,s,a);else if(b===1)yucca(x,y,s,a,tm);else if(b===2)oak(x,y,s*.82,a);else if(b===3){if(i%5===0)hoodoo(x,y,s*1.1,a);else if(i%2)pine(x,y,s*.9,a,false);else oak(x,y,s*.7,a);}else if(b===4)pine(x,y,s*1.08,a,false);else pine(x,y,s*1.08,a,i%6===0);}
-  function roadside(f,tm){var lo=Math.floor(clamp(f,0,5)),fr=clamp(f,0,5)-lo,routeProgress=S.progress+travelOffset;for(var i=0;i<30;i++){var t=(seeded(i*3+4)+routeProgress*3.7)%1,p=roadPoint(t,f),side=i%2?-1:1;var margin=p.width+mix(9,w*.14,t)*(.38+seeded(i+8)*.75);var x=p.x+side*margin,y=p.y+mix(2,20,t)*seeded(i+16),sc=.13+Math.pow(t,2.05)*2.5;plant(lo,x,y,sc,1-fr,tm,i);if(lo<5)plant(lo+1,x,y,sc,fr,tm,i);}}
+  /* ---------- plants: one stylized, faceted set, placed by band, seeded. Drawn, not surveyed. ---------- */
+  function merge(parts) {
+    var list = parts.map(function (g) { var o = g.index ? g.toNonIndexed() : g; o.userData.shade = g.userData.shade; return o; }), total = 0;
+    list.forEach(function (g) { total += g.getAttribute("position").count; });
+    var pos = new Float32Array(total * 3), nor = new Float32Array(total * 3), col = new Float32Array(total * 3), o = 0;
+    list.forEach(function (g) {
+      var n = g.getAttribute("position").count, sh = g.userData.shade || [1, 1, 1];
+      pos.set(g.getAttribute("position").array, o * 3); nor.set(g.getAttribute("normal").array, o * 3);
+      for (var i = 0; i < n; i++) { col[(o + i) * 3] = sh[0]; col[(o + i) * 3 + 1] = sh[1]; col[(o + i) * 3 + 2] = sh[2]; }
+      o += n;
+    });
+    var out = new THREE.BufferGeometry();
+    out.setAttribute("position", new THREE.BufferAttribute(pos, 3)); out.setAttribute("normal", new THREE.BufferAttribute(nor, 3)); out.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    return out;
+  }
+  /* a piece of a plant: optional squash, tilt, then where it sits; shade multiplies the plant's own colour (bark, stalks) */
+  function part(geo, x, y, z, o) {
+    o = o || {};
+    if (o.sc) geo.scale(o.sc[0], o.sc[1], o.sc[2]);
+    if (o.rz) geo.rotateZ(o.rz);
+    if (o.ry) geo.rotateY(o.ry);
+    geo.translate(x, y, z); if (o.shade) geo.userData.shade = o.shade;
+    return geo;
+  }
+  function shapes() {
+    var C = THREE.CylinderGeometry, K = THREE.ConeGeometry, I = THREE.IcosahedronGeometry, TAU = Math.PI * 2;
+    var BARK = [1.25, .72, .6], PALE = [1.5, 1.35, 2.3], STRAW = [1.5, 1.25, .8];
+    function ring(n, make) { var out = []; for (var i = 0; i < n; i++) out.push(make(i, i / n * TAU)); return out; }
+    function arm(side, reach, base, len) {
+      return [part(new C(.042, .042, reach, 6), side * (reach / 2 + .03), base, 0, { rz: Math.PI / 2 }),
+        part(new C(.04, .044, len, 6), side * (reach + .03), base + len / 2, 0), part(new I(.04, 1), side * (reach + .03), base + len, 0)];
+    }
+    return {
+      saguaro: merge([part(new C(.058, .066, .94, 7), 0, .47, 0), part(new I(.058, 1), 0, .94, 0)].concat(arm(1, .15, .42, .34), arm(-1, .12, .55, .22))),
+      spear: merge([part(new C(.07, .085, .9, 7), 0, .45, 0), part(new I(.07, 1), 0, .9, 0)]),
+      ocotillo: merge(ring(9, function (i, a) { var g = new C(.014, .034, 1, 4); g.translate(0, .5, 0); return part(g, 0, 0, 0, { rz: .16 + (i % 3) * .13, ry: a }); })),
+      sotol: merge(ring(12, function (i, a) { var g = new K(.03, .42, 3); g.translate(0, .21, 0); return part(g, 0, .04, 0, { rz: .35 + (i % 3) * .38, ry: a }); })
+        .concat([part(new C(.012, .02, .95, 4), 0, .5, 0, { shade: STRAW }), part(new C(.03, .014, .32, 5), 0, .9, 0, { shade: STRAW })])),
+      grass: merge(ring(6, function (i, a) { var g = new K(.1, 1, 3); g.translate(0, .5, 0); return part(g, 0, 0, 0, { rz: .1 + (i % 3) * .22, ry: a }); })),
+      shrub: merge([part(new I(.5, 0), 0, .3, 0, { sc: [1, .62, 1] }), part(new I(.3, 0), .38, .22, .1, { sc: [1, .7, 1] })]),
+      oak: merge([part(new C(.045, .075, .4, 5), 0, .2, 0, { shade: BARK }), part(new I(.36, 0), 0, .62, 0, { sc: [1.2, .8, 1.2] }),
+        part(new I(.27, 0), .3, .5, .1, { sc: [1.1, .8, 1.1] }), part(new I(.25, 0), -.24, .52, -.18, { sc: [1.1, .8, 1.1] })]),
+      pine: merge([part(new C(.026, .044, .6, 5), 0, .3, 0, { shade: BARK }), part(new K(.2, .34, 7), 0, .62, 0), part(new K(.16, .3, 7), 0, .8, 0), part(new K(.1, .26, 7), 0, .95, 0)]),
+      fir: merge([part(new C(.02, .03, .2, 5), 0, .1, 0, { shade: BARK }), part(new K(.175, .34, 7), 0, .3, 0), part(new K(.14, .32, 7), 0, .5, 0), part(new K(.105, .3, 7), 0, .69, 0), part(new K(.07, .3, 7), 0, .88, 0)]),
+      aspen: merge([part(new C(.016, .024, .66, 5), 0, .33, 0, { shade: PALE }), part(new I(.2, 0), 0, .74, 0, { sc: [.85, 1.35, .85] }), part(new I(.13, 0), .1, .56, .05, { sc: [1, 1.1, 1] })])
+    };
+  }
+  /* height in metres before PLANT_SCALE, and the drawn colour */
+  var SPECIES = {
+    saguaro: [10, "#6f8f58"], spear: [4.5, "#6f8f58"], ocotillo: [5, "#8c8f63"], sotol: [3.6, "#93a585"], grass: [2.2, "#d3bd74"], shrub: [2.6, "#8a8c57"],
+    oak: [9, "#5d7446"], pine: [24, "#47683f"], fir: [26, "#355a45"], aspen: [17, "#a9bd5c"]
+  };
+  /* how thickly each band is planted (share of tries kept), then what grows there */
+  var COVER = [.95, 1, .9, .9, 1, 1];
+  function pick(band, r) {
+    if (band === 0) return r < .15 ? "saguaro" : r < .21 ? "spear" : r < .36 ? "ocotillo" : "shrub";
+    if (band === 1) return r < .18 ? "sotol" : r < .26 ? "ocotillo" : r < .8 ? "grass" : "shrub";
+    if (band === 2) return r < .5 ? "oak" : r < .56 ? "sotol" : r < .9 ? "grass" : "shrub";
+    if (band === 3) return r < .42 ? "oak" : r < .84 ? "pine" : "grass";
+    if (band === 4) return r < .86 ? "pine" : r < .95 ? "oak" : "grass";
+    return r < .1 ? "aspen" : (r < .34 ? "pine" : "fir");
+  }
+  function buildPlants() {
+    var target = phone ? 6000 : 12000, rand = rng(27), r = route, cell = 60, roadGrid = {};
+    for (var i = 0; i < r.n; i++) { var key = Math.floor(r.x[i] / cell) + "," + Math.floor(r.z[i] / cell); (roadGrid[key] = roadGrid[key] || []).push(i); }
+    function nearRoad(x, z) {
+      var cx = Math.floor(x / cell), cz = Math.floor(z / cell);
+      for (var a = -1; a <= 1; a++) for (var b = -1; b <= 1; b++) { var l = roadGrid[(cx + a) + "," + (cz + b)]; if (!l) continue; for (var q = 0; q < l.length; q++) { if (Math.hypot(r.x[l[q]] - x, r.z[l[q]] - z) < 30) return true; } }
+      return false;
+    }
+    var picks = {}, placed = 0, tries = 0;
+    Object.keys(SPECIES).forEach(function (sp) { picks[sp] = []; });
+    while (placed < target && tries < target * 6) {
+      tries++;
+      var k = Math.floor(rand() * (r.n - 1)), a2 = Math.max(0, k - 1), b2 = Math.min(r.n - 1, k + 1), dx = r.x[b2] - r.x[a2], dz = r.z[b2] - r.z[a2], L = Math.hypot(dx, dz) || 1;
+      var sg = rand() < .5 ? -1 : 1, d = 34 + 400 * Math.pow(rand(), 1.3), along = (rand() - .5) * 40;
+      var x = r.x[k] + (-dz / L) * sg * d + dx / L * along, z = r.z[k] + (dx / L) * sg * d + dz / L * along;
+      if (Math.abs(x) > sheet.W / 2 - 50 || Math.abs(z) > sheet.D / 2 - 50 || nearRoad(x, z)) continue;
+      var y = groundAt(x, z), ft = y / VERTICAL_EXAGGERATION * FT, band = bandOfFeet(ft), keep = rand(), sp = pick(band, rand());
+      if (keep > COVER[band]) continue;
+      if ((sp === "saguaro" || sp === "spear") && ft >= 4000) continue;
+      if ((sp === "pine" || sp === "fir" || sp === "aspen") && ft < 6000) continue;
+      picks[sp].push({ x: x, y: y - 0.4, z: z, s: SPECIES[sp][0] * PLANT_SCALE * (0.7 + rand() * 0.6), rot: rand() * Math.PI * 2, tone: 0.86 + rand() * 0.28 });
+      placed++;
+      /* shrubs and grass grow in patches: a few more of the same close by */
+      if (sp === "grass" || sp === "shrub") for (var extra = (sp === "grass" ? 6 : 2) + Math.floor(rand() * (sp === "grass" ? 6 : 4)), spread = sp === "grass" ? 70 : 46; extra > 0; extra--) {
+        var ex = x + (rand() - .5) * spread, ez = z + (rand() - .5) * spread;
+        if (nearRoad(ex, ez)) continue;
+        picks[sp].push({ x: ex, y: groundAt(ex, ez) - 0.4, z: ez, s: SPECIES[sp][0] * PLANT_SCALE * (0.6 + rand() * 0.6), rot: rand() * Math.PI * 2, tone: 0.86 + rand() * 0.28 });
+      }
+    }
+    /* the grassland gets its own pass: tufts scattered thickly beside every stretch of road between 4,000 and 6,000 feet */
+    var perSample = phone ? 26 : 60;
+    for (i = 1; i < r.n - 1; i++) {
+      var rf = r.y[i] * FT; if (rf < 3900 || rf > 6100) continue;
+      var tx = r.x[i + 1] - r.x[i - 1], tz = r.z[i + 1] - r.z[i - 1], tl = Math.hypot(tx, tz) || 1;
+      for (var g = 0; g < perSample; g++) {
+        var gd = (rand() < .5 ? -1 : 1) * (32 + 420 * Math.pow(rand(), 1.5)), ga = (rand() - .5) * 44;
+        var gx = r.x[i] - tz / tl * gd + tx / tl * ga, gz = r.z[i] + tx / tl * gd + tz / tl * ga, gy = groundAt(gx, gz), gf = gy * FT;
+        if (gf < 4000 || gf >= 6000 || nearRoad(gx, gz)) continue;
+        if (gf >= 5000 && rand() < .45) continue;
+        picks.grass.push({ x: gx, y: gy - 0.4, z: gz, s: SPECIES.grass[0] * PLANT_SCALE * (0.55 + rand() * 0.8), rot: rand() * Math.PI * 2, tone: 0.78 + rand() * 0.42 });
+      }
+    }
+    var geos = shapes(), mat = new THREE.MeshLambertMaterial({ color: 0xffffff, vertexColors: true, flatShading: true });
+    var m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), c = new THREE.Color();
+    plantGroup = new THREE.Group();
+    Object.keys(picks).forEach(function (sp) {
+      var list = picks[sp]; if (!list.length) return;
+      var mesh = new THREE.InstancedMesh(geos[sp], mat, list.length);
+      list.forEach(function (p, idx) {
+        e.set(0, p.rot, 0); q.setFromEuler(e); m4.compose(new THREE.Vector3(p.x, p.y, p.z), q, new THREE.Vector3(p.s, p.s, p.s)); mesh.setMatrixAt(idx, m4);
+        c.set(SPECIES[sp][1]).multiplyScalar(p.tone); mesh.setColorAt(idx, c);
+      });
+      mesh.frustumCulled = false; plantGroup.add(mesh);
+    });
+    scene.add(plantGroup);
+  }
 
-  function canopy(f){var oakA=clamp(1-Math.abs(f-2),0,1)*.9,forestA=clamp((f-3.65)*1.5,0,1);if(oakA){ctx.save();ctx.globalAlpha=oakA;ctx.fillStyle=floraColor(2);for(var i=0;i<13;i++){ctx.beginPath();ctx.arc(i/12*w+Math.sin(i)*22,-8+seeded(i)*28,45+seeded(i+9)*40,0,6.3);ctx.fill();}ctx.restore();}if(forestA){ctx.save();ctx.globalAlpha=forestA*.58;ctx.fillStyle=floraColor(5);for(i=0;i<10;i++){var x=i/9*w+(seeded(i+44)-.5)*70,ww=10+seeded(i)*13;ctx.fillRect(x-ww/2,0,ww,h);};ctx.restore();}}
-  function particles(f,tm){var mode=f<.8?0:f<2?1:f>4.5?2:-1;if(mode<0)return;ctx.save();var baseAlpha=ctx.globalAlpha;for(var i=0;i<(w<700?20:36);i++){var x=(seeded(i*7+2)*w+Math.sin(tm*.0005+i)*18)%w,y=(seeded(i*11+5)*h+tm*(mode===2?.004:.002)*(1+seeded(i)))%h;ctx.globalAlpha=baseAlpha*(.1+seeded(i+2)*.25);if(mode===0){ctx.fillStyle="#ffd08a";ctx.fillRect(x,y,1.5,1.5);}else if(mode===1){ctx.strokeStyle="#d7c885";ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+6+S.velocity*12,y+2);ctx.stroke();}else{ctx.fillStyle=i%4===0?"#e9e2ca":"#aecbd8";ctx.beginPath();ctx.ellipse(x,y,2.5,1,tm*.0003+i,0,6.3);ctx.fill();}}ctx.restore();}
+  /* ---------- camera ---------- */
+  /* The camera does not copy every bend of the road. It rides a rail worked out once from the road:
+     a lightly smoothed position, a heading whose turning is spread over about a mile, and a height that
+     clears the ground. Hairpins become one slow pan instead of a whip. */
+  var RAIL_POS = 120, RAIL_YAW = 700, RAIL_Y = 200, rail = null;
+  function gauss(arr, sigma) {
+    var s = route.s, n = route.n, out = new Float32Array(n), lo = 0, hi = 0;
+    for (var i = 0; i < n; i++) {
+      while (s[i] - s[lo] > 3 * sigma) lo++;
+      while (hi < n - 1 && s[hi + 1] - s[i] <= 3 * sigma) hi++;
+      var a = 0, w = 0;
+      for (var j = lo; j <= hi; j++) { var d = (s[j] - s[i]) / sigma, g = Math.exp(-0.5 * d * d); a += arr[j] * g; w += g; }
+      out[i] = a / w;
+    }
+    return out;
+  }
+  function sees(ax, ay, az, bx, by, bz) {
+    for (var k = 1; k < 16; k++) { var f = k / 16; if (mix(ay, by + 6, f) < groundAt(mix(ax, bx, f), mix(az, bz, f)) + 3) return false; }
+    return true;
+  }
+  function buildRail() {
+    var r = route, n = r.n, i, tx = new Float32Array(n), tz = new Float32Array(n), raw = new Float32Array(n);
+    for (i = 0; i < n; i++) { var a = Math.min(n - 1, i + 1), b = Math.max(0, i - 1); tx[i] = r.x[a] - r.x[b]; tz[i] = r.z[a] - r.z[b]; }
+    tx = gauss(tx, 60); tz = gauss(tz, 60);
+    for (i = 0; i < n; i++) {
+      var y = Math.atan2(tz[i], tx[i]);
+      if (i) { while (y - raw[i - 1] > Math.PI) y -= 2 * Math.PI; while (y - raw[i - 1] < -Math.PI) y += 2 * Math.PI; }
+      raw[i] = y;
+    }
+    var yaw = gauss(raw, RAIL_YAW), px = gauss(r.x, RAIL_POS), pz = gauss(r.z, RAIL_POS), ry = gauss(r.y, RAIL_Y);
+    var cx = new Float32Array(n), cz = new Float32Array(n), cy = new Float32Array(n), lean = new Float32Array(n);
+    for (i = 0; i < n; i++) {
+      cx[i] = px[i] - Math.cos(yaw[i]) * CAM_BEHIND; cz[i] = pz[i] - Math.sin(yaw[i]) * CAM_BEHIND;
+      /* how far the road 240 m on sits to one side of the heading; the view leans part of the way toward it */
+      var q = Math.min(n - 1, i + 6), off = Math.atan2(r.z[q] - cz[i], r.x[q] - cx[i]) - yaw[i];
+      while (off > Math.PI) off -= 2 * Math.PI; while (off < -Math.PI) off += 2 * Math.PI; lean[i] = off;
+      cy[i] = Math.max(groundAt(cx[i], cz[i]) + CAM_ABOVE, r.y[i] + CAM_ABOVE * 0.7);
+      /* climb until the road here and 320 m on can be seen over the ground in between */
+      var ahead = Math.min(n - 1, i + 8), lift = 0;
+      while (lift < 450 && !(sees(cx[i], cy[i] + lift, cz[i], r.x[i], r.y[i], r.z[i]) && sees(cx[i], cy[i] + lift, cz[i], r.x[ahead], r.y[ahead], r.z[ahead]))) lift += 15;
+      cy[i] += lift;
+    }
+    /* hold the high points for a while either side, then round them off, so the height never bobs */
+    var held = new Float32Array(n);
+    for (i = 0; i < n; i++) { var m = cy[i]; for (var j = Math.max(0, i - 5); j <= Math.min(n - 1, i + 5); j++) if (cy[j] > m) m = cy[j]; held[i] = m; }
+    lean = gauss(lean, 250);
+    for (i = 0; i < n; i++) lean[i] = yaw[i] + 0.6 * lean[i];
+    rail = { cx: cx, cz: cz, cy: gauss(held, RAIL_Y), yaw: lean, ry: ry };
+  }
+  function railAt(arr, dist) {
+    var s = route.s, n = route.n;
+    if (dist <= 0) return arr[0];
+    if (dist >= s[n - 1]) return arr[n - 1];
+    var lo = 0, hi = n - 1;
+    while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (s[mid] <= dist) lo = mid; else hi = mid; }
+    return mix(arr[lo], arr[hi], (dist - s[lo]) / Math.max(1e-6, s[hi] - s[lo]));
+  }
+  function drivePose(outP, outT) {
+    var s = sm.v[0] * MILE, look = sm.v[1];
+    var cx = railAt(rail.cx, s), cy = railAt(rail.cy, s), cz = railAt(rail.cz, s), yaw = railAt(rail.yaw, s);
+    /* tilt toward the road a little way on, so a camera lifted over a ridge still looks down at it */
+    var far = CAM_BEHIND + CAM_AHEAD, pitch = Math.atan2(railAt(rail.ry, s + 200) + 12 - cy, CAM_BEHIND + 200);
+    if (look < 0.001) lookSign = (Math.cos(yaw) * (basin[1] - cz) - Math.sin(yaw) * (basin[0] - cx)) >= 0 ? 1 : -1;
+    else { yaw += lookSign * look * Math.PI; pitch = mix(pitch, -0.14, look); far = mix(far, 2400, look); }
+    outP[0] = cx; outP[1] = cy; outP[2] = cz;
+    outT[0] = cx + Math.cos(yaw) * Math.cos(pitch) * far; outT[1] = cy + Math.sin(pitch) * far; outT[2] = cz + Math.sin(yaw) * Math.cos(pitch) * far;
+  }
+  function computeOverview() {
+    var b = route.box, cx = (b.minX + b.maxX) / 2, cz = (b.minZ + b.maxZ) / 2, span = Math.max(b.maxX - b.minX, b.maxZ - b.minZ);
+    /* a narrow (portrait) screen needs the camera further back to keep the whole road in frame */
+    var k = Math.max(1, 0.9 / Math.max(0.3, camera.aspect));
+    var dir = [-0.55, 0, 0.84], dist = span * 1.0 * k;
+    overviewPose = { p: [cx + dir[0] * dist, b.y + span * 0.55 * k, cz + dir[2] * dist], t: [cx, b.y - 150 - span * 0.2 * (k - 1), cz - span * 0.04] };
+  }
+  function damp(cur, vel, target, i, dt) {
+    var omega = 2 / SMOOTH_TIME, x = omega * dt, ex = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
+    var change = cur[i] - target[i], temp = (vel[i] + omega * change) * dt;
+    vel[i] = (vel[i] - omega * temp) * ex; cur[i] = target[i] + (change + temp) * ex;
+  }
+  /* What gets eased is the place on the road, the look-back and the pull-back, never the camera in space,
+     so the camera always stays on its rail. */
+  var sm = { v: [0, 0, 0], vel: [0, 0, 0] }, want = [0, 0, 0], dp = [0, 0, 0], dt3 = [0, 0, 0];
+  function updateCamera(dt) {
+    var i, moving = false;
+    want[0] = S.mile; want[1] = S.lookback; want[2] = S.overview;
+    /* a long jump (a stop button, a tap far along the profile) cuts to the new view */
+    if (Math.abs(want[0] - sm.v[0]) > JUMP_MILES) snapNext = true;
+    if (snapNext || reduce) { for (i = 0; i < 3; i++) { sm.v[i] = want[i]; sm.vel[i] = 0; } snapNext = false; }
+    else for (i = 0; i < 3; i++) {
+      damp(sm.v, sm.vel, want, i, dt);
+      if (Math.abs(sm.v[i] - want[i]) > 0.0004 || Math.abs(sm.vel[i]) > 0.0004) moving = true; else { sm.v[i] = want[i]; sm.vel[i] = 0; }
+    }
+    drivePose(dp, dt3);
+    var ov = smooth(0, 1, sm.v[2]);
+    if (ov > 0) for (i = 0; i < 3; i++) { dp[i] = mix(dp[i], overviewPose.p[i], ov); dt3[i] = mix(dt3[i], overviewPose.t[i], ov); }
+    var floor = groundAt(dp[0], dp[2]) + CAM_FLOOR;
+    if (dp[1] < floor) dp[1] = floor;
+    camera.position.set(dp[0], dp[1], dp[2]);
+    camera.lookAt(dt3[0], dt3[1], dt3[2]);
+    /* depth precision follows the shot: close and fine on the road, far and coarse in the overview */
+    var near = mix(6, 120, ov), far = mix(60000, 160000, ov);
+    if (camera.near !== near || camera.far !== far) { camera.near = near; camera.far = far; camera.updateProjectionMatrix(); }
+    roadMat.uniforms.uDriven.value = sm.v[0] * MILE;
+    /* the line only thickens once the camera is well clear of the road */
+    var wide = smooth(0.45, 0.95, ov);
+    roadMat.uniforms.uHalf.value = mix(ROAD_WIDTH, ROAD_WIDTH_OVERVIEW, wide) / 2;
+    roadMat.uniforms.uLift.value = wide * 40;
+    plantGroup.visible = ov < 0.6;
+    fog.near = mix(5000, 38000, ov); fog.far = mix(42000, 130000, ov);
+    updateSky(ov);
+    return moving;
+  }
+  function updateSky(ov) {
+    var ft = M.feetAt(sm.v[0]), f = clamp((ft - 3500) / 1000, 0, 5);
+    f = mix(f, 4, ov);
+    var top = bandHex("sky", 0, f), bottom = bandHex("sky", 1, f), key = top + bottom;
+    if (key === lastSky) return;
+    lastSky = key;
+    stage.style.setProperty("--sky-top", top); stage.style.setProperty("--sky-bottom", bottom);
+    fog.color.set(hexMix(top, bottom, 0.6));
+    hemi.color.set(hexMix(top, "#ffffff", 0.75)); hemi.groundColor.set(bandHex("ridge", 1, f));
+  }
 
-  function normalScene(f,tm){var sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,bandColor("sky",0,f));sky.addColorStop(1,bandColor("sky",1,f));ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);sun(f);topo(f,.1);var hf=clamp(f/5,0,1),base=mix(h*.65,h*.59,hf),jag=clamp((f-2.4)*.45,0,1);ridge(1.2,base,h*.2,bandColor("ridge",0,f),10,jag);ridge(2.7,base+h*.1,h*.18,bandColor("ridge",0,f),20,jag);ridge(4.1,base+h*.19,h*.16,bandColor("ridge",1,f),32,jag);road(f);roadside(f,tm);canopy(f);particles(f,tm);}
+  /* ---------- loop ---------- */
+  function frame(ts) {
+    raf = 0;
+    var dt = lastTs ? Math.min(0.1, (ts - lastTs) / 1000) : 1 / 60; lastTs = ts;
+    var moving = updateCamera(dt);
+    renderer.render(scene, camera);
+    if (moving && visible) raf = requestAnimationFrame(frame); else lastTs = 0;
+  }
+  function invalidate() { if (ready && visible && !raf) raf = requestAnimationFrame(frame); }
+  function resize() {
+    if (!ready) return;
+    var w = window.innerWidth, h = window.innerHeight;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, phone ? 1.5 : 2));
+    renderer.setSize(w, h, false);
+    camera.aspect = w / Math.max(1, h); camera.fov = w < h ? 62 : 48;
+    /* on a tall screen the copy sits low, so the road is framed in the upper part of the view */
+    if (w < h) camera.setViewOffset(w, h, 0, Math.round(h * 0.2), w, h); else camera.clearViewOffset();
+    camera.updateProjectionMatrix();
+    computeOverview();
+    invalidate();
+  }
+  function fail(err) {
+    failed = true; ready = false;
+    document.documentElement.classList.add("no-gl");
+    if (window.console) console.warn("3D view unavailable; the story continues without it.", err);
+  }
 
-  function overview(tm){var sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,"#203b5a");sky.addColorStop(1,"#07131f");ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);topo(5,.15);var peakX=w*.73,peakY=h*.16,baseY=h*.88;ctx.save();ctx.beginPath();ctx.moveTo(-40,baseY);ctx.lineTo(w*.1,h*.79);ctx.lineTo(w*.28,h*.64);ctx.lineTo(w*.44,h*.5);ctx.lineTo(w*.59,h*.35);ctx.lineTo(peakX,peakY);ctx.lineTo(w*.82,h*.29);ctx.lineTo(w+40,h*.54);ctx.lineTo(w+40,h+30);ctx.lineTo(-40,h+30);ctx.closePath();ctx.clip();var colors=["#b84e3e","#af7e4d","#557058","#315b60","#214750","#102b3a"];for(var i=0;i<6;i++){var y0=baseY-(i+1)*(baseY-peakY)/6,y1=baseY-i*(baseY-peakY)/6;var g=ctx.createLinearGradient(0,y0,w,y1);g.addColorStop(0,colors[i]);g.addColorStop(1,color(colors[i],"#07131f",.4));ctx.fillStyle=g;ctx.fillRect(0,y0-3,w,y1-y0+6);}ctx.restore();ctx.strokeStyle="rgba(246,240,229,.34)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-40,baseY);ctx.lineTo(w*.1,h*.79);ctx.lineTo(w*.28,h*.64);ctx.lineTo(w*.44,h*.5);ctx.lineTo(w*.59,h*.35);ctx.lineTo(peakX,peakY);ctx.lineTo(w*.82,h*.29);ctx.lineTo(w+40,h*.54);ctx.stroke();
-    var route=[[.08,.82],[.26,.76],[.17,.68],[.39,.62],[.31,.54],[.56,.47],[.47,.4],[.68,.32],[.6,.25],[.73,.17]];ctx.save();ctx.strokeStyle="#ffd07a";ctx.shadowColor="#ffd07a";ctx.shadowBlur=12;ctx.lineWidth=2.5;ctx.beginPath();route.forEach(function(p,k){var x=p[0]*w,y=p[1]*h;if(k===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();ctx.fillStyle="#f6f0e5";route.forEach(function(p){ctx.beginPath();ctx.arc(p[0]*w,p[1]*h,2.5,0,6.3);ctx.fill();});ctx.restore();particles(5,tm);}
-
-  function draw(tm){ctx.globalAlpha=1;ctx.clearRect(0,0,w,h);if(S.compareActive){ctx.save();ctx.beginPath();ctx.rect(0,0,w*S.compare,h);ctx.clip();normalScene(0,tm);ctx.restore();ctx.save();ctx.beginPath();ctx.rect(w*S.compare,0,w*(1-S.compare),h);ctx.clip();overview(tm);ctx.restore();}else{normalScene(S.band,tm);var ov=smooth((S.progress-.88)/.12);if(ov>0){ctx.save();ctx.globalAlpha=ov;overview(tm);ctx.restore();}}ctx.globalAlpha=1;}
-
-  function frame(ts){raf=0;if(!visible)return;var dt=lastTs?Math.min(50,ts-lastTs):0,dx=S.targetX-S.pointerX,dy=S.targetY-S.pointerY;if(S.traveling&&!reduce)travelOffset+=dt*.00001;if(!reduce){S.pointerX+=dx*.07;S.pointerY+=dy*.07;}else{S.pointerX=S.targetX;S.pointerY=S.targetY;}draw(ts);dirty=false;S.velocity*=.86;var moving=Math.abs(dx)+Math.abs(dy)>.003||Math.abs(S.velocity)>.015||S.traveling;if(moving)raf=requestAnimationFrame(frame);lastTs=ts;}
-  function setState(next){for(var k in next)S[k]=next[k];invalidate();}
-  function setTraveling(next){next=!!next;if(S.traveling===next)return;S.traveling=next;lastTs=0;invalidate();}
-  function point(x,y){S.targetX=clamp(x,0,1);S.targetY=clamp(y,0,1);if(!reduce)invalidate();}
-  function init(){canvas=document.querySelector(".landscape");if(!canvas)return;ctx=canvas.getContext("2d");window.addEventListener("resize",resize,{passive:true});document.addEventListener("visibilitychange",function(){visible=!document.hidden;lastTs=0;if(!visible&&raf){cancelAnimationFrame(raf);raf=0;}else invalidate();});resize();}
-  return{init:init,setState:setState,setTraveling:setTraveling,point:point,resize:resize};
+  function init(routeData) {
+    stage = document.querySelector(".stage"); canvas = document.querySelector(".landscape");
+    if (!canvas || !routeData) { fail(new Error("route data missing")); return Promise.resolve(); }
+    document.addEventListener("visibilitychange", function () {
+      visible = !document.hidden;
+      if (!visible && raf) { cancelAnimationFrame(raf); raf = 0; lastTs = 0; } else invalidate();
+    });
+    return Promise.all([import("./vendor/three.module.min.js"), loadJSON("data/meta.json")])
+      .then(function (res) {
+        THREE = res[0]; sheet = res[1].sheet;
+        sheet.W = sheet.w * sheet.metersPerPixel; sheet.D = sheet.h * sheet.metersPerPixel;
+        return loadHeights(sheet);
+      })
+      .then(function (h) {
+        heights = h;
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+        renderer.setClearColor(0x000000, 0);
+        canvas.addEventListener("webglcontextlost", function (e) { e.preventDefault(); fail(new Error("WebGL context lost")); });
+        scene = new THREE.Scene();
+        fog = new THREE.Fog(0xd15d47, 2500, 30000); scene.fog = fog;
+        camera = new THREE.PerspectiveCamera(48, 1, 6, 60000);
+        hemi = new THREE.HemisphereLight(0xffffff, 0x333333, 1.1); scene.add(hemi);
+        sunLight = new THREE.DirectionalLight(0xfff1dc, 3.2); sunLight.position.set(-0.75, 0.9, 0.55); scene.add(sunLight);
+        buildTerrain(); buildRoute(routeData); buildRail(); buildRoad(); buildPlants();
+        basin = [uToX(0.15), vToZ(0.85)];
+        ready = true; snapNext = true; visible = !document.hidden;
+        resize();
+        window.addEventListener("resize", resize, { passive: true });
+        document.documentElement.classList.add("gl-ready");
+      })
+      .catch(fail);
+  }
+  function setState(next) {
+    var changed = false;
+    for (var k in next) if (S[k] !== next[k]) { S[k] = next[k]; changed = true; }
+    if (changed) invalidate();
+  }
+  function setReduce(v) { reduce = v; invalidate(); }
+  return { init: init, setState: setState, render: invalidate, resize: resize, setReduce: setReduce };
 })();
 
 
-/* A single data-driven timeline controls copy, landscape, route, and instruments. */
-window.Climb=(function(){
-  var M=window.M27,nodes=[],chapters=[],centers=[],nodeMiles=[],raf=0,lastY=0,lastBand=-1,compare=.5,lookback=.72;
-  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches,els={},cache={};
-  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
-  function mix(a,b,t){return a+(b-a)*t;}
-  function comma(n){return Math.round(n).toLocaleString("en-US");}
-  function setText(el,key,value){if(el&&cache[key]!==value){cache[key]=value;el.textContent=value;}}
-  function sampleProfile(m){var p=M.profile;if(m<=p[0][0])return p[0][1];for(var i=0;i<p.length-1;i++){if(m<=p[i+1][0]){var t=(m-p[i][0])/(p[i+1][0]-p[i][0]);return mix(p[i][1],p[i+1][1],t);}}return p[p.length-1][1];}
-  function measure(){centers=nodes.map(function(n){return n.offsetTop+n.offsetHeight*.5;});nodeMiles=nodes.map(function(n){return parseFloat(n.dataset.mile)||0;});requestRender();}
-  function mileAt(ref){if(!centers.length||ref<=centers[0])return nodeMiles[0]||0;for(var i=0;i<centers.length-1;i++){if(ref<=centers[i+1]){var t=(ref-centers[i])/(centers[i+1]-centers[i]);return mix(nodeMiles[i],nodeMiles[i+1],t);}}return nodeMiles[nodeMiles.length-1];}
-  function bandAt(ref){var bc=chapters.map(function(n){return n.offsetTop+n.offsetHeight*.5;});if(!bc.length||ref<=bc[0])return 0;for(var i=0;i<bc.length-1;i++){if(ref<=bc[i+1])return i+(ref-bc[i])/(bc[i+1]-bc[i]);}return 5;}
-  function activeAt(ref){var best=0,d=Infinity;chapters.forEach(function(n,i){var x=Math.abs((n.offsetTop+n.offsetHeight*.5)-ref);if(x<d){d=x;best=i;}});var summit=document.getElementById("summit");if(summit&&ref>summit.offsetTop+summit.offsetHeight*.18)return 6;return best;}
-  function nodeFocus(ref){nodes.forEach(function(n){var local=(ref-n.offsetTop)/Math.max(1,n.offsetHeight),focus=clamp(1-Math.abs(local-.5)*2.4,0,1);n.style.setProperty("--local",local.toFixed(3));n.style.setProperty("--focus",focus.toFixed(3));});}
-  function gradeAt(m){var a=sampleProfile(clamp(m-.06,0,28.8)),b=sampleProfile(clamp(m+.06,0,28.8));return b-a;}
+/* The one control: the measured elevation profile of the road, fixed to the bottom of the screen.
+   Dragging, clicking, tapping or using the keyboard on it scrolls the page; scroll stays the source of truth. */
+window.Profile = (function () {
+  var M = window.M27, NS = "http://www.w3.org/2000/svg";
+  var bar, box, svg, range, stopsEl, els = {}, cache = {}, W = 1, H = 1, top = 0, padL = 8, padR = 8, padB = 6;
+  var lo = 2700, hi = 9300, mile = 0, ft = M.stops[0].ft, drag = null, labels = true;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var parts = {};
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function comma(n) { return Math.round(n).toLocaleString("en-US"); }
+  function setText(el, key, value) { if (el && cache[key] !== value) { cache[key] = value; el.textContent = value; } }
+  function el(name, attrs, parent) { var n = document.createElementNS(NS, name); for (var k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; }
+  function xOf(m) { return padL + (m / M.miles) * (W - padL - padR); }
+  function yOf(f) { return H - padB - (f - lo) / (hi - lo) * (H - padB - top); }
+  function mileOfX(x) { return clamp((x - padL) / Math.max(1, W - padL - padR) * M.miles, 0, M.miles); }
+  function series() {
+    if (M.route) {
+      var out = [], r = M.route, step = Math.max(1, Math.floor(r.mi.length / Math.max(120, Math.round(W))));
+      for (var i = 0; i < r.mi.length; i += step) out.push([r.mi[i], r.ft[i]]);
+      out.push([r.mi[r.mi.length - 1], r.ft[r.ft.length - 1]]);
+      return out;
+    }
+    return M.coarseProfile;
+  }
 
-  function render(){raf=0;var y=window.pageYOffset||0,vh=window.innerHeight,ref=y+vh*.5,mile=clamp(mileAt(ref),0,28.8),p=mile/28.8,bf=bandAt(ref),elev=sampleProfile(mile),temp=M.baseTemperature-((elev-M.baseElevation)/1000)*M.lapseRate,grade=gradeAt(mile),band=activeAt(ref),velocity=clamp((y-lastY)/Math.max(vh,1),-.18,.18);lastY=y;
-    var departure=clamp(y/(vh*.68),0,1),chrome=clamp((y-vh*.16)/(vh*.34),0,1),ep=document.querySelector(".epilogue"),retire=ep?clamp((y-ep.offsetTop+vh*.25)/(vh*.45),0,1):0;chrome*=1-retire;
-    document.documentElement.style.setProperty("--departure",departure.toFixed(3));document.documentElement.style.setProperty("--chrome",chrome.toFixed(3));document.documentElement.style.setProperty("--progress",p.toFixed(4));
-    document.documentElement.style.setProperty("--journey-ui",(1-retire).toFixed(3));document.documentElement.classList.toggle("journey-retired",retire>.96);
+  function draw() {
+    var rect = box.getBoundingClientRect();
+    W = Math.max(40, Math.round(rect.width)); H = Math.max(24, Math.round(rect.height));
+    labels = window.matchMedia("(min-width: 761px)").matches;
+    top = labels ? 34 : 4;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", W); svg.setAttribute("height", H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var pts = series(), line = "", i;
+    for (i = 0; i < pts.length; i++) line += (i ? "L" : "M") + xOf(pts[i][0]).toFixed(1) + " " + yOf(pts[i][1]).toFixed(1);
+    var area = line + "L" + xOf(M.miles).toFixed(1) + " " + (H - padB) + "L" + xOf(0).toFixed(1) + " " + (H - padB) + "Z";
+    var defs = el("defs", {}, svg), clip = el("clipPath", { id: "profile-area" }, defs);
+    el("path", { d: area }, clip);
+    var driven = el("clipPath", { id: "profile-driven" }, defs);
+    parts.drivenRect = el("rect", { x: 0, y: 0, width: xOf(mile), height: H }, driven);
+    /* six communities as horizontal elevation bands under the line */
+    var g = el("g", { "clip-path": "url(#profile-area)" }, svg), edges = [lo].concat(M.bandEdges, [hi]);
+    var dim = el("g", {}, g), lit = el("g", { class: "pf-driven", "clip-path": "url(#profile-driven)" }, g);
+    [dim, lit].forEach(function (layer) {
+      for (var b = 0; b < 6; b++) el("rect", { x: 0, y: yOf(edges[b + 1]), width: W, height: Math.max(0, yOf(edges[b]) - yOf(edges[b + 1])), fill: M.bands[b].ridge[0], class: "pf-band" }, layer);
+    });
+    el("path", { d: line, class: "pf-line" }, svg);
+    el("path", { d: line, class: "pf-line-driven", "clip-path": "url(#profile-driven)" }, svg);
+    /* stop ticks */
+    M.stops.forEach(function (s) {
+      if (!s.tick) return;
+      var x = xOf(s.mile);
+      el("line", { x1: x, x2: x, y1: labels ? 30 : top - 4, y2: yOf(s.ft), class: "pf-tick" }, svg);
+    });
+    parts.handleLine = el("line", { x1: 0, x2: 0, y1: top - 6, y2: H - padB, class: "pf-handle-line" }, svg);
+    parts.handle = el("circle", { cx: 0, cy: 0, r: 6, class: "pf-handle" }, svg);
+    placeStops();
+    place();
+  }
+  function placeStops() {
+    var buttons = stopsEl.querySelectorAll("button");
+    Array.prototype.forEach.call(buttons, function (b, i) {
+      var s = M.stops[+b.dataset.index];
+      b.style.left = xOf(s.mile) + "px";
+      b.classList.toggle("low", i % 2 === 1);
+      b.classList.toggle("end", s.mile > M.miles - 1.5);
+    });
+  }
+  function place() {
+    var x = xOf(mile), y = yOf(ft);
+    if (!parts.handle) return;
+    parts.handle.setAttribute("cx", x.toFixed(1)); parts.handle.setAttribute("cy", y.toFixed(1));
+    parts.handleLine.setAttribute("x1", x.toFixed(1)); parts.handleLine.setAttribute("x2", x.toFixed(1));
+    parts.drivenRect.setAttribute("width", Math.max(0, x).toFixed(1));
+  }
+  function placeName(m, community) {
+    var best = null, d = Infinity;
+    M.stops.forEach(function (s) { var x = Math.abs(s.mile - m); if (x < d) { d = x; best = s; } });
+    return d <= 0.35 ? best.name : community;
+  }
+
+  function update(state) {
+    mile = state.mile; ft = state.ft;
+    var m1 = mile.toFixed(1), name = placeName(mile, state.community);
+    setText(els.mile, "mile", m1);
+    setText(els.feet, "feet", comma(ft));
+    setText(els.temp, "temp", Math.round(state.temp) + "°");
+    setText(els.place, "place", name);
+    var v = String(Math.round(mile * 10));
+    if (range.value !== v && document.activeElement !== range) range.value = v;
+    var text = "Mile " + m1 + ", " + comma(ft) + " feet, " + name;
+    if (cache.vt !== text) { cache.vt = text; range.setAttribute("aria-valuetext", text); }
+    Array.prototype.forEach.call(stopsEl.querySelectorAll("button"), function (b) {
+      var s = M.stops[+b.dataset.index], here = Math.abs(s.mile - mile) <= 0.35;
+      if (here) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+    });
+    place();
+  }
+
+  function goTo(m, smooth) {
+    var y = window.Climb.yForMile(clamp(m, 0, M.miles));
+    window.scrollTo({ top: y, behavior: smooth && !reduce ? "smooth" : "auto" });
+  }
+  function xFromEvent(e) { return e.clientX - box.getBoundingClientRect().left; }
+  function onDown(e) {
+    if (e.button && e.button !== 0) return;
+    if (e.target.closest && e.target.closest("button")) return;
+    drag = { id: e.pointerId, x0: e.clientX, moved: false };
+    try { box.setPointerCapture(e.pointerId); } catch (err) { /* older browsers */ }
+    box.classList.add("dragging");
+    e.preventDefault();
+  }
+  function onMove(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (Math.abs(e.clientX - drag.x0) > 4) drag.moved = true;
+    if (drag.moved) goTo(mileOfX(xFromEvent(e)), false);
+  }
+  function onUp(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var x = xFromEvent(e), m = mileOfX(x);
+    if (!drag.moved) {
+      /* a tap near a stop tick lands exactly on the stop */
+      M.stops.forEach(function (s) { if (s.tick && Math.abs(xOf(s.mile) - x) < 14) m = s.mile; });
+      goTo(m, true);
+    }
+    drag = null; box.classList.remove("dragging");
+  }
+
+  function init() {
+    bar = document.getElementById("ascent-bar"); box = document.getElementById("profile");
+    if (!bar || !box) return;
+    svg = box.querySelector("svg"); range = document.getElementById("mile-range"); stopsEl = box.querySelector(".profile-stops");
+    els = { mile: document.getElementById("live-mile"), feet: document.getElementById("live-elevation"), temp: document.getElementById("live-temp"), place: document.getElementById("live-place") };
+    if (M.route) M.miles = M.route.stats.miles;
+    range.max = String(Math.round(M.miles * 10));
+    M.stops.forEach(function (s, i) {
+      if (!s.tick) return;
+      var b = document.createElement("button");
+      b.type = "button"; b.dataset.index = i; b.textContent = s.name;
+      b.setAttribute("aria-label", "Jump to " + s.name + ", mile " + s.mile.toFixed(1));
+      b.addEventListener("click", function () { goTo(s.mile, true); });
+      stopsEl.appendChild(b);
+    });
+    range.addEventListener("input", function () { goTo(parseInt(range.value, 10) / 10, false); });
+    range.addEventListener("focus", function () { box.classList.add("focused"); });
+    range.addEventListener("blur", function () { box.classList.remove("focused"); });
+    box.addEventListener("pointerdown", onDown);
+    box.addEventListener("pointermove", onMove);
+    box.addEventListener("pointerup", onUp);
+    box.addEventListener("pointercancel", function () { drag = null; box.classList.remove("dragging"); });
+    var redraw = function () { draw(); };
+    if ("ResizeObserver" in window) new ResizeObserver(redraw).observe(box); else window.addEventListener("resize", redraw);
+    draw();
+  }
+  return { init: init, update: update };
+})();
+
+
+/* One timeline: scroll position -> mile -> measured elevation, modelled temperature, community.
+   Scroll stays the single source of truth; the profile control writes scroll through yForMile. */
+window.Climb = (function () {
+  var M = window.M27, nodes = [], chapters = [], centers = [], nodeMiles = [], raf = 0, lastBand = -1, lookback = 0.72;
+  var windy = null, summit = null, els = {}, cache = {};
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function mix(a, b, t) { return a + (b - a) * t; }
+  function smooth(e0, e1, x) { var t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); }
+  function comma(n) { return Math.round(n).toLocaleString("en-US"); }
+  function setText(el, key, value) { if (el && cache[key] !== value) { cache[key] = value; el.textContent = value; } }
+  function top(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
+
+  function measure() {
+    centers = nodes.map(function (n) { return top(n) + n.offsetHeight * 0.5; });
+    nodeMiles = nodes.map(function (n) { return parseFloat(n.dataset.mile) || 0; });
+    requestRender();
+  }
+  function mileAt(ref) {
+    if (!centers.length || ref <= centers[0]) return nodeMiles[0] || 0;
+    for (var i = 0; i < centers.length - 1; i++) {
+      if (ref <= centers[i + 1]) return mix(nodeMiles[i], nodeMiles[i + 1], (ref - centers[i]) / Math.max(1, centers[i + 1] - centers[i]));
+    }
+    return nodeMiles[nodeMiles.length - 1];
+  }
+  /* The inverse: the scroll position that puts a given mile at the centre of the viewport. */
+  function yForMile(mile) {
+    var vh = window.innerHeight, maxY = document.documentElement.scrollHeight - vh;
+    if (!centers.length || mile <= nodeMiles[0]) return 0;
+    var c = centers[centers.length - 1];
+    for (var i = 0; i < centers.length - 1; i++) {
+      if (mile <= nodeMiles[i + 1]) { c = mix(centers[i], centers[i + 1], (mile - nodeMiles[i]) / Math.max(1e-6, nodeMiles[i + 1] - nodeMiles[i])); break; }
+    }
+    return clamp(Math.round(c - vh * 0.5), 0, maxY);
+  }
+  function activeAt(ref) {
+    var best = 0, d = Infinity;
+    chapters.forEach(function (n, i) { var x = Math.abs(top(n) + n.offsetHeight * 0.5 - ref); if (x < d) { d = x; best = i; } });
+    if (summit && ref > top(summit) + summit.offsetHeight * 0.18) return 6;
+    return best;
+  }
+  function nodeFocus(ref) {
+    nodes.forEach(function (n) {
+      var local = (ref - top(n)) / Math.max(1, n.offsetHeight), focus = clamp((1 - Math.abs(local - 0.5) * 2) * 1.6, 0, 1);
+      n.style.setProperty("--focus", focus.toFixed(3));
+    });
+  }
+
+  function render() {
+    raf = 0;
+    var y = window.pageYOffset || 0, vh = window.innerHeight, ref = y + vh * 0.5;
+    var mile = clamp(mileAt(ref), 0, M.miles), ft = M.feetAt(mile), temp = M.tempAt(ft), band = activeAt(ref);
     nodeFocus(ref);
-    setText(els.mile,"mile",mile.toFixed(1));setText(els.elevation,"elev",comma(elev));setText(els.temp,"temp",Math.round(temp)+"°");
-    var down=grade<-.5;setText(els.grade,"grade",down?"▼":"▲");els.grade.classList.toggle("down",down);els.grade.classList.toggle("up",!down);
-    if(band!==lastBand){lastBand=band;var name=band===6?"Mount Lemmon summit":M.bands[band].name;setText(els.zone,"zone",name);setText(els.announcement,"announce",(down?"Descending through ":"Entering ")+name+", about "+comma(elev)+" feet.");document.querySelectorAll(".route-rail a").forEach(function(a,i){if(i===band)a.setAttribute("aria-current","step");else a.removeAttribute("aria-current");});}
-    var summit=document.getElementById("summit"),compareActive=!!(summit&&ref>summit.offsetTop&&ref<summit.offsetTop+summit.offsetHeight);document.documentElement.style.setProperty("--compare-active",compareActive?"1":"0");document.documentElement.style.setProperty("--compare",(compare*100).toFixed(1)+"%");
-    var sceneProgress=reduce?(band===6?1:[2.7,5.5,9.1,14,17,19.6][band]/28.8):p,sceneBand=reduce?Math.min(band,5):bf;
-    window.MountainScene.setState({progress:sceneProgress,band:sceneBand,lookback:lookback,compare:compare,compareActive:compareActive,velocity:reduce?0:velocity});
+    var overview = 0, look = 0;
+    if (summit) overview = smooth(top(summit) - vh * 0.1, top(summit) + vh * 0.6, ref);
+    if (windy) { var wt = top(windy), wb = wt + windy.offsetHeight; look = lookback * smooth(wt - vh * 0.05, wt + vh * 0.35, ref) * (1 - smooth(wb - vh * 0.35, wb + vh * 0.05, ref)); }
+    var name = band === 6 ? "Mount Lemmon summit" : M.bands[band].name;
+    if (band !== lastBand) {
+      lastBand = band;
+      setText(els.zone, "zone", name);
+      setText(els.announcement, "announce", "Entering " + name + ", about " + comma(ft) + " feet.");
+    }
+    var state = { mile: mile, ft: ft, temp: temp, band: band, community: name, overview: overview, lookback: look };
+    if (window.Profile) window.Profile.update(state);
+    if (window.MountainScene) window.MountainScene.setState({ mile: mile, lookback: look, overview: overview });
   }
-  function requestRender(){if(!raf)raf=requestAnimationFrame(render);}
-  function bind(){window.addEventListener("scroll",requestRender,{passive:true});window.addEventListener("resize",measure,{passive:true});window.addEventListener("pointermove",function(e){if(!reduce)window.MountainScene.point(e.clientX/window.innerWidth,e.clientY/window.innerHeight);},{passive:true});
-    var look=document.getElementById("lookback-range"),lookVal=document.getElementById("lookback-value");look.addEventListener("input",function(){lookback=parseInt(look.value,10)/100;lookVal.textContent=lookback>.58?"Toward the desert":"Road ahead";requestRender();});
-    var comp=document.getElementById("compare-range");comp.addEventListener("input",function(){compare=parseInt(comp.value,10)/100;requestRender();});
-    document.querySelectorAll("details").forEach(function(d){d.addEventListener("toggle",measure);});
-    if("ResizeObserver" in window){var ro=new ResizeObserver(measure);ro.observe(document.getElementById("story"));}
+  function requestRender() { if (!raf) raf = requestAnimationFrame(render); }
+  function bind() {
+    window.addEventListener("scroll", requestRender, { passive: true });
+    window.addEventListener("resize", measure, { passive: true });
+    var range = document.getElementById("lookback-range"), out = document.getElementById("lookback-value");
+    if (range) {
+      var sync = function () { lookback = parseInt(range.value, 10) / 100; if (out) out.textContent = lookback > 0.58 ? "Toward the desert" : "Road ahead"; requestRender(); };
+      range.addEventListener("input", sync); sync();
+    }
+    document.querySelectorAll("details").forEach(function (d) { d.addEventListener("toggle", measure); });
+    if ("ResizeObserver" in window) new ResizeObserver(measure).observe(document.getElementById("story"));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   }
-  function init(){nodes=Array.prototype.slice.call(document.querySelectorAll(".timeline-node[data-mile]"));chapters=Array.prototype.slice.call(document.querySelectorAll(".chapter[data-band]"));els={mile:document.getElementById("live-mile"),elevation:document.getElementById("live-elevation"),temp:document.getElementById("live-temp"),grade:document.getElementById("live-grade"),zone:document.getElementById("live-zone"),announcement:document.getElementById("live-announcement")};measure();bind();render();}
-  return{init:init};
+  function init() {
+    nodes = Array.prototype.slice.call(document.querySelectorAll(".timeline-node[data-mile]"));
+    chapters = Array.prototype.slice.call(document.querySelectorAll(".chapter[data-band]"));
+    windy = document.getElementById("zone-4"); summit = document.getElementById("summit");
+    els = { zone: document.getElementById("live-zone"), announcement: document.getElementById("live-announcement") };
+    measure(); bind(); render();
+  }
+  return { init: init, yForMile: yForMile, refresh: requestRender };
 })();
 
 
-/* Slow, interruptible cruise control for the full ascent. */
+/* Slow, interruptible cruise control for the full ascent: the play button at the left of the profile bar. */
 window.AutoJourney=(function(){
-  var button,label,status,raf=0,last=0,state="idle",reduce=false,stops=[],nextStop=0;
+  var button,label,status,raf=0,last=0,state="idle",reduce=false,stops=[],nextStop=0,flashTimer=0;
   var dwelling=false,dwellUntil=0,dwellRemaining=0,routeDirty=true;
   var SPEED_IN_VIEWPORTS_PER_SECOND=.105;
   var STOP_DWELL_MS=3000;
@@ -642,28 +1280,27 @@ window.AutoJourney=(function(){
   function now(){return window.performance&&window.performance.now?window.performance.now():Date.now();}
   function stopLabel(node){var heading=node.querySelector("h2"),eyebrow=node.querySelector(".zone-index,.eyebrow");return(heading||eyebrow)?(heading||eyebrow).textContent.replace(/\s+/g," ").trim():"the next stop";}
   function collectStops(y){var target=targetY();stops=Array.prototype.slice.call(document.querySelectorAll(".timeline-node[data-mile]")).map(function(node){return{node:node,y:Math.max(0,Math.min(target,node.offsetTop+node.offsetHeight*.5-window.innerHeight*.5)),label:stopLabel(node)};}).filter(function(stop,i,list){return stop.y<=target+1&&(i===0||Math.abs(stop.y-list[i-1].y)>1);});nextStop=0;while(nextStop<stops.length&&stops[nextStop].y<y-1)nextStop++;routeDirty=false;}
-  function keepRoadMoving(next){if(window.MountainScene&&window.MountainScene.setTraveling)window.MountainScene.setTraveling(next);}
-  function dwellStatus(){var stop=stops[nextStop];status.textContent="Taking in "+(stop?stop.label:"this stop")+" · road still moving";}
-  function setState(next,message){state=next;var playing=next==="playing";document.documentElement.classList.toggle("auto-driving",playing);button.setAttribute("aria-pressed",playing?"true":"false");button.setAttribute("aria-label",playing?"Pause the automatic ascent":"Begin or resume the slow automatic ascent to the summit");
-    if(next==="playing"){label.textContent="Pause ascent";status.textContent="Cruising · take the wheel anytime";}
-    else if(next==="paused"){label.textContent="Resume ascent";status.textContent=message||"Journey paused";}
-    else if(next==="complete"){label.textContent="Replay ascent";status.textContent="Summit reached · 9,157 ft";}
-    else{label.textContent=reduce?"Jump to summit":"Auto ascent";status.textContent=reduce?"Reduced-motion shortcut":"Cruise to the summit · about 2 min";}}
-  function beginDwell(ts){dwelling=true;dwellRemaining=STOP_DWELL_MS;dwellUntil=ts+STOP_DWELL_MS;last=0;keepRoadMoving(true);dwellStatus();}
-  function stop(message){if(raf)cancelAnimationFrame(raf);raf=0;last=0;if(dwelling&&dwellUntil)dwellRemaining=Math.max(0,dwellUntil-now());dwellUntil=0;keepRoadMoving(false);if(state==="playing")setState("paused",message||"You took the wheel");}
-  function finish(){if(raf)cancelAnimationFrame(raf);raf=0;last=0;dwelling=false;dwellUntil=0;dwellRemaining=0;keepRoadMoving(false);setState("complete");}
-  function setDriveProgress(target){var pct=target?Math.min(1,(window.pageYOffset||0)/target):1;document.documentElement.style.setProperty("--drive-deg",Math.round(pct*360)+"deg");}
+  /* The status line in the bar shows while cruising, and for a few seconds after a pause or the finish. */
+  function showStatus(on,hold){clearTimeout(flashTimer);document.documentElement.classList.toggle("auto-status",on);if(on&&hold)flashTimer=setTimeout(function(){document.documentElement.classList.remove("auto-status");},hold);}
+  function dwellStatus(){var stop=stops[nextStop];status.textContent="Taking in "+(stop?stop.label:"this stop");}
+  function setState(next,message){state=next;var playing=next==="playing";document.documentElement.classList.toggle("auto-driving",playing);button.setAttribute("aria-pressed",playing?"true":"false");button.setAttribute("aria-label",playing?"Pause the automatic ascent":(reduce?"Jump to the summit":"Begin or resume the slow automatic ascent to the summit"));
+    if(next==="playing"){label.textContent="Pause ascent";status.textContent="Cruising · take the wheel anytime";showStatus(true);}
+    else if(next==="paused"){label.textContent="Resume ascent";status.textContent=message||"Journey paused";showStatus(true,3500);}
+    else if(next==="complete"){label.textContent="Replay ascent";status.textContent="Summit reached · 9,157 ft";showStatus(true,3500);}
+    else{label.textContent=reduce?"Jump to summit":"Auto ascent";status.textContent=reduce?"Reduced-motion shortcut":"Cruise to the summit · about 2 min";showStatus(false);}}
+  function beginDwell(ts){dwelling=true;dwellRemaining=STOP_DWELL_MS;dwellUntil=ts+STOP_DWELL_MS;last=0;dwellStatus();}
+  function stop(message){if(raf)cancelAnimationFrame(raf);raf=0;last=0;if(dwelling&&dwellUntil)dwellRemaining=Math.max(0,dwellUntil-now());dwellUntil=0;if(state==="playing")setState("paused",message||"You took the wheel");}
+  function finish(){if(raf)cancelAnimationFrame(raf);raf=0;last=0;dwelling=false;dwellUntil=0;dwellRemaining=0;setState("complete");}
   function frame(ts){if(state!=="playing")return;var target=targetY(),y=window.pageYOffset||0;if(routeDirty)collectStops(y);
-    if(dwelling){if(!dwellUntil)dwellUntil=ts+dwellRemaining;keepRoadMoving(true);dwellStatus();if(ts<dwellUntil){raf=requestAnimationFrame(frame);return;}keepRoadMoving(false);dwelling=false;dwellUntil=0;dwellRemaining=0;nextStop++;last=ts;y=window.pageYOffset||0;}
-    var next=stops[nextStop];if(next&&y>=next.y-1){window.scrollTo(0,next.y);setDriveProgress(target);beginDwell(ts);raf=requestAnimationFrame(frame);return;}if(y>=target-1){window.scrollTo(0,target);finish();return;}
-    if(!last)last=ts;var dt=Math.min(50,ts-last)/1000;last=ts;var speed=window.innerHeight*SPEED_IN_VIEWPORTS_PER_SECOND,nextY=Math.min(target,y+speed*dt),reachedStop=next&&nextY>=next.y-1;if(reachedStop)nextY=next.y;window.scrollTo(0,nextY);setDriveProgress(target);if(reachedStop)beginDwell(ts);raf=requestAnimationFrame(frame);}
-  function start(){var target=targetY(),y=window.pageYOffset||0;if(reduce){window.scrollTo({top:target,behavior:"auto"});setState("complete");return;}if(state==="complete"||y>=target-4){window.scrollTo(0,0);document.documentElement.style.setProperty("--drive-deg","0deg");dwelling=false;dwellUntil=0;dwellRemaining=0;routeDirty=true;y=0;}if(routeDirty||!stops.length)collectStops(y);setState("playing");last=0;raf=requestAnimationFrame(frame);}
+    if(dwelling){if(!dwellUntil)dwellUntil=ts+dwellRemaining;dwellStatus();if(ts<dwellUntil){raf=requestAnimationFrame(frame);return;}dwelling=false;dwellUntil=0;dwellRemaining=0;nextStop++;last=ts;y=window.pageYOffset||0;status.textContent="Cruising · take the wheel anytime";}
+    var next=stops[nextStop];if(next&&y>=next.y-1){window.scrollTo(0,next.y);beginDwell(ts);raf=requestAnimationFrame(frame);return;}if(y>=target-1){window.scrollTo(0,target);finish();return;}
+    if(!last)last=ts;var dt=Math.min(50,ts-last)/1000;last=ts;var speed=window.innerHeight*SPEED_IN_VIEWPORTS_PER_SECOND,nextY=Math.min(target,y+speed*dt),reachedStop=next&&nextY>=next.y-1;if(reachedStop)nextY=next.y;window.scrollTo(0,nextY);if(reachedStop)beginDwell(ts);raf=requestAnimationFrame(frame);}
+  function start(){var target=targetY(),y=window.pageYOffset||0;if(reduce){window.scrollTo({top:target,behavior:"auto"});setState("complete");return;}if(state==="complete"||y>=target-4){window.scrollTo(0,0);dwelling=false;dwellUntil=0;dwellRemaining=0;routeDirty=true;y=0;}if(routeDirty||!stops.length)collectStops(y);setState("playing");last=0;raf=requestAnimationFrame(frame);}
   function toggle(){state==="playing"?stop("Journey paused"):start();}
-  function syncProgress(){if(state==="playing")return;routeDirty=true;if(dwelling){dwelling=false;dwellUntil=0;dwellRemaining=0;}var target=targetY(),pct=target?clamp01((window.pageYOffset||0)/target):0;document.documentElement.style.setProperty("--drive-deg",Math.round(pct*360)+"deg");}
-  function clamp01(v){return Math.max(0,Math.min(1,v));}
-  function takeWheel(e){if(state!=="playing")return;if(e&&button.contains(e.target))return;stop("You took the wheel");}
-  function init(){button=document.getElementById("drive-control");label=document.getElementById("drive-label");status=document.getElementById("drive-status");if(!button)return;reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;setState("idle");syncProgress();button.addEventListener("click",toggle);window.addEventListener("scroll",syncProgress,{passive:true});window.addEventListener("wheel",takeWheel,{passive:true});window.addEventListener("touchstart",takeWheel,{passive:true});window.addEventListener("pointerdown",takeWheel,{passive:true});window.addEventListener("keydown",function(e){if(e.target===button)return;if(e.key==="Escape"||state==="playing")takeWheel(e);});document.addEventListener("visibilitychange",function(){if(document.hidden&&state==="playing")stop("Paused while you were away");});
-    var mq=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)");if(mq&&mq.addEventListener)mq.addEventListener("change",function(e){reduce=e.matches;if(state==="playing")stop("Motion preference changed");dwelling=false;dwellUntil=0;dwellRemaining=0;routeDirty=true;keepRoadMoving(false);setState("idle");});}
+  function syncProgress(){if(state==="playing")return;routeDirty=true;if(dwelling){dwelling=false;dwellUntil=0;dwellRemaining=0;}}
+  function takeWheel(e){if(state!=="playing")return;if(e&&e.target instanceof Node&&button.contains(e.target))return;stop("You took the wheel");}
+  function init(){button=document.getElementById("drive-control");label=document.getElementById("drive-label");status=document.getElementById("drive-status");if(!button)return;reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;setState("idle");button.addEventListener("click",toggle);window.addEventListener("scroll",syncProgress,{passive:true});window.addEventListener("wheel",takeWheel,{passive:true});window.addEventListener("touchstart",takeWheel,{passive:true});window.addEventListener("pointerdown",takeWheel,{passive:true});window.addEventListener("keydown",function(e){if(e.target===button)return;if(e.key==="Escape"||state==="playing")takeWheel(e);});document.addEventListener("visibilitychange",function(){if(document.hidden&&state==="playing")stop("Paused while you were away");});
+    var mq=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)");if(mq&&mq.addEventListener)mq.addEventListener("change",function(e){reduce=e.matches;if(window.MountainScene&&window.MountainScene.setReduce)window.MountainScene.setReduce(reduce);if(state==="playing")stop("Motion preference changed");dwelling=false;dwellUntil=0;dwellRemaining=0;routeDirty=true;setState("idle");});}
   return{init:init,stop:stop};
 })();
 
@@ -671,14 +1308,21 @@ window.AutoJourney=(function(){
 (function(){
   document.documentElement.classList.add("js");
   function start(){
-    try {
-      window.MountainScene.init();
-      window.Climb.init();
-      if(window.AutoJourney) window.AutoJourney.init();
-    } catch (error) {
-      document.documentElement.classList.remove("js");
-      if(window.console) console.error("The climb fell back to its static edition.",error);
-    }
+    fetch("data/route.json").then(function(r){ if(!r.ok) throw new Error("route.json "+r.status); return r.json(); })
+      .catch(function(err){ if(window.console) console.warn("Road data unavailable; the profile falls back to the measured stops.",err); return null; })
+      .then(function(route){
+        window.M27.route=route;
+        try {
+          window.Profile.init();
+          window.Climb.init();
+          if(window.AutoJourney) window.AutoJourney.init();
+        } catch (error) {
+          document.documentElement.classList.remove("js");
+          if(window.console) console.error("The climb fell back to its static edition.",error);
+          return;
+        }
+        window.MountainScene.init(route);
+      });
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start); else start();
 })();

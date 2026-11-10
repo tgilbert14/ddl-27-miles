@@ -2,16 +2,7 @@
 
 <div class="stage" aria-hidden="true">
   <canvas class="landscape"></canvas>
-  <div class="stage-vignette"></div>
 </div>
-<div class="door" aria-hidden="true"><i class="door-seam"></i></div>
-<div class="compare-seam" aria-hidden="true"></div>
-<div class="global-progress" aria-hidden="true"><i></i></div>
-
-<button class="drive-control" id="drive-control" type="button" aria-pressed="false" aria-label="Begin a slow automatic ascent to the summit">
-  <span class="drive-dial" aria-hidden="true"><i></i></span>
-  <span class="drive-copy"><b id="drive-label">Auto ascent</b><small id="drive-status">Cruise to the summit · about 2 min</small></span>
-</button>
 
 <header class="site-chrome">
   <a class="brand-lockup" href="#top" aria-label="27 Miles to Canada, return to the desert floor">
@@ -20,25 +11,24 @@
   <div class="chapter-live" aria-live="polite"><span>Crossing</span><b id="live-zone">Sonoran Desertscrub</b></div>
 </header>
 
-<nav class="route-rail" aria-label="Life-zone switchbacks">
-  <a href="#zone-1" data-band="0" data-label="Sonoran Desert" aria-label="Jump to Sonoran Desertscrub" style="--x:0;--y:0"></a>
-  <a href="#zone-2" data-band="1" data-label="Grassland" aria-label="Jump to Semidesert Grassland" style="--x:1rem;--y:3.4rem"></a>
-  <a href="#zone-3" data-band="2" data-label="Oak Woodland" aria-label="Jump to Madrean Oak Woodland" style="--x:0;--y:6.8rem"></a>
-  <a href="#zone-4" data-band="3" data-label="Windy Point" aria-label="Jump to Windy Point" style="--x:1rem;--y:10.2rem"></a>
-  <a href="#zone-5" data-band="4" data-label="Ponderosa" aria-label="Jump to Ponderosa Pine Forest" style="--x:0;--y:13.6rem"></a>
-  <a href="#zone-6" data-band="5" data-label="Mixed Conifer" aria-label="Jump to Mixed-Conifer Forest" style="--x:1rem;--y:17rem"></a>
-  <a href="#summit" data-band="6" data-label="Summit" aria-label="Jump to Mount Lemmon summit" style="--x:0;--y:20.4rem"></a>
-</nav>
-
-<aside class="telemetry" aria-label="Modeled ascent instrument">
-  <div class="telemetry-label">Modeled ascent</div>
-  <div class="metric"><b id="live-mile">0.0</b><span>mile</span></div>
-  <div class="metric"><b id="live-elevation">2,700</b><span>feet</span></div>
-  <div class="metric"><b id="live-temp">100°</b><span>approx. °F</span></div>
-  <div class="metric gain"><b class="grade up" id="live-grade">▲</b><span>road grade</span></div>
-  <div class="model-note">Illustrative summer baseline · ~3.5°F / 1,000 ft</div>
+<div class="ascent-bar" id="ascent-bar" role="region" aria-label="Measured road profile">
+  <button class="drive-control" id="drive-control" type="button" aria-pressed="false" aria-label="Begin a slow automatic ascent to the summit">
+    <span class="drive-icon" aria-hidden="true"></span><span class="sr-only" id="drive-label">Auto ascent</span>
+  </button>
+  <div class="readouts">
+    <div class="metric"><b id="live-mile">0.0</b><span>mile</span></div>
+    <div class="metric"><b id="live-elevation">2,860</b><span>feet · measured</span></div>
+    <div class="metric"><b id="live-temp">99°</b><span>°F · modelled</span></div>
+  </div>
+  <p class="bar-status"><span class="place" id="live-place">Highway start</span><span class="drive-status" id="drive-status" aria-live="polite"></span></p>
+  <div class="profile" id="profile">
+    <svg class="profile-svg" aria-hidden="true" focusable="false"></svg>
+    <div class="profile-stops"></div>
+    <label class="sr-only" for="mile-range">Position on the road, in miles</label>
+    <input class="profile-range" id="mile-range" type="range" min="0" max="281" step="1" value="0" aria-valuetext="Mile 0.0, 2,860 feet, Highway start">
+  </div>
   <span class="sr-only" id="live-announcement" aria-live="polite"></span>
-</aside>
+</div>
 
 <main class="story" id="story" tabindex="-1">
   <section class="hero timeline-node" id="top" data-mile="0">
@@ -48,110 +38,95 @@
         <p class="eyebrow">Catalina Highway · Tucson, Arizona · 32.4° N</p>
         <h1>27 Miles <em>to Canada<span class="title-asterisk">*</span></em></h1>
         <p class="hero-lede">Close the car door in a hundred-degree desert. Open it again in fir shade. Between those two moments, one road climbs through six living worlds.</p>
-        <div class="hero-baseline"><div><span>Start</span><b>2,700 ft</b></div><div><span>Summit</span><b>9,157 ft</b></div><div><span>Air change</span><b>~25°F</b></div></div>
+        <div class="hero-baseline"><div><span>Start</span><b>2,860 ft</b></div><div><span>Summit</span><b>9,157 ft</b></div><div><span>Air change</span><b>~25°F</b></div></div>
         <a class="scroll-cue" href="#zone-1"><i aria-hidden="true"></i>Open the door</a>
       </div>
     </div>
     <p class="hero-footnote">*A continental sequence compressed by elevation—not Canada, and not an identical climate.</p>
   </section>
 
-  <section class="chapter timeline-node" id="zone-1" data-band="0" data-mile="2.7" style="--zone:#ffd07a;--fallback:#c75b43">
+  <section class="chapter timeline-node" id="zone-1" data-band="0" data-mile="2.635" style="--zone:#ffd07a;--fallback:#c75b43">
     <div class="zone-copy">
-      <p class="zone-index"><b>01</b> Sonoran floor · 2,700–4,000 ft</p>
+      <p class="zone-index"><b>01</b><span>Mile 2.6 · Babad Do'ag · 3,579 ft</span><span class="zone-range">Sonoran floor · below 4,000 ft</span></p>
       <h2>Sonoran <em>Desertscrub</em></h2>
       <p class="sensory">Heat moves in waves. The horizon is all distance and hard blue sky, punctuated by a forest that stores its water standing upright.</p>
-      <p class="threshold">The climb begins inside the saguaro forest</p>
+      <p class="species">saguaro · ocotillo</p>
       <details class="fact-drawer"><summary>Field note · the last saguaro</summary><p>These giants mark the mountain's lowest life zone. Before the grassland arrives, the final saguaro falls behind you—and never returns above this line.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 2.7</span><b>Babad Do'ag</b><small>“Frog Mountain,” the Tohono O'odham name for the range.</small></aside>
-    <span class="species-callout" style="--x:70%;--y:64%">saguaro</span><span class="species-callout" style="--x:13%;--y:76%">ocotillo</span>
   </section>
 
-  <section class="chapter align-right timeline-node" id="zone-2" data-band="1" data-mile="5.5" style="--zone:#e8d087;--fallback:#9a7b51">
+  <section class="chapter align-right timeline-node" id="zone-2" data-band="1" data-mile="5.617" style="--zone:#e8d087;--fallback:#9a7b51">
     <div class="zone-copy">
-      <p class="zone-index"><b>02</b> Around mile 6 · 4,000–5,000 ft</p>
+      <p class="zone-index"><b>02</b><span>Mile 5.6 · Molino Basin · 4,368 ft</span><span class="zone-range">4,000–5,000 ft</span></p>
       <h2>Grass <em>takes the wind</em></h2>
       <p class="sensory">The cactus releases the slope. Sotol flashes silver, yucca spears the skyline, and the first moving grass makes departure feel real.</p>
-      <p class="threshold">The desert floor has dropped 1,670 feet</p>
+      <p class="species">sotol · Palmer agave</p>
       <details class="fact-drawer"><summary>Field note · reverse seasons</summary><p>Molino Basin closes for summer rather than winter. When the summit is snowed in, this lower campground can be perfect.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 5.5</span><b>Molino Basin</b><small>The narrow handoff between cactus and oak.</small></aside>
-    <span class="species-callout" style="--x:12%;--y:63%">sotol</span><span class="species-callout" style="--x:66%;--y:78%">Palmer agave</span>
   </section>
 
-  <section class="chapter align-center deep timeline-node" id="zone-3" data-band="2" data-mile="9.1" style="--zone:#a9d09a;--fallback:#58715a">
+  <section class="chapter deep timeline-node" id="zone-3" data-band="2" data-mile="9.122" style="--zone:#a9d09a;--fallback:#58715a">
     <div class="zone-copy">
-      <p class="zone-index"><b>03</b> Around mile 9 · 5,000–6,000 ft</p>
+      <p class="zone-index"><b>03</b><span>Mile 9.1 · Seven Cataracts · 5,337 ft</span><span class="zone-range">5,000–6,000 ft</span></p>
       <h2>The island <em>closes around you</em></h2>
       <p class="sensory">Shade returns from the edges. Evergreen oak crowns the slope while a sea of desert remains visible far below.</p>
-      <p class="threshold">A cool forest stranded above hot lowlands</p>
+      <p class="species">Emory oak · Mexican jay</p>
       <details class="fact-drawer"><summary>What makes a sky island?</summary><p>Isolation. Each wooded peak rises from desert like land from water, connecting northward to the forests of Mexico's Sierra Madre.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 9.1</span><b>Seven Cataracts</b><small>Seasonal water after monsoon rain or snowmelt.</small></aside>
-    <span class="species-callout" style="--x:9%;--y:42%">Emory oak</span><span class="species-callout" style="--x:73%;--y:70%">Mexican jay</span>
   </section>
 
-  <section class="chapter panorama timeline-node" id="zone-4" data-band="3" data-mile="14" style="--zone:#9ed0cc;--fallback:#456474">
+  <section class="chapter panorama timeline-node" id="zone-4" data-band="3" data-mile="13.919" style="--zone:#9ed0cc;--fallback:#456474">
     <div class="zone-copy">
-      <p class="zone-index"><b>04</b> Windy Point · 6,400 ft</p>
+      <p class="zone-index"><b>04</b><span>Mile 13.9 · Windy Point · 6,575 ft</span></p>
       <h2>Look <em>back down</em></h2>
       <p class="sensory">Granite hoodoos whip past the shoulder. At the overlook, the first tall pines stand above a desert now nearly 3,700 feet below.</p>
+      <p class="species">Arizona pine · Catalina granite</p>
       <div class="lookback">
         <label for="lookback-range"><span>Turn the view</span><span id="lookback-value">Toward the desert</span></label>
         <input id="lookback-range" type="range" min="0" max="100" value="72" aria-label="Turn the Windy Point view between road ahead and desert below">
         <div class="lookback-scale"><span>Road ahead</span><span>Desert below</span></div>
       </div>
     </div>
-    <aside class="landmark-note"><span>Mile 14</span><b>Windy Point</b><small>About 13°F cooler than the modeled base.</small></aside>
-    <span class="species-callout" style="--x:63%;--y:69%">Arizona pine</span><span class="species-callout" style="--x:15%;--y:28%">Catalina granite</span>
   </section>
 
-  <section class="chapter align-right deep timeline-node" id="zone-5" data-band="4" data-mile="17" style="--zone:#b9d6b3;--fallback:#31565c">
+  <section class="chapter align-right deep timeline-node" id="zone-5" data-band="4" data-mile="16.976" style="--zone:#b9d6b3;--fallback:#31565c">
     <div class="zone-copy">
-      <p class="zone-index"><b>05</b> Rose Canyon · 7,000–8,000 ft</p>
+      <p class="zone-index"><b>05</b><span>Mile 17.0 · Rose Canyon · 7,229 ft</span><span class="zone-range">7,000–8,000 ft</span></p>
       <h2>Enter <em>the tall forest</em></h2>
       <p class="sensory">The composition turns vertical: dark trunks, bands of sun, dry needles, and bark warmed enough to smell like vanilla.</p>
-      <p class="threshold">Tucson becomes difficult to believe</p>
+      <p class="species">ponderosa pine · Steller's jay</p>
       <details class="fact-drawer"><summary>Field note · lean close</summary><p>Sun-warmed ponderosa bark can smell distinctly of vanilla or butterscotch. Nearby, Rose Canyon even holds a small stocked trout lake.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 17</span><b>Rose Canyon</b><small>Ponderosa forest at almost exactly 7,000 feet.</small></aside>
-    <span class="species-callout" style="--x:16%;--y:65%">ponderosa pine</span><span class="species-callout" style="--x:61%;--y:35%">Steller's jay</span>
   </section>
 
-  <section class="chapter timeline-node" id="zone-6" data-band="5" data-mile="19.6" style="--zone:#bfe1ff;--fallback:#203956">
+  <section class="chapter timeline-node" id="zone-6" data-band="5" data-mile="19.61" style="--zone:#bfe1ff;--fallback:#203956">
     <div class="zone-copy">
-      <p class="zone-index"><b>06</b> Palisades · 8,000–9,157 ft</p>
+      <p class="zone-index"><b>06</b><span>Mile 19.6 · Palisades · 7,947 ft</span><span class="zone-range">8,000–9,157 ft</span></p>
       <h2>Mixed <em>conifer</em></h2>
       <p class="sensory">Aspen flash pale between Douglas-fir and true white fir. You have entered the heritage “Canadian” life zone—without a single spruce tree.</p>
-      <p class="threshold">Similar temperature regime · different climate</p>
+      <p class="species">Douglas-fir · quaking aspen</p>
       <details class="fact-drawer"><summary>Why call it “Canadian”?</summary><p>It is old life-zone language for a familiar forest form and cool temperature regime. Mount Lemmon is still Arizona: monsoon rhythm, Tucson daylight, local species.</p></details>
     </div>
-    <aside class="landmark-note"><span>Mile 19.6</span><b>Palisades</b><small>The interpretive gateway to fir and aspen.</small></aside>
-    <span class="species-callout" style="--x:69%;--y:61%">Douglas-fir</span><span class="species-callout" style="--x:10%;--y:72%">quaking aspen</span>
   </section>
 
-  <section class="dip-scene timeline-node" data-mile="25" data-band="5">
+  <section class="dip-scene timeline-node" id="dip" data-mile="22.518" data-band="5">
     <div class="dip-inner">
       <span class="dip-arrow" aria-hidden="true">↑</span>
-      <p class="eyebrow">Mile 25 · Summerhaven · 7,790 ft</p>
+      <p class="eyebrow">Mile 22.5 · below Summerhaven · 7,734 ft</p>
       <h2>The road goes down.</h2>
-      <p>After cresting near 8,000 feet, the highway loses more than 200 feet into the village. Watch the instrument: elevation falls, the modeled air warms, then Ski Run Road pitches up for the final climb.</p>
+      <p>After cresting near 8,180 feet, the highway loses about 450 feet toward the village. Watch the instrument: elevation falls, the modeled air warms, then Ski Run Road pitches up for the final climb.</p>
     </div>
   </section>
 
-  <section class="summit timeline-node" id="summit" data-mile="28.8" data-band="6">
+  <section class="summit timeline-node" id="summit" data-mile="28.06" data-band="6">
     <div class="summit-inner">
       <p class="eyebrow">True high point · Mount Lemmon</p>
       <p class="summit-number">9,157<small>feet above the Sonoran Desert</small></p>
       <h2>One mountain compressed a <strong>continental sequence.</strong></h2>
       <p class="summit-statement">Climb these 27 signed byway miles and the air cools about 25°F, carrying you through the same sequence of vegetation zones you would cross driving on the order of a thousand miles north toward Canada—a similar temperature regime and biome succession, not an identical climate.</p>
-      <div class="summit-stats"><div><b>6,457</b><span>net vertical feet</span></div><div><b>6</b><span>biotic communities</span></div><div><b>~25°F</b><span>modeled change</span></div><div><b>~7,000</b><span>total climbing</span></div></div>
-      <div class="compare-control">
-        <label for="compare-range"><span>Climate portal</span><span>Drag the seam</span></label>
-        <input id="compare-range" type="range" min="5" max="95" value="50" aria-label="Compare the Sonoran Desert floor with the summit landscape">
-        <div class="range-labels"><span>100°F · 2,700 ft</span><span>~77°F · 9,157 ft</span></div>
-      </div>
-      <p class="endpoint-note">“27 miles” is the rounded scenic-byway figure. The drive to SkyCenter is about 28.8 miles and ends just below the true summit, near 9,134 feet.</p>
+      <div class="summit-stats"><div><b>6,288</b><span>net feet on the road</span></div><div><b>6</b><span>biotic communities</span></div><div><b>~25°F</b><span>modeled change</span></div><div><b>7,029</b><span>feet climbed</span></div></div>
+      <p class="temp-line">100°F · 2,700 ft (model base) → ~77°F · 9,148 ft</p>
+      <p class="endpoint-note">“27 miles” is the rounded scenic-byway figure. Measured on the map, the road runs 28.1 miles from the start of the General Hitchcock Highway to its end at 9,148 feet, just below the true summit.</p>
     </div>
   </section>
 
@@ -168,14 +143,39 @@
     </div>
   </section>
 
-  <section class="studio">
-    <div class="studio-inner">
-      <p class="eyebrow">Desert Data Labs · interactive fieldwork</p>
-      <h2>Your data deserves a landscape. <em>Not another slide deck.</em></h2>
-      <p class="studio-copy">We turn conservation, research, and impact data into experiences people can feel, explore, and remember.</p>
-      <div class="actions"><a class="button primary" href="https://desertdatalabs.com/contact.html">Start a project ↗</a><a class="button" href="https://desertdatalabs.com/case-studies.html">Explore our work</a></div>
+  <section class="method" aria-labelledby="method-title">
+    <div class="method-inner">
+      <h2 id="method-title">What is measured, what is drawn</h2>
+      <dl class="method-list">
+        <dt>Measured</dt>
+        <dd>
+          <ul>
+            <li>The road line, from OpenStreetMap contributors.</li>
+            <li>The terrain and every elevation, from Mapzen Terrain Tiles: about a 37 m grid for the surface and 16 m along the road. Shown at true vertical scale.</li>
+            <li>Miles, counted from where the General Hitchcock Highway begins, 4.5 road miles past Tanque Verde Road.</li>
+            <li>Feet climbed (7,029) and feet lost (740).</li>
+          </ul>
+        </dd>
+        <dt>Modelled</dt>
+        <dd>
+          <ul>
+            <li>Temperature: 100°F at 2,700 ft, falling 3.5°F per 1,000 ft. No thermometer was read.</li>
+          </ul>
+        </dd>
+        <dt>Drawn</dt>
+        <dd>
+          <ul>
+            <li>The six colour bands, set at fixed elevations. Real boundaries move with slope, aspect, fire and climate.</li>
+            <li>The plants, placed by band and drawn larger than life, not surveyed.</li>
+            <li>Sky, light and haze.</li>
+          </ul>
+        </dd>
+      </dl>
     </div>
   </section>
 </main>
 
-<footer class="footer"><p>27 Miles to Canada · A Desert Data Labs field ascent</p><p>Elevation, climate, species, and life-zone ranges are grounded in U.S. Forest Service, University of Arizona, SEINet, and published Sky Island research. Boundaries are interpretive and move with slope, aspect, fire, and climate.</p></footer>
+<footer class="footer">
+  <p class="footer-line"><span>A Desert Data Labs field ascent</span><a href="https://desertdatalabs.com/contact.html">Start a project ↗</a><a href="https://desertdatalabs.com/case-studies.html">Explore our work</a></p>
+  <p>Elevation, climate, species, and life-zone ranges are grounded in U.S. Forest Service, University of Arizona, SEINet, and published Sky Island research. Boundaries are interpretive and move with slope, aspect, fire, and climate. Road © OpenStreetMap contributors. Elevation: Mapzen Terrain Tiles.</p>
+</footer>
